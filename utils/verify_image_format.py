@@ -1,6 +1,9 @@
 """Check nii images in a folder to have uniform size & spacing and expected values.
 
-The script is inteded for explorative pre-analysis and is not part of the main analysis pipeline.
+The script is intended for explorative pre-analysis and is not part of the main analysis pipeline.
+
+Requirements: All data are extracted into IMAGE_DIR with the modality in the name of each parent
+    folder.
 """
 
 # %%
@@ -13,7 +16,7 @@ IMAGE_DIR = Path(__file__).parents[2] / "Data"
 
 LESION = "Lesions"
 LESION_NETWORK = "LNM"
-DISCONNECTION_MAPS = "DiscMaps"
+DISCONNECTION_MAPS = "SDSM"
 IMAGE_TYPES = [LESION, LESION_NETWORK, DISCONNECTION_MAPS]
 
 NIFTI_EXTENSION = ".nii"
@@ -84,7 +87,7 @@ for image_type in IMAGE_TYPES:
                 print(f"Lesion {nifti_path} contains values {unexpected_values}")
 
         if image_type == LESION_NETWORK:
-            # values are Fisher transformed (artanh), hence tanh is required to re-covenrt to
+            # values are Fisher transformed (artanh), hence tanh is required to re-convert to
             # Pearson R
             if np.tanh(np.max(image_arr)) > 1:
                 print(f"LNM {nifti_path} contains values >1")
