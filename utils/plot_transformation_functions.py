@@ -1,4 +1,4 @@
-"""Plot transformation functions of Pearson values.
+"""Plot transformation functions of Pearson values as used in LNM.
 
 The script is not part of the main analysis pipeline.
 """

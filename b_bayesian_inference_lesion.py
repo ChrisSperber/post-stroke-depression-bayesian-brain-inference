@@ -5,8 +5,10 @@ which are approximated via the BICs of General Linear Models as described in
 Wagenmakers, E. J. (2007). A practical solution to the pervasive problems of p values.
 Psychonomic bulletin & review, 14(5), 779-804
 
-Lesion images were differently sized and their formatting (resolution, dimensions, origin) had to
-be unified. See REFERENCE_LESION_SUBJECT_ID below.
+The code contains legacy functionality to handle lesion images that are differently sized or
+formatted (resolution, dimensions, origin). With the data uploaded on 18/04/2025, this should not
+be necessary anymore; however, the functionality is kept as it has no negative effects.
+See REFERENCE_LESION_SUBJECT_ID below.
 
 Requirements:
 - CSV listing all included cases generated with a_collect_image_data.py
@@ -31,7 +33,7 @@ from tqdm import tqdm
 
 from utils.utils import bin_bf_map, compare_image_affine_and_shape, run_voxelwise_bf_map
 
-OUTPUT_DIR = Path(__file__).parent / "BLDI_OUTPUTS"
+OUTPUT_DIR_PARENT = Path(__file__).parent / "BLDI_OUTPUTS"
 
 # choose an image that should define the format of the results file. All images with differing
 # format are transformed into this image space; also, the output will have this shape
@@ -44,10 +46,14 @@ SUBJECT_ID = "SubjectID"
 DEPRESSION_SCORE = "DepressionZScore"
 EXCLUDED = "Excluded"
 PATH_LESION_IMAGE = "PathLesionImage"
+OUTPUT_DIR_BASE = "Output_Lesion"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
 data = data[data[EXCLUDED] == 0]
+
+# ensure float type of scores
+data[DEPRESSION_SCORE] = pd.to_numeric(data[DEPRESSION_SCORE], errors="coerce")
 
 # get the lesion path of the reference lesion
 reference_lesion_path = data.loc[
@@ -56,7 +62,7 @@ reference_lesion_path = data.loc[
 reference_nifti = nib.load(reference_lesion_path)
 
 # ensure Output directory exists
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR_PARENT.mkdir(parents=True, exist_ok=True)
 
 # %%
 # load lesion images in unified shape
@@ -96,7 +102,7 @@ print("Starting analysis. This may take several minutes.")
 bf_map = run_voxelwise_bf_map(
     image_data_4d=all_lesions,
     target_var=data[DEPRESSION_SCORE],
-    minimum_analysis_threshold=10,
+    minimum_analysis_threshold=MIN_LESION_ANALYSIS_THRESHOLD,
     n_jobs=-1,
 )
 
@@ -114,6 +120,8 @@ header_float32 = reference_nifti.header.copy()
 header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+OUTPUT_DIR = OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{timestamp}"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 bf_map_full = nib.Nifti1Image(bf_map, affine=affine, header=header_float32)
 filename = OUTPUT_DIR / f"BF_full_lesion_{timestamp}.nii.gz"

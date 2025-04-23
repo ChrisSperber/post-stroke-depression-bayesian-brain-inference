@@ -8,7 +8,7 @@ Psychonomic bulletin & review, 14(5), 779-804
 Images were equally sized and no adaptions were required.
 
 Image values are Pearson correlation coefficients that were artanh-transformed (known as Fisher
-transformation). This is not necessarily the best way represent the network, as large correlation
+transformation). This is not necessarily the best way to represent the network, as large correlation
 scores - which are only found in the lesion areas where autocorrelation is present - are further
 increased and thereby inflated. The global variable CORRELATION_FORMAT allows setting alternatives.
 
@@ -41,7 +41,7 @@ from utils.utils import (
 
 PEARSON_R_TRANSFORM = CorrelationFormat.POWER_TRANSFORM
 
-OUTPUT_DIR = Path(__file__).parent / "BLDI_OUTPUTS"
+OUTPUT_DIR_PARENT = Path(__file__).parent / "BLDI_OUTPUTS"
 
 # choose an image that should define the format of the results file. All images with differing
 # format are transformed into this image space; also, the output will have this shape
@@ -51,10 +51,14 @@ SUBJECT_ID = "SubjectID"
 DEPRESSION_SCORE = "DepressionZScore"
 EXCLUDED = "Excluded"
 PATH_LNM_IMAGE = "PathLNMImage"
+OUTPUT_DIR_BASE = "Output_LNM"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
 data = data[data[EXCLUDED] == 0]
+
+# ensure float type of scores
+data[DEPRESSION_SCORE] = pd.to_numeric(data[DEPRESSION_SCORE], errors="coerce")
 
 # get the lesion path of the reference lesion
 reference_lnm_path = data.loc[
@@ -63,7 +67,7 @@ reference_lnm_path = data.loc[
 reference_nifti = nib.load(reference_lnm_path)
 
 # ensure Output directory exists
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR_PARENT.mkdir(parents=True, exist_ok=True)
 
 # %%
 # load lnm images
@@ -132,6 +136,9 @@ header_float32 = reference_nifti.header.copy()
 header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+transform_string = PEARSON_R_TRANSFORM.value.lower()
+OUTPUT_DIR = OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{transform_string}_{timestamp}"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 bf_map_full = nib.Nifti1Image(bf_map, affine=affine, header=header_float32)
 filename = OUTPUT_DIR / f"BF_full_lnm_{timestamp}.nii.gz"

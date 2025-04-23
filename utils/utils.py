@@ -201,11 +201,11 @@ def run_voxelwise_bf_map(
         target_var (np.ndarray): 1D array with target variable
         minimum_analysis_threshold (int, optional): Minimum of lesions per voxel to be analysed.
             Does only apply to binary images values
-        covariates (None | np.ndarray, optional): _description_. Defaults to None.
-        n_jobs (int, optional): _description_. Defaults to -1.
+        covariates (None | np.ndarray, optional): Array with covariates. Defaults to None.
+        n_jobs (int, optional): Workers. Defaults to -1.
 
     Returns:
-        np.ndarray: _description_
+        np.ndarray: Array with map of Bayes Factors.
 
     """
     n_subjects, x_dim, y_dim, z_dim = image_data_4d.shape
