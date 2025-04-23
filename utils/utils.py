@@ -242,6 +242,57 @@ def run_voxelwise_bf_map(
     return output_bf_map
 
 
+def run_voxelwise_bf_map_2d(
+    image_data_2d: np.ndarray,
+    target_var: np.ndarray,
+    minimum_analysis_threshold: int | None,
+    covariates: None | np.ndarray = None,
+    n_jobs: int = -1,
+) -> np.ndarray:
+    """Perform a parallelised mapping of the Bayes Factor on 2D imaging data.
+
+    This function copies run_voxelwise_bf_map, but processes vectorised data in format (n_subjects,
+    n_voxels).
+
+    Args:
+        image_data_2d (np.ndarray): 2D array of imaging data with size (n Subject, n_voxels)
+        target_var (np.ndarray): 1D array with target variable
+        minimum_analysis_threshold (int, optional): Minimum of lesions per voxel to be analysed.
+            Does only apply to binary images values
+        covariates (None | np.ndarray, optional): Array with covariates. Defaults to None.
+        n_jobs (int, optional): Workers. Defaults to -1.
+
+    Returns:
+        np.ndarray: 1D array with map of Bayes Factors.
+
+    """
+    n_subjects, n_voxels = image_data_2d.shape
+    output_bf_vector = np.full(n_voxels, np.nan, dtype=np.float32)
+
+    def process_voxel(voxel_idx: int):
+        voxel_values = image_data_2d[:, voxel_idx]
+        try:
+            bf = compute_voxelwise_bf_via_glm(
+                voxel_values=voxel_values,
+                target_var=target_var,
+                minimum_analysis_threshold=minimum_analysis_threshold,
+                covariates=covariates,
+            )
+            return (voxel_idx, bf)
+        except Exception:
+            return (voxel_idx, np.nan)
+
+    results = Parallel(n_jobs=n_jobs)(
+        delayed(process_voxel)(idx)
+        for idx in tqdm(range(n_voxels), desc="Computing voxelwise BFs")
+    )
+
+    for idx, bf in results:
+        output_bf_vector[idx] = bf
+
+    return output_bf_vector
+
+
 def bin_bf_map(bf_map: np.ndarray) -> BinnedBFMap:
     """Bin Bayes Factors in an array into evidence categories.
 

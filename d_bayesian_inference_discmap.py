@@ -8,7 +8,11 @@ Psychonomic bulletin & review, 14(5), 779-804
 Images were equally sized and no adaptions were required.
 
 Image values are voxel-wise disconnection probabilites. The global variable DISCONNECTION_FORMAT
-allows setting the data format (binary/continuous).
+allows setting the data format used in the analysis (binary/continuous).
+
+Given the 1x1x1mm³ resolution and float data format, a 16GB RAM system was not able to load all
+images at once. As a workaround, the data were masked to only include relevant voxels and stored in
+an patients x voxels 2D array.
 
 Requirements:
 - CSV listing all included cases generated with a_collect_image_data.py
@@ -21,7 +25,6 @@ Outputs:
 """
 
 # %%
-import gc
 from datetime import datetime
 from pathlib import Path
 
@@ -30,18 +33,18 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 
-from utils.utils import DisconnectionFormat, bin_bf_map, run_voxelwise_bf_map
+from utils.utils import DisconnectionFormat, bin_bf_map, run_voxelwise_bf_map_2d
 
-DISCONNECTION_FORMAT = DisconnectionFormat.BINARY  # set for processing mode
+DISCONNECTION_FORMAT = DisconnectionFormat.CONTINUOUS  # set processing mode
 BINARY_THRESHOLD = (
     0.6  # if DisconnectionFormat.BINARY, all values >= this value are set to 1 else 0
 )
 
 # Define the minimum amount of disconnection per voxel to be included in the analysis
-# Only applies to analysis of binarised disconnection maps!
+# Only applies to analysis of binarised disconnection maps
 MIN_DISCONNECTION_ANALYSIS_THRESHOLD = 10
 
-OUTPUT_DIR = Path(__file__).parent / "BLDI_OUTPUTS"
+OUTPUT_DIR_PARENT = Path(__file__).parent / "BLDI_OUTPUTS"
 
 # choose an image that should define the format of the results file. This serves as a reference.
 REFERENCE_DISCMAP_SUBJECT_ID = "BBS001"
@@ -50,62 +53,105 @@ SUBJECT_ID = "SubjectID"
 DEPRESSION_SCORE = "DepressionZScore"
 EXCLUDED = "Excluded"
 PATH_DISCMAP_IMAGE = "PathDiscMapImage"
+OUTPUT_DIR_BASE = "Output_SDSM"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
 data = data[data[EXCLUDED] == 0]
 
+# ensure float type of scores
+data[DEPRESSION_SCORE] = pd.to_numeric(data[DEPRESSION_SCORE], errors="coerce")
+
 # get the lesion path of the reference lesion
 reference_discmap_path = data.loc[
     data[SUBJECT_ID] == REFERENCE_DISCMAP_SUBJECT_ID, PATH_DISCMAP_IMAGE
 ].values[0]
-reference_nifti = nib.load(reference_discmap_path)
+reference_nifti: nib.Nifti1Image = nib.load(reference_discmap_path)
 
 # ensure Output directory exists
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUT_DIR_PARENT.mkdir(parents=True, exist_ok=True)
+
+# %% create overlap map and derive analysis mask
+# the full images of >2000 subjects at 182x218x182 in float format was not processable with a 16GB
+# RAM system. As a workaround, the data are masked to only include voxels inside the brain and
+# vectorised; the final analysis is performed on 2D (instead of 4D) data.
+SDSM_ANALYSIS_MASK_PATH = Path(__file__).parent / "utils" / "sdsm_analysis_mask.nii.gz"
+if SDSM_ANALYSIS_MASK_PATH.exists():
+    print("An analysis mask was found and is loaded from")
+    print(f"{SDSM_ANALYSIS_MASK_PATH.as_posix()}")
+
+    analysis_mask_nifti: nib.Nifti1Image = nib.load(SDSM_ANALYSIS_MASK_PATH)
+    analysis_mask_array = analysis_mask_nifti.get_fdata().astype(np.uint8)
+else:
+    # create analysis mask
+    print("No analysis mask found; creating new mask")
+    file_paths = data.loc[:, PATH_DISCMAP_IMAGE]
+    overlap_array = np.zeros(reference_nifti.shape).astype(np.uint16)
+
+    for path in tqdm(file_paths, desc="Loading DiscMaps to create analysis mask"):
+        nifti: nib.Nifti1Image = nib.load(path)
+        img_array = nifti.get_fdata().astype(np.float32)
+        img_array_binary = (img_array != 0).astype(np.uint8)
+        overlap_array = overlap_array + img_array_binary
+
+    # retain all voxels that carry a non-zero value at least once in the dataset
+    analysis_mask_array = (overlap_array != 0).astype(np.uint8)
+
+    affine = reference_nifti.affine
+    header_uint8 = reference_nifti.header.copy()
+    header_uint8.set_data_dtype(np.uint8)
+    analysis_mask_nifti = nib.Nifti1Image(
+        analysis_mask_array, affine=affine, header=header_uint8
+    )
+    filename = SDSM_ANALYSIS_MASK_PATH
+    analysis_mask_nifti.to_filename(str(filename))
+
+analysis_mask_array = analysis_mask_array.astype(bool)
+
 
 # %%
 # load lnm images
 file_paths = data.loc[:, PATH_DISCMAP_IMAGE]
-all_discmaps_list = []
 
-for path in tqdm(file_paths, desc="Loading DiscMap NifTi"):
-    nifti = nib.load(path)
-    img_array = nifti.get_fdata().astype(np.float32)
-    all_discmaps_list.append(img_array)
+n_subjects = len(file_paths)
+n_voxels = np.sum(analysis_mask_array)
 
-# Stack into 4D array: (N_images, X, Y, Z)
-all_discmaps = np.stack(all_discmaps_list, axis=0)
-# cleanup
-del all_discmaps_list
-gc.collect()
+all_discmaps_vectorised = np.zeros((n_subjects, n_voxels), dtype=np.float32)
+
+for i, path in enumerate(file_paths):
+    img: nib.Nifti1Image = nib.load(path)
+    img_data = img.get_fdata(dtype=np.float32)
+    masked_data = img_data[analysis_mask_array]
+    all_discmaps_vectorised[i] = masked_data
 
 print("All DiscMap images were succesfully loaded")
 
-# %% transform data according to DISCONNECTION_FORMAT
-
+# %% transform data according to DISCONNECTION_FORMAT and set minimum_threshold
 if DISCONNECTION_FORMAT == DisconnectionFormat.BINARY:
     print(f"Disconnection maps are binarised at threshold >= {BINARY_THRESHOLD}")
-    all_discmaps = (all_discmaps >= BINARY_THRESHOLD).astype(int)
+    all_discmaps_vectorised = (all_discmaps_vectorised >= BINARY_THRESHOLD).astype(int)
 
-# %%
-# Analysis
-print("Starting analysis. This may take several minutes.")
-
-# set minimum threshold if analysis in binary
-if DISCONNECTION_FORMAT == DisconnectionFormat.BINARY:
     minimum_threshold = MIN_DISCONNECTION_ANALYSIS_THRESHOLD
 elif DISCONNECTION_FORMAT == DisconnectionFormat.CONTINUOUS:
     minimum_threshold = None
 else:
     raise ValueError("Unknown disconnection format")
 
-bf_map = run_voxelwise_bf_map(
-    image_data_4d=all_discmaps,
+# %%
+# Analysis
+print("Starting analysis. This may take several minutes.")
+
+bf_map_masked_vector = run_voxelwise_bf_map_2d(
+    image_data_2d=all_discmaps_vectorised,
     target_var=data[DEPRESSION_SCORE],
     minimum_analysis_threshold=minimum_threshold,
     n_jobs=-1,
 )
+
+# %%
+# recreate 3D image from vector
+bf_map = np.zeros_like(analysis_mask_array, dtype=np.float32)
+bf_map[analysis_mask_array] = bf_map_masked_vector
 
 # %%
 # create binned maps for better visualisation
@@ -121,6 +167,9 @@ header_float32 = reference_nifti.header.copy()
 header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+format_string = DISCONNECTION_FORMAT.value.lower()
+OUTPUT_DIR = OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{format_string}_{timestamp}"
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 bf_map_full = nib.Nifti1Image(bf_map, affine=affine, header=header_float32)
 filename = OUTPUT_DIR / f"BF_full_discmaps_{timestamp}.nii.gz"
@@ -150,6 +199,10 @@ image_shape = bf_map.shape
 shape_str = ",".join(map(str, image_shape))
 
 voxel_count = np.count_nonzero(bf_map > 0)
+if DISCONNECTION_FORMAT == DisconnectionFormat.BINARY:
+    disconnection_threshold = BINARY_THRESHOLD
+else:
+    disconnection_threshold = "N/A"
 
 params = {
     "Analysis": "Bayesian GLM via BIC - Bayes Factor Approximation",
@@ -160,6 +213,7 @@ params = {
     "minimum_BF": np.min(bf_map[bf_map > 0]),
     "maximum_BF": np.max(bf_map),
     "disconnection_format": DISCONNECTION_FORMAT.value,
+    "binarisation_threshold": disconnection_threshold,
 }
 
 
