@@ -1,7 +1,7 @@
 """Perform Bayesian Lesion Deficit Inference for Disconnection Maps.
 
-Voxel-wise lesion-deficit inference is performed for LNMs. Output is a map of Bayes Factors
-which are approximated via the BICs of General Linear Models as described in
+Voxel-wise lesion-deficit inference is performed for Disconnection maps. Output is a map of Bayes
+Factors which are approximated via the BICs of General Linear Models as described in
 Wagenmakers, E. J. (2007). A practical solution to the pervasive problems of p values.
 Psychonomic bulletin & review, 14(5), 779-804
 
@@ -15,8 +15,7 @@ images at once. As a workaround, the data were masked to only include relevant v
 an patients x voxels 2D array.
 
 Requirements:
-- CSV listing all included cases generated with a_collect_image_data.py
-- a_collect_image_data.py must list the paths to local maps and depression scores
+- CSV listing all included cases and depression scores generated with a_collect_image_data.py
 
 Outputs:
 - Bayes Factor map

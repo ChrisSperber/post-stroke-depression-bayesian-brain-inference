@@ -11,8 +11,7 @@ be necessary anymore; however, the functionality is kept as it has no negative e
 See REFERENCE_LESION_SUBJECT_ID below.
 
 Requirements:
-- CSV listing all included cases generated with a_collect_image_data.py
-- a_collect_image_data.py must list the paths to local lesion maps and depression scores
+- CSV listing all included cases and depression scores generated with a_collect_image_data.py
 
 Outputs:
 - Bayes Factor map
