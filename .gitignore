@@ -1,5 +1,7 @@
 # Custom settings
 .vscode/
+brain_atlasses/
+utils/descriptive_images/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
