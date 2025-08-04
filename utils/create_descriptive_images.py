@@ -4,7 +4,8 @@ Requirements:
     - a_collect_image_data.py was run
 
 Outputs:
-    - lesion overlaps image, disconnection overlap (at binary threshold), and mean lnm map are generated at utils/descriptive_images
+    - lesion overlaps image, disconnection overlap (at binary threshold), and mean lnm map are
+        generated at utils/descriptive_images
 
 """
 

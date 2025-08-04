@@ -1,6 +1,5 @@
 """Utility functions and objects."""
 
-# %%
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple
@@ -337,4 +336,39 @@ def bin_bf_map(bf_map: np.ndarray) -> BinnedBFMap:
     )
 
 
-# %%
+def assign_segmentation2regions(
+    binary_segmentation_arr: np.ndarray, atlas_arr: np.ndarray
+) -> pd.DataFrame:
+    """Compute region-wise overlap of an atlas and a binary segmentation.
+
+    Overlap is computed as n elements (e.g. voxels), not considering element size.
+
+    Args:
+        binary_segmentation_arr (np.ndarray): Binary array
+        atlas_arr (np.ndarray): Reference atlas as array
+
+    Raises:
+        ValueError: Arrays not of equal shape
+        ValueError: Segmentation not a binary 1|0 map
+
+    Returns:
+        pd.DataFrame: df with region IDs and overlap voxel count
+
+    """
+    if binary_segmentation_arr.shape != atlas_arr.shape:
+        msg = (
+            "Comparison not possible, uneven shapes"
+            f"segmentation:{binary_segmentation_arr.shape} and atlas:{atlas_arr.shape}"
+        )
+        raise ValueError(msg)
+
+    if not np.array_equal(np.unique(binary_segmentation_arr), [0, 1]):
+        raise ValueError("Segmentation is not a binary 0/1 image.")
+
+    seg_mask = binary_segmentation_arr == 1
+    region_ids = np.unique(atlas_arr)
+    voxel_counts = [
+        np.sum((atlas_arr == region_id) & seg_mask) for region_id in region_ids
+    ]
+
+    return pd.DataFrame({"region": region_ids, "voxel_count": voxel_counts})

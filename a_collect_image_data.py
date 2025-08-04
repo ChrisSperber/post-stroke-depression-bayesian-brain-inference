@@ -9,7 +9,10 @@ Output: CSV with paths to all files and depression scores.
 # %%
 from pathlib import Path
 
+import nibabel as nib
 import pandas as pd
+from nibabel import Nifti1Image
+from nibabel.orientations import aff2axcodes
 
 from utils.utils import PLACEHOLDER_FILE_NOT_EXIST, find_unique_path
 
@@ -108,6 +111,18 @@ for index, row in data.iterrows():
 
 # no further exclusions are warranted after smaller revisions to inconsistent data, as uploaded on
 # 18/04/2025
+
+# %%
+# check image orientation according to header
+example_lesion: Nifti1Image = nib.load(data.loc[0, PATH_LESION_IMAGE])
+orientation = aff2axcodes(example_lesion.affine)
+print("Image orientation - Lesion:", orientation)
+example_lnm: Nifti1Image = nib.load(data.loc[0, PATH_LNM_IMAGE])
+orientation = aff2axcodes(example_lnm.affine)
+print("Image orientation - LNM:", orientation)
+example_discmap: Nifti1Image = nib.load(data.loc[0, PATH_DISCMAP_IMAGE])
+orientation = aff2axcodes(example_discmap.affine)
+print("Image orientation - Disconnection Map:", orientation)
 
 # %%
 output_name = Path(__file__).with_suffix(".csv")
