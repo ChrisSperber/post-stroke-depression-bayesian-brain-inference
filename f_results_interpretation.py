@@ -1,4 +1,4 @@
-"""Embedd the resulting maps into brain atlases for interpretation.
+"""Embed the resulting maps into brain atlases for interpretation.
 
 Requirements:
     - Bayesian statistical result maps were generated with the previous scripts b to d
@@ -32,11 +32,13 @@ FINAL_RESULT_LNM_FOLDER = "Output_LNM_artanh_pearson_r_20250423_1104"
 FINAL_RESULT_SDSM_FOLDER = "Output_SDSM_binarised_disconnection_20250424_0119"
 
 REGION_LABEL = "region_label"
-VOLUME_MM3 = "volume_mm³"
+VOLUME_MM3 = "volume_mm3"
 VOXEL_COUNT = "voxel_count"
 BACKGROUND = "Background"  # Background label in Harvard-Oxford atlas
 FIBRE_NAME = "fibre_name"
 FIBRE_PATH = "fibre_file_path"
+TRANSMITTER_NAME = "transmitter_name"
+TRANSMITTER_PATH = "transmitter_file_path"
 
 # interpretation of results is done with binarised statistical topographies focussing on evidence
 # for H1, i.e. large Bayes Factors >1. Due to differently large peaks, statistical results are
@@ -49,6 +51,8 @@ THRESHOLD_BLDI_BINARISATION_HIGH = 100
 # the statistical results
 THRESHOLD_FIBRE_ATLAS = 0.5
 
+N_PEAK_VOXELS_NEUROTRANSMITTER = 10000
+
 # %%
 harvard_oxford_atlas_cort = fetch_atlas_harvard_oxford(
     atlas_name="cortl-maxprob-thr25-1mm", symmetric_split=True
@@ -59,7 +63,7 @@ harvard_oxford_atlas_subcort = fetch_atlas_harvard_oxford(
 
 fibres_dir = BRAIN_ATLAS_DIR / "BCB_Fibres" / "fibres" / "Tracts"
 
-neurotransmitter_download_dir = (
+neurotransmitter_dir = (
     BRAIN_ATLAS_DIR
     / "neurotransmitter_maps"
     / "neurotransmitter_maps_extracted"
@@ -270,32 +274,97 @@ fibre_comparison_sdsm_top15 = fibre_comparison_sdsm.sort_values(
 ).head(15)[[FIBRE_NAME, VOLUME_MM3]]
 print(fibre_comparison_sdsm_top15.to_csv(sep="\t", index=False))
 
+# remove paths from df to make it serialisable
+fibre_comparison_sdsm = fibre_comparison_sdsm.drop(FIBRE_PATH, axis=1)
 
 # %%
 # interpretation of disconnectome maps via neurotransmitter maps
+neurotransmitter_files = [
+    f
+    for f in neurotransmitter_dir.iterdir()
+    if f.is_file() and f.name.endswith(".nii.gz")
+]
+neurotransmitter_comparison_sdsm = pd.DataFrame(
+    {
+        TRANSMITTER_PATH: [f.resolve() for f in neurotransmitter_files],
+        TRANSMITTER_NAME: [f.stem for f in neurotransmitter_files],
+    }
+)
+
+# loop through neurotransmitter maps
+for index, row in neurotransmitter_comparison_sdsm.iterrows():
+    # load neurotransmitter map, reorient, and binarise to only contain peak voxels
+    neurotransmitter_nifti: Nifti1Image = nib.load(row[TRANSMITTER_PATH])
+    neurotransmitter_nifti = resample_to_img(
+        neurotransmitter_nifti,
+        result_nifti_sdsm,
+        interpolation="nearest",
+        force_resample=True,
+        copy_header=True,
+    )
+    # get array data and binarise
+    neurotransmitter_nifti_arr = neurotransmitter_nifti.get_fdata()
+    # find threshold in flattened array
+    flat = neurotransmitter_nifti_arr.flatten()
+    threshold = np.sort(flat)[-N_PEAK_VOXELS_NEUROTRANSMITTER]
+
+    neurotransmitter_nifti_arr_binary = (
+        neurotransmitter_nifti_arr >= threshold
+    ).astype(np.uint8)
+
+    neurotransmitter_voxel_count = (
+        np.logical_and(neurotransmitter_nifti_arr_binary, bldi_results_sdsm_binary_arr)
+        .sum()
+        .astype(int)
+    )
+    neurotransmitter_comparison_sdsm.loc[index, VOXEL_COUNT] = (
+        neurotransmitter_voxel_count
+    )
+    neurotransmitter_volume_mm3 = int(
+        round(neurotransmitter_voxel_count * conversion_factor)
+    )
+    neurotransmitter_comparison_sdsm.loc[index, VOLUME_MM3] = (
+        neurotransmitter_volume_mm3
+    )
+
+neurotransmitter_comparison_sdsm[VOLUME_MM3] = neurotransmitter_comparison_sdsm[
+    VOLUME_MM3
+].astype(int)
+neurotransmitter_comparison_sdsm[TRANSMITTER_NAME] = neurotransmitter_comparison_sdsm[
+    TRANSMITTER_NAME
+].str.removesuffix(".nii")
+
+# print condensed results
+neurotransmitter_comparison_sdsm = neurotransmitter_comparison_sdsm.sort_values(
+    VOLUME_MM3, ascending=False
+)[[TRANSMITTER_NAME, VOLUME_MM3]]
+print(neurotransmitter_comparison_sdsm.to_csv(sep="\t", index=False))
 
 
 # %%
 # store detailed results
 results = {
-    "Results lesion mapping cortical HO Atlas": atlas_comparison_lesion_cort.to_dict(
+    "Results lesion mapping cortical HO atlas": atlas_comparison_lesion_cort.to_dict(
         orient="records"
     ),
-    "Results lesion mapping subcortical HO Atlas": atlas_comparison_lesion_subcort.to_dict(
+    "Results lesion mapping subcortical HO atlas": atlas_comparison_lesion_subcort.to_dict(
         orient="records"
     ),
-    "Results lnm mapping cortical HO Atlas": atlas_comparison_lnm_cort.to_dict(
+    "Results lnm mapping cortical HO atlas": atlas_comparison_lnm_cort.to_dict(
         orient="records"
     ),
-    "Results lnm mapping subcortical HO Atlas": atlas_comparison_lnm_subcort.to_dict(
+    "Results lnm mapping subcortical HO atlas": atlas_comparison_lnm_subcort.to_dict(
         orient="records"
     ),
     "Results sdsm mapping fibre anatomy atlas": fibre_comparison_sdsm.to_dict(
         orient="records"
     ),
+    "Results sdsm mapping neurotransmitter atlas": neurotransmitter_comparison_sdsm.to_dict(
+        orient="records"
+    ),
 }
 output_name = Path(__file__).with_suffix(".json")
-with open("results.json", "w") as f:
+with open(output_name, "w") as f:
     json.dump(results, f, indent=2)
 
 # %%
