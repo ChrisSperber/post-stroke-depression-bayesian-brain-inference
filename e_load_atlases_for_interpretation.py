@@ -9,6 +9,8 @@ import zipfile
 from pathlib import Path
 
 import requests
+from nibabel import Nifti1Image
+from nibabel.orientations import aff2axcodes
 from nilearn.datasets import fetch_atlas_harvard_oxford
 
 BRAIN_ATLAS_DIR = Path(__file__).parent / "brain_atlasses"
@@ -30,6 +32,14 @@ harvard_oxford_atlas_cort = fetch_atlas_harvard_oxford(
 harvard_oxford_atlas_subcort = fetch_atlas_harvard_oxford(
     atlas_name="sub-maxprob-thr25-1mm", symmetric_split=True
 )
+
+# check orientation of atlasses
+atlas_nifti: Nifti1Image = harvard_oxford_atlas_cort.maps
+orientation = aff2axcodes(atlas_nifti.affine)
+print("Image orientation - Harvard-Oxford Atlas cortical:", orientation)
+atlas_nifti: Nifti1Image = harvard_oxford_atlas_subcort.maps
+orientation = aff2axcodes(atlas_nifti.affine)
+print("Image orientation - Harvard-Oxford Atlas subcortical:", orientation)
 
 # %%
 # Fibre definitions as used in the BCB Lab
