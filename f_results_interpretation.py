@@ -223,7 +223,7 @@ print(atlas_comparison_lnm_subcort_top10.to_csv(sep="\t", index=False))
 # %%
 # interpretation of disconnectome maps via BCB tract maps
 bldi_results_sdsm_binary_arr = (
-    result_arr_sdsm >= THRESHOLD_BLDI_BINARISATION_LOW
+    result_arr_sdsm >= THRESHOLD_BLDI_BINARISATION_HIGH
 ).astype(np.uint8)
 
 fibre_files = [
