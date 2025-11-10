@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 from joblib import Parallel, delayed
-from nibabel import Nifti1Image
+from nibabel.nifti1 import Nifti1Image
 from tqdm import tqdm
 
 PLACEHOLDER_FILE_NOT_EXIST = "None"
@@ -62,7 +62,7 @@ def power_transform(x: float, beta: float = 0.5):
     return np.sign(x) * np.abs(x) ** beta
 
 
-def find_unique_path(paths: list[Path], str1: str, str2: str) -> str:
+def find_unique_path(paths: list[Path], str1: str, str2: str) -> Path | str:
     """Find a unique filepath in a list containing 2 strings.
 
     Args:
@@ -100,7 +100,7 @@ def compare_image_affine_and_shape(
         bool: True if same, else False.
 
     """
-    if not np.array_equal(reference_image.affine, tested_image.affine):
+    if not np.array_equal(reference_image.affine, tested_image.affine):  # type: ignore
         return False
     elif reference_image.header.get_zooms()[:3] != tested_image.header.get_zooms()[:3]:
         return False
@@ -235,7 +235,7 @@ def run_voxelwise_bf_map(
     )
 
     # Fill result map
-    for x, y, z, bf in results:
+    for x, y, z, bf in results:  # pyright: ignore[reportGeneralTypeIssues]
         output_bf_map[x, y, z] = bf
 
     return output_bf_map
@@ -286,7 +286,7 @@ def run_voxelwise_bf_map_2d(
         for idx in tqdm(range(n_voxels), desc="Computing voxelwise BFs")
     )
 
-    for idx, bf in results:
+    for idx, bf in results:  # pyright: ignore[reportGeneralTypeIssues]
         output_bf_vector[idx] = bf
 
     return output_bf_vector

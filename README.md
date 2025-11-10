@@ -7,16 +7,15 @@ This repository contains the Python analysis code and summary outputs for Bayesi
 
 ## Repository Contents
 
-| Folder/File                 | Description                                |
-|-----------------------------|--------------------------------------------|
-| `*.py files`                | Main analysis scripts using Python         |
-| `utils/`                    | Additional scripts, functions, and classes |
-| `BLDI_Outputs/`             | Results of BLDI: .nii.gz and .txt logs     |
-| `a_collect_image_data.csv`  | Study ID list and exclusion info           |
-| `requirements.txt`          | Python dependencies (from `venv`)          |
-| `LICENSE`                   | MIT License                                |
-| `README.md`                 | This document                              |
-
+| Folder/File                       | Description                                |
+|-----------------------------------|--------------------------------------------|
+| `*.py files`                      | Main analysis scripts using Python         |
+| `misc/`                           | Additional scripts and files for exploration and visualisation (not part of main pipeline) |
+| `BLDI_Outputs/`                   | Results of BLDI: .nii.gz and .txt logs     |
+| `src/depression_mapping_tools`    | local package with functions and classes    |
+| `a_collect_image_data.csv`        | Study ID list and exclusion info           |
+| `requirements.txt`                | Python dependencies (from `venv`)          |
+| `LICENSE`                         | MIT License                                |
 ---
 
 ## Reproducing the Analysis
@@ -36,6 +35,8 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 ### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
+# install local utils package in editable mode
+pip install -e .
 ```
 ### 4. Run Analysis
 
