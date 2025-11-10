@@ -4,6 +4,7 @@ from enum import Enum
 from pathlib import Path
 from typing import NamedTuple
 
+import nibabel as nib
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
@@ -17,6 +18,14 @@ PLACEHOLDER_FILE_NOT_EXIST = "None"
 # https://doi.org/10.3758/s13423-017-1323-7
 BF_BINNING_THRESHOLDS_HO = [1 / 3, 1 / 10, 1 / 30, 1 / 100]
 BF_BINNING_THRESHOLDS_H1 = [3, 10, 30, 100]
+
+
+def load_nifti(path: str | Path) -> Nifti1Image:
+    """Load NIFTI Wrapper with typechecking to silence Pylance warnings."""
+    img = nib.load(str(path))  # pyright: ignore[reportPrivateImportUsage]
+    if not isinstance(img, Nifti1Image):
+        raise TypeError("Unexpected image type")
+    return img
 
 
 class BinnedBFMap(NamedTuple):
