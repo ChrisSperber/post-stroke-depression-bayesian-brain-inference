@@ -1,5 +1,6 @@
 """Utility functions and objects."""
 
+from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import NamedTuple
@@ -12,7 +13,7 @@ from joblib import Parallel, delayed
 from nibabel.nifti1 import Nifti1Image
 from tqdm import tqdm
 
-PLACEHOLDER_FILE_NOT_EXIST = "None"
+from depression_mapping_tools.config import PLACEHOLDER_FILE_NOT_EXIST
 
 # define threshold to bin BF maps into strength of evidence categories; here chosen according to
 # https://doi.org/10.3758/s13423-017-1323-7
@@ -26,6 +27,30 @@ def load_nifti(path: str | Path) -> Nifti1Image:
     if not isinstance(img, Nifti1Image):
         raise TypeError("Unexpected image type")
     return img
+
+
+@dataclass(frozen=True)
+class Cols:
+    """Data column names."""
+
+    SUBJECT_ID: str = "SubjectID"
+    AGE: str = "Age"
+    SEX: str = "Sex"
+    DEPRESSION_SCORE: str = "DepressionZScore"
+    COHORT: str = "Cohort"
+    EDUCATION: str = "EducationYears"
+    AETIOLOGY: str = "Aetiology"
+    HANDEDNESS: str = "Handedness"
+    NIHSS_ON_ADMISSION: str = "NIHSSonAdmission"
+    GDS15: str = "GDS15"
+    GDS30: str = "GDS30"
+    HADS: str = "HADS"
+    BDI_II: str = "BDI_II"
+    EXCLUDED: str = "Excluded"
+    EXCLUSION_REASON: str = "ExclusionReason"
+    PATH_LESION_IMAGE: str = "PathLesionImage"
+    PATH_LNM_IMAGE: str = "PathLNMImage"
+    PATH_DISCMAP_IMAGE: str = "PathDiscMapImage"
 
 
 class BinnedBFMap(NamedTuple):

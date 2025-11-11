@@ -1,7 +1,8 @@
 # Custom settings
 .vscode/
 brain_atlasses/
-utils/descriptive_images/
+misc/descriptive_images/
+sdsm_analysis_mask.nii.gz
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
