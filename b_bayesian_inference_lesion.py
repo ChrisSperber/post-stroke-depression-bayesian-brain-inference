@@ -7,7 +7,7 @@ Psychonomic bulletin & review, 14(5), 779-804
 
 The code contains legacy functionality to handle lesion images that are differently sized or
 formatted (resolution, dimensions, origin). With the data uploaded on 18/04/2025, this should not
-be necessary anymore; however, the functionality is kept as it has no negative effects.
+be necessary anymore; however, the functionality is kept as a safety rail with no negative effects.
 See REFERENCE_LESION_SUBJECT_ID below.
 
 Requirements:
@@ -24,52 +24,55 @@ import gc
 from datetime import datetime
 from pathlib import Path
 
-import nibabel as nib
 import numpy as np
 import pandas as pd
+from nibabel.nifti1 import Nifti1Image
 from nilearn.image import resample_to_img
 from tqdm import tqdm
 
-from utils.utils import bin_bf_map, compare_image_affine_and_shape, run_voxelwise_bf_map
-
-OUTPUT_DIR_PARENT = Path(__file__).parent / "BLDI_OUTPUTS"
+from depression_mapping_tools.config import (
+    BLDI_OUTPUT_DIR_PARENT,
+    MIN_LESION_ANALYSIS_THRESHOLD,
+)
+from depression_mapping_tools.utils import (
+    Cols,
+    bin_bf_map,
+    compare_image_affine_and_shape,
+    load_nifti,
+    run_voxelwise_bf_map,
+)
 
 # choose an image that should define the format of the results file. All images with differing
 # format are transformed into this image space; also, the output will have this shape
 REFERENCE_LESION_SUBJECT_ID = "BBS001"
 
-# Define the minimum amount of lesions per voxel to be included in the analysis
-MIN_LESION_ANALYSIS_THRESHOLD = 10
-
-SUBJECT_ID = "SubjectID"
-DEPRESSION_SCORE = "DepressionZScore"
-EXCLUDED = "Excluded"
-PATH_LESION_IMAGE = "PathLesionImage"
 OUTPUT_DIR_BASE = "Output_Lesion"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
-data = data[data[EXCLUDED] == 0]
+data = data[data[Cols.EXCLUDED] == 0]
 
 # ensure float type of scores
-data[DEPRESSION_SCORE] = pd.to_numeric(data[DEPRESSION_SCORE], errors="coerce")
+data[Cols.DEPRESSION_SCORE] = pd.to_numeric(
+    data[Cols.DEPRESSION_SCORE], errors="coerce"
+)
 
 # get the lesion path of the reference lesion
 reference_lesion_path = data.loc[
-    data[SUBJECT_ID] == REFERENCE_LESION_SUBJECT_ID, PATH_LESION_IMAGE
+    data[Cols.SUBJECT_ID] == REFERENCE_LESION_SUBJECT_ID, Cols.PATH_LESION_IMAGE
 ].values[0]
-reference_nifti = nib.load(reference_lesion_path)
+reference_nifti = load_nifti(reference_lesion_path)
 
 # ensure Output directory exists
-OUTPUT_DIR_PARENT.mkdir(parents=True, exist_ok=True)
+BLDI_OUTPUT_DIR_PARENT.mkdir(parents=True, exist_ok=True)
 
 # %%
 # load lesion images in unified shape
-file_paths = data.loc[:, PATH_LESION_IMAGE]
+file_paths = data.loc[:, Cols.PATH_LESION_IMAGE]
 all_lesions_list = []
 
 for path in tqdm(file_paths, desc="Loading lesion NifTi"):
-    nifti = nib.load(path)
+    nifti = load_nifti(path)
 
     # adapt image shape & affine if required
     if not compare_image_affine_and_shape(reference_nifti, nifti):
@@ -100,7 +103,7 @@ print("Starting analysis. This may take several minutes.")
 
 bf_map = run_voxelwise_bf_map(
     image_data_4d=all_lesions,
-    target_var=data[DEPRESSION_SCORE],
+    target_var=data[Cols.DEPRESSION_SCORE],  # pyright: ignore[reportArgumentType]
     minimum_analysis_threshold=MIN_LESION_ANALYSIS_THRESHOLD,
     n_jobs=-1,
 )
@@ -119,26 +122,22 @@ header_float32 = reference_nifti.header.copy()
 header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-OUTPUT_DIR = OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{timestamp}"
+OUTPUT_DIR = BLDI_OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{timestamp}"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-bf_map_full = nib.Nifti1Image(bf_map, affine=affine, header=header_float32)
+bf_map_full = Nifti1Image(bf_map, affine=affine, header=header_float32)
 filename = OUTPUT_DIR / f"BF_full_lesion_{timestamp}.nii.gz"
 bf_map_full.to_filename(str(filename))
 
-bf_map_h1 = nib.Nifti1Image(
-    binned_bf_maps.bf_map_h1, affine=affine, header=header_uint8
-)
+bf_map_h1 = Nifti1Image(binned_bf_maps.bf_map_h1, affine=affine, header=header_uint8)
 filename = OUTPUT_DIR / f"BF_h1_lesion_{timestamp}.nii.gz"
 bf_map_h1.to_filename(str(filename))
 
-bf_map_h0 = nib.Nifti1Image(
-    binned_bf_maps.bf_map_h0, affine=affine, header=header_uint8
-)
+bf_map_h0 = Nifti1Image(binned_bf_maps.bf_map_h0, affine=affine, header=header_uint8)
 filename = OUTPUT_DIR / f"BF_h0_lesion_{timestamp}.nii.gz"
 bf_map_h0.to_filename(str(filename))
 
-bf_map_noev = nib.Nifti1Image(
+bf_map_noev = Nifti1Image(
     binned_bf_maps.bf_map_noev, affine=affine, header=header_uint8
 )
 filename = OUTPUT_DIR / f"BF_noev_lesion_{timestamp}.nii.gz"

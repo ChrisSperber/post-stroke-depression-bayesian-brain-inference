@@ -14,17 +14,16 @@ Outputs:
 import json
 from pathlib import Path
 
-import nibabel as nib
 import numpy as np
 import pandas as pd
-from nibabel import Nifti1Image
+from nibabel.nifti1 import Nifti1Image
 from nilearn.datasets import fetch_atlas_harvard_oxford
 from nilearn.image import resample_to_img
 
-from utils.utils import assign_segmentation2regions
+from depression_mapping_tools.config import BLDI_OUTPUT_DIR_PARENT
+from depression_mapping_tools.utils import assign_segmentation2regions, load_nifti
 
 BRAIN_ATLAS_DIR = Path(__file__).parent / "brain_atlasses"
-BLDI_OUTPUTS_DIR = Path(__file__).parent / "BLDI_OUTPUTS"
 
 # Define final results files for Lesion, LNM, and SDSM
 FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20250423_1046"
@@ -72,19 +71,19 @@ neurotransmitter_dir = (
 
 # %%
 # load results maps as NIFTIs
-results_folder = BLDI_OUTPUTS_DIR / FINAL_RESULT_LESION_FOLDER
+results_folder = BLDI_OUTPUT_DIR_PARENT / FINAL_RESULT_LESION_FOLDER
 (filename,) = [f for f in results_folder.iterdir() if f.is_file() and "full" in f.name]
-result_nifti_lesion: Nifti1Image = nib.load(filename)
+result_nifti_lesion: Nifti1Image = load_nifti(filename)
 result_arr_lesion = result_nifti_lesion.get_fdata()
 
-results_folder = BLDI_OUTPUTS_DIR / FINAL_RESULT_LNM_FOLDER
+results_folder = BLDI_OUTPUT_DIR_PARENT / FINAL_RESULT_LNM_FOLDER
 (filename,) = [f for f in results_folder.iterdir() if f.is_file() and "full" in f.name]
-result_nifti_lnm: Nifti1Image = nib.load(filename)
+result_nifti_lnm: Nifti1Image = load_nifti(filename)
 result_arr_lnm = result_nifti_lnm.get_fdata()
 
-results_folder = BLDI_OUTPUTS_DIR / FINAL_RESULT_SDSM_FOLDER
+results_folder = BLDI_OUTPUT_DIR_PARENT / FINAL_RESULT_SDSM_FOLDER
 (filename,) = [f for f in results_folder.iterdir() if f.is_file() and "full" in f.name]
-result_nifti_sdsm: Nifti1Image = nib.load(filename)
+result_nifti_sdsm: Nifti1Image = load_nifti(filename)
 result_arr_sdsm = result_nifti_sdsm.get_fdata()
 
 # %%
@@ -129,7 +128,7 @@ atlas_comparison_lesion_subcort[REGION_LABEL] = harvard_oxford_atlas_subcort.lab
 # print condensed results
 # add mm³ column
 voxel_dims = result_nifti_lesion.header.get_zooms()[:3]
-conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]
+conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]  # type: ignore
 atlas_comparison_lesion_cort[VOLUME_MM3] = (
     (atlas_comparison_lesion_cort[VOXEL_COUNT] * conversion_factor).round().astype(int)
 )
@@ -196,7 +195,7 @@ atlas_comparison_lnm_subcort[REGION_LABEL] = harvard_oxford_atlas_subcort.labels
 # print condensed results
 # add mm³ column
 voxel_dims = result_nifti_lnm.header.get_zooms()[:3]
-conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]
+conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]  # type: ignore
 atlas_comparison_lnm_cort[VOLUME_MM3] = (
     (atlas_comparison_lnm_cort[VOXEL_COUNT] * conversion_factor).round().astype(int)
 )
@@ -237,12 +236,12 @@ fibre_comparison_sdsm = pd.DataFrame(
 )
 
 voxel_dims = result_nifti_sdsm.header.get_zooms()[:3]
-conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]
+conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]  # type: ignore
 
 # loop through fibre maps
 for index, row in fibre_comparison_sdsm.iterrows():
     # load fibre and reorient
-    fibre_nifti: Nifti1Image = nib.load(row[FIBRE_PATH])
+    fibre_nifti: Nifti1Image = load_nifti(row[FIBRE_PATH])
     fibre_nifti = resample_to_img(
         fibre_nifti,
         result_nifti_sdsm,
@@ -259,9 +258,9 @@ for index, row in fibre_comparison_sdsm.iterrows():
         .sum()
         .astype(int)
     )
-    fibre_comparison_sdsm.loc[index, VOXEL_COUNT] = fibre_voxel_count
+    fibre_comparison_sdsm.loc[index, VOXEL_COUNT] = fibre_voxel_count  # type: ignore
     fibre_volume_mm3 = int(round(fibre_voxel_count * conversion_factor))
-    fibre_comparison_sdsm.loc[index, VOLUME_MM3] = fibre_volume_mm3
+    fibre_comparison_sdsm.loc[index, VOLUME_MM3] = fibre_volume_mm3  # type: ignore
 
 fibre_comparison_sdsm[VOLUME_MM3] = fibre_comparison_sdsm[VOLUME_MM3].astype(int)
 fibre_comparison_sdsm[FIBRE_NAME] = fibre_comparison_sdsm[FIBRE_NAME].str.removesuffix(
@@ -294,7 +293,7 @@ neurotransmitter_comparison_sdsm = pd.DataFrame(
 # loop through neurotransmitter maps
 for index, row in neurotransmitter_comparison_sdsm.iterrows():
     # load neurotransmitter map, reorient, and binarise to only contain peak voxels
-    neurotransmitter_nifti: Nifti1Image = nib.load(row[TRANSMITTER_PATH])
+    neurotransmitter_nifti: Nifti1Image = load_nifti(row[TRANSMITTER_PATH])
     neurotransmitter_nifti = resample_to_img(
         neurotransmitter_nifti,
         result_nifti_sdsm,
@@ -317,13 +316,13 @@ for index, row in neurotransmitter_comparison_sdsm.iterrows():
         .sum()
         .astype(int)
     )
-    neurotransmitter_comparison_sdsm.loc[index, VOXEL_COUNT] = (
+    neurotransmitter_comparison_sdsm.loc[index, VOXEL_COUNT] = (  # type: ignore
         neurotransmitter_voxel_count
     )
     neurotransmitter_volume_mm3 = int(
         round(neurotransmitter_voxel_count * conversion_factor)
     )
-    neurotransmitter_comparison_sdsm.loc[index, VOLUME_MM3] = (
+    neurotransmitter_comparison_sdsm.loc[index, VOLUME_MM3] = (  # type: ignore
         neurotransmitter_volume_mm3
     )
 

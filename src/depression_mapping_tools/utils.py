@@ -83,7 +83,7 @@ class DisconnectionFormat(Enum):
     )
 
 
-def power_transform(x: float, beta: float = 0.5):
+def power_transform(x: float | np.ndarray, beta: float = 0.5):
     """Power-law transform of value x with compression factor beta.
 
     Args:
