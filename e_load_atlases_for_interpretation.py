@@ -9,7 +9,7 @@ import zipfile
 from pathlib import Path
 
 import requests
-from nibabel import Nifti1Image
+from nibabel.nifti1 import Nifti1Image
 from nibabel.orientations import aff2axcodes
 from nilearn.datasets import fetch_atlas_harvard_oxford
 
