@@ -22,3 +22,6 @@ MIN_DISCONNECTION_ANALYSIS_THRESHOLD = 10
 BINARY_THRESHOLD_DISCMAP = (
     0.6  # if DisconnectionFormat.BINARY, all values >= this value are set to 1 else 0
 )
+
+# define minimum age for inclusion into the study
+MINIMUM_AGE_INCLUSION = 18.0

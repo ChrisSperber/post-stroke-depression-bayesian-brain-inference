@@ -9,7 +9,6 @@ Output: CSV with paths to all files and depression scores.
 # %%
 from pathlib import Path
 
-import nibabel as nib
 import pandas as pd
 from nibabel.nifti1 import Nifti1Image
 from nibabel.orientations import aff2axcodes
@@ -20,6 +19,7 @@ from depression_mapping_tools.config import (
     LESION,
     LESION_NETWORK,
     MASTER_FILE_EXCEL,
+    MINIMUM_AGE_INCLUSION,
     PLACEHOLDER_FILE_NOT_EXIST,
     PLACEHOLDER_MISSING_VALUE,
 )
@@ -121,9 +121,12 @@ data[Cols.PATH_DISCMAP_IMAGE] = discmap_path_list
 # Exclusions based on demographic/clinical information
 for index, row in data.iterrows():
     if row[Cols.EXCLUDED] == 0:
-        if row[Cols.AETIOLOGY] not in STROKE_AETIOLOGIES:
+        if row[Cols.AGE] < MINIMUM_AGE_INCLUSION:
             data.loc[index, Cols.EXCLUDED] = 1  # type: ignore
-            data.loc[index, Cols.EXCLUSION_REASON] = "Non-stroke aetiology"  # type: ignore
+            data.loc[index, Cols.EXCLUSION_REASON] = "Non-adult"  # type: ignore
+        elif row[Cols.AETIOLOGY] not in STROKE_AETIOLOGIES:
+            data.loc[index, Cols.EXCLUDED] = 1  # type: ignore
+            data.loc[index, Cols.EXCLUSION_REASON] = f"Non-stroke aetiology ({row[Cols.AETIOLOGY]})"  # type: ignore
 
 # %%
 # check image orientation according to header
