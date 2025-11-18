@@ -42,6 +42,7 @@ class Cols:
     AETIOLOGY: str = "Aetiology"
     HANDEDNESS: str = "Handedness"
     NIHSS_ON_ADMISSION: str = "NIHSSonAdmission"
+    DAYS_ONSET_TO_FOLLOWUP: str = "DaysToFollowup"
     GDS15: str = "GDS15"
     GDS30: str = "GDS30"
     HADS: str = "HADS"
@@ -80,6 +81,15 @@ class DisconnectionFormat(Enum):
     BINARY = "binarised_disconnection"  # binarised at chosen threshold
     CONTINUOUS = (
         "continuous_disconnection"  # original continuous scores (disconn. probability)
+    )
+
+
+class SampleSelectionMode(Enum):
+    """Enum to define which aetiologies should be included in the analysis."""
+
+    STROKE = "stroke"  # Standard mode, including all patients with EXCLUDED = 0 (ischaemia and ICB)
+    STROKE_TRAUMA = (
+        "stroke_and_trauma"  # For sensitivit analysis also including traumata
     )
 
 

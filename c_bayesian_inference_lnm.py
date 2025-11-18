@@ -35,6 +35,7 @@ from depression_mapping_tools.config import BLDI_OUTPUT_DIR_PARENT
 from depression_mapping_tools.utils import (
     Cols,
     CorrelationFormat,
+    SampleSelectionMode,
     bin_bf_map,
     load_nifti,
     power_transform,
@@ -48,6 +49,11 @@ PEARSON_R_TRANSFORM = CorrelationFormat.ARTANH_PEARSON
 REFERENCE_LNM_SUBJECT_ID = "BBS001"
 
 OUTPUT_DIR_BASE = "Output_LNM"
+
+# Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
+SAMPLE_MODE = SampleSelectionMode.STROKE
+TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
+AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
@@ -135,27 +141,36 @@ header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
 transform_string = PEARSON_R_TRANSFORM.value.lower()
-OUTPUT_DIR = (
-    BLDI_OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{transform_string}_{timestamp}"
-)
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    output_dir = (
+        BLDI_OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{transform_string}_{timestamp}"
+    )
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    output_dir = (
+        BLDI_OUTPUT_DIR_PARENT
+        / AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR
+        / f"{OUTPUT_DIR_BASE}_{transform_string}_{timestamp}"
+    )
+else:
+    raise ValueError(f"Unknown Sample Mode {SAMPLE_MODE}")
+output_dir.mkdir(parents=True, exist_ok=True)
 
 bf_map_full = Nifti1Image(bf_map, affine=affine, header=header_float32)
-filename = OUTPUT_DIR / f"BF_full_lnm_{timestamp}.nii.gz"
+filename = output_dir / f"BF_full_lnm_{timestamp}.nii.gz"
 bf_map_full.to_filename(str(filename))
 
 bf_map_h1 = Nifti1Image(binned_bf_maps.bf_map_h1, affine=affine, header=header_uint8)
-filename = OUTPUT_DIR / f"BF_h1_lnm_{timestamp}.nii.gz"
+filename = output_dir / f"BF_h1_lnm_{timestamp}.nii.gz"
 bf_map_h1.to_filename(str(filename))
 
 bf_map_h0 = Nifti1Image(binned_bf_maps.bf_map_h0, affine=affine, header=header_uint8)
-filename = OUTPUT_DIR / f"BF_h0_lnm_{timestamp}.nii.gz"
+filename = output_dir / f"BF_h0_lnm_{timestamp}.nii.gz"
 bf_map_h0.to_filename(str(filename))
 
 bf_map_noev = Nifti1Image(
     binned_bf_maps.bf_map_noev, affine=affine, header=header_uint8
 )
-filename = OUTPUT_DIR / f"BF_noev_lnm_{timestamp}.nii.gz"
+filename = output_dir / f"BF_noev_lnm_{timestamp}.nii.gz"
 bf_map_noev.to_filename(str(filename))
 
 # %%
@@ -169,6 +184,7 @@ params = {
     "Analysis": "Bayesian GLM via BIC - Bayes Factor Approximation",
     "timestamp": timestamp,
     "n_subjects": data.shape[0],
+    "aetiology_selected": SAMPLE_MODE.value,
     "image_shape": shape_str,
     "analysed_voxels": voxel_count,
     "minimum_BF": np.min(bf_map[bf_map > 0]),
@@ -177,7 +193,7 @@ params = {
 }
 
 
-with open(OUTPUT_DIR / f"analysis_params_lnm_{timestamp}.txt", "w") as f:
+with open(output_dir / f"analysis_params_lnm_{timestamp}.txt", "w") as f:
     for key, value in params.items():
         f.write(f"{key}: {value}\n")
 

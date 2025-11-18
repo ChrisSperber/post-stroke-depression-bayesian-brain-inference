@@ -36,6 +36,7 @@ from depression_mapping_tools.config import (
 )
 from depression_mapping_tools.utils import (
     Cols,
+    SampleSelectionMode,
     bin_bf_map,
     compare_image_affine_and_shape,
     load_nifti,
@@ -48,9 +49,23 @@ REFERENCE_LESION_SUBJECT_ID = "BBS001"
 
 OUTPUT_DIR_BASE = "Output_Lesion"
 
+# Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
+SAMPLE_MODE = SampleSelectionMode.STROKE_TRAUMA
+TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
+AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
+
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
-data = data[data[Cols.EXCLUDED] == 0]
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    data = data[data[Cols.EXCLUDED] == 0]
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    data = data[
+        (data[Cols.EXCLUDED] == 0)
+        | (data[Cols.EXCLUSION_REASON] == TRAUMA_EXCLUSION_COMMENT)
+    ]
+else:
+    msg = f"Unknown Sample selection mode {SAMPLE_MODE}"
+    raise ValueError(msg)
 
 # ensure float type of scores
 data[Cols.DEPRESSION_SCORE] = pd.to_numeric(
@@ -122,25 +137,34 @@ header_float32 = reference_nifti.header.copy()
 header_float32.set_data_dtype(np.float32)
 
 timestamp = datetime.now().strftime("%Y%m%d_%H%M")
-OUTPUT_DIR = BLDI_OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{timestamp}"
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    output_dir = BLDI_OUTPUT_DIR_PARENT / f"{OUTPUT_DIR_BASE}_{timestamp}"
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    output_dir = (
+        BLDI_OUTPUT_DIR_PARENT
+        / AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR
+        / f"{OUTPUT_DIR_BASE}_{timestamp}"
+    )
+else:
+    raise ValueError(f"Unknown Sample Mode {SAMPLE_MODE}")
+output_dir.mkdir(parents=True, exist_ok=True)
 
 bf_map_full = Nifti1Image(bf_map, affine=affine, header=header_float32)
-filename = OUTPUT_DIR / f"BF_full_lesion_{timestamp}.nii.gz"
+filename = output_dir / f"BF_full_lesion_{timestamp}.nii.gz"
 bf_map_full.to_filename(str(filename))
 
 bf_map_h1 = Nifti1Image(binned_bf_maps.bf_map_h1, affine=affine, header=header_uint8)
-filename = OUTPUT_DIR / f"BF_h1_lesion_{timestamp}.nii.gz"
+filename = output_dir / f"BF_h1_lesion_{timestamp}.nii.gz"
 bf_map_h1.to_filename(str(filename))
 
 bf_map_h0 = Nifti1Image(binned_bf_maps.bf_map_h0, affine=affine, header=header_uint8)
-filename = OUTPUT_DIR / f"BF_h0_lesion_{timestamp}.nii.gz"
+filename = output_dir / f"BF_h0_lesion_{timestamp}.nii.gz"
 bf_map_h0.to_filename(str(filename))
 
 bf_map_noev = Nifti1Image(
     binned_bf_maps.bf_map_noev, affine=affine, header=header_uint8
 )
-filename = OUTPUT_DIR / f"BF_noev_lesion_{timestamp}.nii.gz"
+filename = output_dir / f"BF_noev_lesion_{timestamp}.nii.gz"
 bf_map_noev.to_filename(str(filename))
 
 # %%
@@ -154,6 +178,7 @@ params = {
     "Analysis": "Bayesian GLM via BIC - Bayes Factor Approximation",
     "timestamp": timestamp,
     "n_subjects": data.shape[0],
+    "aetiology_selected": SAMPLE_MODE.value,
     "image_shape": shape_str,
     "analysed_voxels": voxel_count,
     "minimum_analysis_threshold": MIN_LESION_ANALYSIS_THRESHOLD,
@@ -161,7 +186,7 @@ params = {
     "maximum_BF": np.max(bf_map),
 }
 
-with open(OUTPUT_DIR / f"analysis_params_lesion_{timestamp}.txt", "w") as f:
+with open(output_dir / f"analysis_params_lesion_{timestamp}.txt", "w") as f:
     for key, value in params.items():
         f.write(f"{key}: {value}\n")
 

@@ -38,11 +38,12 @@ nifti_files = [
 
 ISCHAEMIC_STROKE = "Ischaemic_Stroke"
 INTRACEREBRAL_HEMORRHAGE = "ICB"
+TRAUMA = "Trauma"
 
 AETIOLOGY_MAPPING = {
     1: ISCHAEMIC_STROKE,
     2: INTRACEREBRAL_HEMORRHAGE,
-    3: "Trauma",
+    3: TRAUMA,
     4: "SAH",
     5: "Other",
 }
@@ -72,6 +73,7 @@ data[Cols.AETIOLOGY] = master_table_df["etiology"].map(AETIOLOGY_MAPPING)
 data[Cols.SEX] = master_table_df["sex"].map(SEX_MAPPING)
 data[Cols.HANDEDNESS] = master_table_df["handedness"].map(HANDEDNESS_MAPPING)
 data[Cols.NIHSS_ON_ADMISSION] = master_table_df["NIHSSonset"]
+data[Cols.DAYS_ONSET_TO_FOLLOWUP] = master_table_df["FollowUp_daysfromonset"]
 data[[Cols.GDS15, Cols.GDS30, Cols.HADS]] = master_table_df[
     [Cols.GDS15, Cols.GDS30, Cols.HADS]
 ]
