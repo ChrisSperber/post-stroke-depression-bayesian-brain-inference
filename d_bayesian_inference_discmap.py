@@ -46,7 +46,7 @@ from depression_mapping_tools.utils import (
     run_voxelwise_bf_map_2d,
 )
 
-DISCONNECTION_FORMAT = DisconnectionFormat.CONTINUOUS  # set processing mode
+DISCONNECTION_FORMAT = DisconnectionFormat.BINARY  # set processing mode
 
 # choose an image that should define the format of the results file. This serves as a reference.
 REFERENCE_DISCMAP_SUBJECT_ID = "BBS001"
@@ -57,6 +57,9 @@ OUTPUT_DIR_BASE = "Output_SDSM"
 SAMPLE_MODE = SampleSelectionMode.STROKE
 TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
 AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
+
+# The script makes heavy use of RAM. Reduce N_WORKERS if Memory errors occur
+N_WORKERS = 4
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
@@ -155,6 +158,7 @@ elif DISCONNECTION_FORMAT == DisconnectionFormat.CONTINUOUS:
 else:
     raise ValueError("Unknown disconnection format")
 
+
 # %%
 # Analysis
 print("Starting analysis. This may take several minutes.")
@@ -163,7 +167,7 @@ bf_map_masked_vector = run_voxelwise_bf_map_2d(
     image_data_2d=all_discmaps_vectorised,
     target_var=data[Cols.DEPRESSION_SCORE],  # type: ignore
     minimum_analysis_threshold=minimum_threshold,
-    n_jobs=-1,
+    n_jobs=N_WORKERS,
 )
 
 # %%

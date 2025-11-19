@@ -50,7 +50,7 @@ REFERENCE_LESION_SUBJECT_ID = "BBS001"
 OUTPUT_DIR_BASE = "Output_Lesion"
 
 # Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
-SAMPLE_MODE = SampleSelectionMode.STROKE_TRAUMA
+SAMPLE_MODE = SampleSelectionMode.STROKE
 TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
 AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
