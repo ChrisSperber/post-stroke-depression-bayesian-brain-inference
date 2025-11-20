@@ -1,0 +1,20 @@
+total_n: 1710
+age:
+  mean: 65.42
+  std: 13.07
+  min: 18.0
+  max: 95.15
+sex:
+  male:
+    n: 937
+    percent: 54.8
+  female:
+    n: 773
+    percent: 45.2
+aetiology:
+  ischaemia:
+    n: 1628
+    percent: 95.2
+  icb:
+    n: 82
+    percent: 4.8

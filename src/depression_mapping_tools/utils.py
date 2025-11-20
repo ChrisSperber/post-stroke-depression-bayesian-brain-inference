@@ -13,7 +13,10 @@ from joblib import Parallel, delayed
 from nibabel.nifti1 import Nifti1Image
 from tqdm import tqdm
 
-from depression_mapping_tools.config import PLACEHOLDER_FILE_NOT_EXIST
+from depression_mapping_tools.config import (
+    PLACEHOLDER_FILE_NOT_EXIST,
+    PLACEHOLDER_MISSING_VALUE,
+)
 
 # define threshold to bin BF maps into strength of evidence categories; here chosen according to
 # https://doi.org/10.3758/s13423-017-1323-7
@@ -416,3 +419,18 @@ def assign_segmentation2regions(
     ]
 
     return pd.DataFrame({"region": region_ids, "voxel_count": voxel_counts})
+
+
+def all_missing_or_placeholder(series, placeholder=PLACEHOLDER_MISSING_VALUE):
+    """Identify a data Series without valid values.
+
+    Args:
+        series (_type_): pd df Series
+        placeholder (_type_, optional): Defaults to PLACEHOLDER_MISSING_VALUE.
+
+    Returns:
+        _type_: True if all elements are missing/Placeholder values.
+
+    """
+    s = series.astype("object")
+    return (s.isna() | (s == placeholder)).all()
