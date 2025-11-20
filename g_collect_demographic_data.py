@@ -147,6 +147,17 @@ for cohort in cohorts:
     n_male = sum(data[Cols.SEX] == "Male")
     n_female = sum(data[Cols.SEX] == "Female")
 
+    sex_str = f"Male:{n_male}, Female:{n_female}"
+
+    statistical_results_list.append(
+        {
+            COHORT: cohort,
+            VARIABLE: Cols.SEX,
+            STAT: "N",
+            VALUE: sex_str,
+        }
+    )
+
     # Handedness
     if all_missing_or_placeholder(cohort_df[Cols.HANDEDNESS]):
         statistical_results_list.append(
