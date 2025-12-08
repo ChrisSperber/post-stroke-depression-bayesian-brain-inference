@@ -1,0 +1,1846 @@
+{
+  "Results lesion mapping cortical HO atlas": [
+    {
+      "region": 0.0,
+      "voxel_count": 2224,
+      "region_label": "Background",
+      "volume_mm3": 2224
+    },
+    {
+      "region": 1.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 2.0,
+      "voxel_count": 2,
+      "region_label": "Right Frontal Pole",
+      "volume_mm3": 2
+    },
+    {
+      "region": 3.0,
+      "voxel_count": 0,
+      "region_label": "Left Insular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 4.0,
+      "voxel_count": 12,
+      "region_label": "Right Insular Cortex",
+      "volume_mm3": 12
+    },
+    {
+      "region": 5.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 6.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 7.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 8.0,
+      "voxel_count": 3,
+      "region_label": "Right Middle Frontal Gyrus",
+      "volume_mm3": 3
+    },
+    {
+      "region": 9.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Frontal Gyrus, pars triangularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 10.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Frontal Gyrus, pars triangularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 11.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Frontal Gyrus, pars opercularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 12.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Frontal Gyrus, pars opercularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 13.0,
+      "voxel_count": 0,
+      "region_label": "Left Precentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 14.0,
+      "voxel_count": 34,
+      "region_label": "Right Precentral Gyrus",
+      "volume_mm3": 34
+    },
+    {
+      "region": 15.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 16.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 17.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 18.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 19.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 20.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 21.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 22.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 23.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 24.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 25.0,
+      "voxel_count": 2,
+      "region_label": "Left Middle Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 2
+    },
+    {
+      "region": 26.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 27.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 28.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 29.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 30.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 31.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 32.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 33.0,
+      "voxel_count": 0,
+      "region_label": "Left Postcentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 34.0,
+      "voxel_count": 62,
+      "region_label": "Right Postcentral Gyrus",
+      "volume_mm3": 62
+    },
+    {
+      "region": 35.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Parietal Lobule",
+      "volume_mm3": 0
+    },
+    {
+      "region": 36.0,
+      "voxel_count": 13,
+      "region_label": "Right Superior Parietal Lobule",
+      "volume_mm3": 13
+    },
+    {
+      "region": 37.0,
+      "voxel_count": 0,
+      "region_label": "Left Supramarginal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 38.0,
+      "voxel_count": 11,
+      "region_label": "Right Supramarginal Gyrus, anterior division",
+      "volume_mm3": 11
+    },
+    {
+      "region": 39.0,
+      "voxel_count": 0,
+      "region_label": "Left Supramarginal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 40.0,
+      "voxel_count": 1,
+      "region_label": "Right Supramarginal Gyrus, posterior division",
+      "volume_mm3": 1
+    },
+    {
+      "region": 41.0,
+      "voxel_count": 0,
+      "region_label": "Left Angular Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 42.0,
+      "voxel_count": 0,
+      "region_label": "Right Angular Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 43.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Occipital Cortex, superior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 44.0,
+      "voxel_count": 0,
+      "region_label": "Right Lateral Occipital Cortex, superior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 45.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Occipital Cortex, inferior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 46.0,
+      "voxel_count": 0,
+      "region_label": "Right Lateral Occipital Cortex, inferior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 47.0,
+      "voxel_count": 0,
+      "region_label": "Left Intracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 48.0,
+      "voxel_count": 0,
+      "region_label": "Right Intracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 49.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Medial Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 50.0,
+      "voxel_count": 0,
+      "region_label": "Right Frontal Medial Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 51.0,
+      "voxel_count": 0,
+      "region_label": "Left Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 52.0,
+      "voxel_count": 0,
+      "region_label": "Right Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 53.0,
+      "voxel_count": 0,
+      "region_label": "Left Subcallosal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 54.0,
+      "voxel_count": 0,
+      "region_label": "Right Subcallosal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 55.0,
+      "voxel_count": 0,
+      "region_label": "Left Paracingulate Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 56.0,
+      "voxel_count": 0,
+      "region_label": "Right Paracingulate Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 57.0,
+      "voxel_count": 0,
+      "region_label": "Left Cingulate Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 58.0,
+      "voxel_count": 0,
+      "region_label": "Right Cingulate Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 59.0,
+      "voxel_count": 0,
+      "region_label": "Left Cingulate Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 60.0,
+      "voxel_count": 0,
+      "region_label": "Right Cingulate Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 61.0,
+      "voxel_count": 0,
+      "region_label": "Left Precuneous Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 62.0,
+      "voxel_count": 0,
+      "region_label": "Right Precuneous Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 63.0,
+      "voxel_count": 0,
+      "region_label": "Left Cuneal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 64.0,
+      "voxel_count": 0,
+      "region_label": "Right Cuneal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 65.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Orbital Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 66.0,
+      "voxel_count": 11,
+      "region_label": "Right Frontal Orbital Cortex",
+      "volume_mm3": 11
+    },
+    {
+      "region": 67.0,
+      "voxel_count": 0,
+      "region_label": "Left Parahippocampal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 68.0,
+      "voxel_count": 0,
+      "region_label": "Right Parahippocampal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 69.0,
+      "voxel_count": 0,
+      "region_label": "Left Parahippocampal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 70.0,
+      "voxel_count": 0,
+      "region_label": "Right Parahippocampal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 71.0,
+      "voxel_count": 0,
+      "region_label": "Left Lingual Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 72.0,
+      "voxel_count": 0,
+      "region_label": "Right Lingual Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 73.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Fusiform Cortex, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 74.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Fusiform Cortex, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 75.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Fusiform Cortex, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 76.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Fusiform Cortex, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 77.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Occipital Fusiform Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 78.0,
+      "voxel_count": 19,
+      "region_label": "Right Temporal Occipital Fusiform Cortex",
+      "volume_mm3": 19
+    },
+    {
+      "region": 79.0,
+      "voxel_count": 0,
+      "region_label": "Left Occipital Fusiform Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 80.0,
+      "voxel_count": 0,
+      "region_label": "Right Occipital Fusiform Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 81.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 82.0,
+      "voxel_count": 102,
+      "region_label": "Right Frontal Opercular Cortex",
+      "volume_mm3": 102
+    },
+    {
+      "region": 83.0,
+      "voxel_count": 4,
+      "region_label": "Left Central Opercular Cortex",
+      "volume_mm3": 4
+    },
+    {
+      "region": 84.0,
+      "voxel_count": 0,
+      "region_label": "Right Central Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 85.0,
+      "voxel_count": 0,
+      "region_label": "Left Parietal Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 86.0,
+      "voxel_count": 1,
+      "region_label": "Right Parietal Opercular Cortex",
+      "volume_mm3": 1
+    },
+    {
+      "region": 87.0,
+      "voxel_count": 0,
+      "region_label": "Left Planum Polare",
+      "volume_mm3": 0
+    },
+    {
+      "region": 88.0,
+      "voxel_count": 0,
+      "region_label": "Right Planum Polare",
+      "volume_mm3": 0
+    },
+    {
+      "region": 89.0,
+      "voxel_count": 0,
+      "region_label": "Left Heschl's Gyrus (includes H1 and H2)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 90.0,
+      "voxel_count": 0,
+      "region_label": "Right Heschl's Gyrus (includes H1 and H2)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 91.0,
+      "voxel_count": 0,
+      "region_label": "Left Planum Temporale",
+      "volume_mm3": 0
+    },
+    {
+      "region": 92.0,
+      "voxel_count": 1,
+      "region_label": "Right Planum Temporale",
+      "volume_mm3": 1
+    },
+    {
+      "region": 93.0,
+      "voxel_count": 0,
+      "region_label": "Left Supracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 94.0,
+      "voxel_count": 0,
+      "region_label": "Right Supracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 95.0,
+      "voxel_count": 0,
+      "region_label": "Left Occipital Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 96.0,
+      "voxel_count": 0,
+      "region_label": "Right Occipital Pole",
+      "volume_mm3": 0
+    }
+  ],
+  "Results lesion mapping subcortical HO atlas": [
+    {
+      "region": 0.0,
+      "voxel_count": 7,
+      "region_label": "Background",
+      "volume_mm3": 7
+    },
+    {
+      "region": 1.0,
+      "voxel_count": 162,
+      "region_label": "Left Cerebral White Matter",
+      "volume_mm3": 162
+    },
+    {
+      "region": 2.0,
+      "voxel_count": 6,
+      "region_label": "Left Cerebral Cortex",
+      "volume_mm3": 6
+    },
+    {
+      "region": 3.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Ventricle",
+      "volume_mm3": 0
+    },
+    {
+      "region": 4.0,
+      "voxel_count": 1,
+      "region_label": "Left Thalamus",
+      "volume_mm3": 1
+    },
+    {
+      "region": 5.0,
+      "voxel_count": 7,
+      "region_label": "Left Caudate",
+      "volume_mm3": 7
+    },
+    {
+      "region": 6.0,
+      "voxel_count": 0,
+      "region_label": "Left Putamen",
+      "volume_mm3": 0
+    },
+    {
+      "region": 7.0,
+      "voxel_count": 0,
+      "region_label": "Left Pallidum",
+      "volume_mm3": 0
+    },
+    {
+      "region": 8.0,
+      "voxel_count": 0,
+      "region_label": "Left Brain-Stem",
+      "volume_mm3": 0
+    },
+    {
+      "region": 9.0,
+      "voxel_count": 0,
+      "region_label": "Right Brain-Stem",
+      "volume_mm3": 0
+    },
+    {
+      "region": 10.0,
+      "voxel_count": 0,
+      "region_label": "Left Hippocampus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 11.0,
+      "voxel_count": 0,
+      "region_label": "Left Amygdala",
+      "volume_mm3": 0
+    },
+    {
+      "region": 12.0,
+      "voxel_count": 0,
+      "region_label": "Left Accumbens",
+      "volume_mm3": 0
+    },
+    {
+      "region": 13.0,
+      "voxel_count": 1663,
+      "region_label": "Right Cerebral White Matter",
+      "volume_mm3": 1663
+    },
+    {
+      "region": 14.0,
+      "voxel_count": 336,
+      "region_label": "Right Cerebral Cortex",
+      "volume_mm3": 336
+    },
+    {
+      "region": 15.0,
+      "voxel_count": 1,
+      "region_label": "Right Lateral Ventricle",
+      "volume_mm3": 1
+    },
+    {
+      "region": 16.0,
+      "voxel_count": 6,
+      "region_label": "Right Thalamus",
+      "volume_mm3": 6
+    },
+    {
+      "region": 17.0,
+      "voxel_count": 18,
+      "region_label": "Right Caudate",
+      "volume_mm3": 18
+    },
+    {
+      "region": 18.0,
+      "voxel_count": 93,
+      "region_label": "Right Putamen",
+      "volume_mm3": 93
+    },
+    {
+      "region": 19.0,
+      "voxel_count": 10,
+      "region_label": "Right Pallidum",
+      "volume_mm3": 10
+    },
+    {
+      "region": 20.0,
+      "voxel_count": 2,
+      "region_label": "Right Hippocampus",
+      "volume_mm3": 2
+    },
+    {
+      "region": 21.0,
+      "voxel_count": 190,
+      "region_label": "Right Amygdala",
+      "volume_mm3": 190
+    },
+    {
+      "region": 22.0,
+      "voxel_count": 0,
+      "region_label": "Right Accumbens",
+      "volume_mm3": 0
+    }
+  ],
+  "Results lnm mapping cortical HO atlas": [
+    {
+      "region": 0.0,
+      "voxel_count": 492,
+      "region_label": "Background",
+      "volume_mm3": 3936
+    },
+    {
+      "region": 1.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 2.0,
+      "voxel_count": 4,
+      "region_label": "Right Frontal Pole",
+      "volume_mm3": 32
+    },
+    {
+      "region": 3.0,
+      "voxel_count": 0,
+      "region_label": "Left Insular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 4.0,
+      "voxel_count": 131,
+      "region_label": "Right Insular Cortex",
+      "volume_mm3": 1048
+    },
+    {
+      "region": 5.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 6.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 7.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 8.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Frontal Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 9.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Frontal Gyrus, pars triangularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 10.0,
+      "voxel_count": 6,
+      "region_label": "Right Inferior Frontal Gyrus, pars triangularis",
+      "volume_mm3": 48
+    },
+    {
+      "region": 11.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Frontal Gyrus, pars opercularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 12.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Frontal Gyrus, pars opercularis",
+      "volume_mm3": 0
+    },
+    {
+      "region": 13.0,
+      "voxel_count": 0,
+      "region_label": "Left Precentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 14.0,
+      "voxel_count": 0,
+      "region_label": "Right Precentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 15.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 16.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 17.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 18.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 19.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 20.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 21.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 22.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 23.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 24.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 25.0,
+      "voxel_count": 0,
+      "region_label": "Left Middle Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 26.0,
+      "voxel_count": 0,
+      "region_label": "Right Middle Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 27.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 28.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 29.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 30.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 31.0,
+      "voxel_count": 0,
+      "region_label": "Left Inferior Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 32.0,
+      "voxel_count": 0,
+      "region_label": "Right Inferior Temporal Gyrus, temporooccipital part",
+      "volume_mm3": 0
+    },
+    {
+      "region": 33.0,
+      "voxel_count": 0,
+      "region_label": "Left Postcentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 34.0,
+      "voxel_count": 0,
+      "region_label": "Right Postcentral Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 35.0,
+      "voxel_count": 0,
+      "region_label": "Left Superior Parietal Lobule",
+      "volume_mm3": 0
+    },
+    {
+      "region": 36.0,
+      "voxel_count": 0,
+      "region_label": "Right Superior Parietal Lobule",
+      "volume_mm3": 0
+    },
+    {
+      "region": 37.0,
+      "voxel_count": 0,
+      "region_label": "Left Supramarginal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 38.0,
+      "voxel_count": 0,
+      "region_label": "Right Supramarginal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 39.0,
+      "voxel_count": 0,
+      "region_label": "Left Supramarginal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 40.0,
+      "voxel_count": 0,
+      "region_label": "Right Supramarginal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 41.0,
+      "voxel_count": 0,
+      "region_label": "Left Angular Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 42.0,
+      "voxel_count": 0,
+      "region_label": "Right Angular Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 43.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Occipital Cortex, superior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 44.0,
+      "voxel_count": 0,
+      "region_label": "Right Lateral Occipital Cortex, superior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 45.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Occipital Cortex, inferior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 46.0,
+      "voxel_count": 0,
+      "region_label": "Right Lateral Occipital Cortex, inferior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 47.0,
+      "voxel_count": 0,
+      "region_label": "Left Intracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 48.0,
+      "voxel_count": 0,
+      "region_label": "Right Intracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 49.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Medial Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 50.0,
+      "voxel_count": 0,
+      "region_label": "Right Frontal Medial Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 51.0,
+      "voxel_count": 0,
+      "region_label": "Left Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 52.0,
+      "voxel_count": 0,
+      "region_label": "Right Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 53.0,
+      "voxel_count": 0,
+      "region_label": "Left Subcallosal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 54.0,
+      "voxel_count": 0,
+      "region_label": "Right Subcallosal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 55.0,
+      "voxel_count": 0,
+      "region_label": "Left Paracingulate Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 56.0,
+      "voxel_count": 0,
+      "region_label": "Right Paracingulate Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 57.0,
+      "voxel_count": 0,
+      "region_label": "Left Cingulate Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 58.0,
+      "voxel_count": 0,
+      "region_label": "Right Cingulate Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 59.0,
+      "voxel_count": 9,
+      "region_label": "Left Cingulate Gyrus, posterior division",
+      "volume_mm3": 72
+    },
+    {
+      "region": 60.0,
+      "voxel_count": 1,
+      "region_label": "Right Cingulate Gyrus, posterior division",
+      "volume_mm3": 8
+    },
+    {
+      "region": 61.0,
+      "voxel_count": 7,
+      "region_label": "Left Precuneous Cortex",
+      "volume_mm3": 56
+    },
+    {
+      "region": 62.0,
+      "voxel_count": 0,
+      "region_label": "Right Precuneous Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 63.0,
+      "voxel_count": 0,
+      "region_label": "Left Cuneal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 64.0,
+      "voxel_count": 0,
+      "region_label": "Right Cuneal Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 65.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Orbital Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 66.0,
+      "voxel_count": 26,
+      "region_label": "Right Frontal Orbital Cortex",
+      "volume_mm3": 208
+    },
+    {
+      "region": 67.0,
+      "voxel_count": 0,
+      "region_label": "Left Parahippocampal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 68.0,
+      "voxel_count": 0,
+      "region_label": "Right Parahippocampal Gyrus, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 69.0,
+      "voxel_count": 1,
+      "region_label": "Left Parahippocampal Gyrus, posterior division",
+      "volume_mm3": 8
+    },
+    {
+      "region": 70.0,
+      "voxel_count": 0,
+      "region_label": "Right Parahippocampal Gyrus, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 71.0,
+      "voxel_count": 0,
+      "region_label": "Left Lingual Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 72.0,
+      "voxel_count": 0,
+      "region_label": "Right Lingual Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 73.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Fusiform Cortex, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 74.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Fusiform Cortex, anterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 75.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Fusiform Cortex, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 76.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Fusiform Cortex, posterior division",
+      "volume_mm3": 0
+    },
+    {
+      "region": 77.0,
+      "voxel_count": 0,
+      "region_label": "Left Temporal Occipital Fusiform Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 78.0,
+      "voxel_count": 0,
+      "region_label": "Right Temporal Occipital Fusiform Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 79.0,
+      "voxel_count": 0,
+      "region_label": "Left Occipital Fusiform Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 80.0,
+      "voxel_count": 0,
+      "region_label": "Right Occipital Fusiform Gyrus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 81.0,
+      "voxel_count": 0,
+      "region_label": "Left Frontal Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 82.0,
+      "voxel_count": 59,
+      "region_label": "Right Frontal Opercular Cortex",
+      "volume_mm3": 472
+    },
+    {
+      "region": 83.0,
+      "voxel_count": 0,
+      "region_label": "Left Central Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 84.0,
+      "voxel_count": 0,
+      "region_label": "Right Central Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 85.0,
+      "voxel_count": 0,
+      "region_label": "Left Parietal Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 86.0,
+      "voxel_count": 0,
+      "region_label": "Right Parietal Opercular Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 87.0,
+      "voxel_count": 0,
+      "region_label": "Left Planum Polare",
+      "volume_mm3": 0
+    },
+    {
+      "region": 88.0,
+      "voxel_count": 0,
+      "region_label": "Right Planum Polare",
+      "volume_mm3": 0
+    },
+    {
+      "region": 89.0,
+      "voxel_count": 0,
+      "region_label": "Left Heschl's Gyrus (includes H1 and H2)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 90.0,
+      "voxel_count": 0,
+      "region_label": "Right Heschl's Gyrus (includes H1 and H2)",
+      "volume_mm3": 0
+    },
+    {
+      "region": 91.0,
+      "voxel_count": 0,
+      "region_label": "Left Planum Temporale",
+      "volume_mm3": 0
+    },
+    {
+      "region": 92.0,
+      "voxel_count": 0,
+      "region_label": "Right Planum Temporale",
+      "volume_mm3": 0
+    },
+    {
+      "region": 93.0,
+      "voxel_count": 0,
+      "region_label": "Left Supracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 94.0,
+      "voxel_count": 0,
+      "region_label": "Right Supracalcarine Cortex",
+      "volume_mm3": 0
+    },
+    {
+      "region": 95.0,
+      "voxel_count": 0,
+      "region_label": "Left Occipital Pole",
+      "volume_mm3": 0
+    },
+    {
+      "region": 96.0,
+      "voxel_count": 0,
+      "region_label": "Right Occipital Pole",
+      "volume_mm3": 0
+    }
+  ],
+  "Results lnm mapping subcortical HO atlas": [
+    {
+      "region": 0.0,
+      "voxel_count": 43,
+      "region_label": "Background",
+      "volume_mm3": 344
+    },
+    {
+      "region": 1.0,
+      "voxel_count": 245,
+      "region_label": "Left Cerebral White Matter",
+      "volume_mm3": 1960
+    },
+    {
+      "region": 2.0,
+      "voxel_count": 16,
+      "region_label": "Left Cerebral Cortex",
+      "volume_mm3": 128
+    },
+    {
+      "region": 3.0,
+      "voxel_count": 0,
+      "region_label": "Left Lateral Ventricle",
+      "volume_mm3": 0
+    },
+    {
+      "region": 4.0,
+      "voxel_count": 0,
+      "region_label": "Left Thalamus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 5.0,
+      "voxel_count": 0,
+      "region_label": "Left Caudate",
+      "volume_mm3": 0
+    },
+    {
+      "region": 6.0,
+      "voxel_count": 0,
+      "region_label": "Left Putamen",
+      "volume_mm3": 0
+    },
+    {
+      "region": 7.0,
+      "voxel_count": 0,
+      "region_label": "Left Pallidum",
+      "volume_mm3": 0
+    },
+    {
+      "region": 8.0,
+      "voxel_count": 0,
+      "region_label": "Left Brain-Stem",
+      "volume_mm3": 0
+    },
+    {
+      "region": 9.0,
+      "voxel_count": 0,
+      "region_label": "Right Brain-Stem",
+      "volume_mm3": 0
+    },
+    {
+      "region": 10.0,
+      "voxel_count": 1,
+      "region_label": "Left Hippocampus",
+      "volume_mm3": 8
+    },
+    {
+      "region": 11.0,
+      "voxel_count": 10,
+      "region_label": "Left Amygdala",
+      "volume_mm3": 80
+    },
+    {
+      "region": 12.0,
+      "voxel_count": 0,
+      "region_label": "Left Accumbens",
+      "volume_mm3": 0
+    },
+    {
+      "region": 13.0,
+      "voxel_count": 188,
+      "region_label": "Right Cerebral White Matter",
+      "volume_mm3": 1504
+    },
+    {
+      "region": 14.0,
+      "voxel_count": 227,
+      "region_label": "Right Cerebral Cortex",
+      "volume_mm3": 1816
+    },
+    {
+      "region": 15.0,
+      "voxel_count": 0,
+      "region_label": "Right Lateral Ventricle",
+      "volume_mm3": 0
+    },
+    {
+      "region": 16.0,
+      "voxel_count": 0,
+      "region_label": "Right Thalamus",
+      "volume_mm3": 0
+    },
+    {
+      "region": 17.0,
+      "voxel_count": 0,
+      "region_label": "Right Caudate",
+      "volume_mm3": 0
+    },
+    {
+      "region": 18.0,
+      "voxel_count": 0,
+      "region_label": "Right Putamen",
+      "volume_mm3": 0
+    },
+    {
+      "region": 19.0,
+      "voxel_count": 0,
+      "region_label": "Right Pallidum",
+      "volume_mm3": 0
+    },
+    {
+      "region": 20.0,
+      "voxel_count": 6,
+      "region_label": "Right Hippocampus",
+      "volume_mm3": 48
+    },
+    {
+      "region": 21.0,
+      "voxel_count": 0,
+      "region_label": "Right Amygdala",
+      "volume_mm3": 0
+    },
+    {
+      "region": 22.0,
+      "voxel_count": 0,
+      "region_label": "Right Accumbens",
+      "volume_mm3": 0
+    }
+  ],
+  "Results sdsm mapping fibre anatomy atlas": [
+    {
+      "fibre_name": "Anterior_Commissure",
+      "voxel_count": 827.0,
+      "volume_mm3": 827
+    },
+    {
+      "fibre_name": "Anterior_Thalamic_Projections_Left",
+      "voxel_count": 3146.0,
+      "volume_mm3": 3146
+    },
+    {
+      "fibre_name": "Anterior_Thalamic_Projections_Right",
+      "voxel_count": 14882.0,
+      "volume_mm3": 14882
+    },
+    {
+      "fibre_name": "Arcuate_Anterior_Segment_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Arcuate_Anterior_Segment_Right",
+      "voxel_count": 2299.0,
+      "volume_mm3": 2299
+    },
+    {
+      "fibre_name": "Arcuate_Long_Segment_Left",
+      "voxel_count": 2.0,
+      "volume_mm3": 2
+    },
+    {
+      "fibre_name": "Arcuate_Long_Segment_Right",
+      "voxel_count": 314.0,
+      "volume_mm3": 314
+    },
+    {
+      "fibre_name": "Arcuate_Posterior_Segment_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Arcuate_Posterior_Segment_Right",
+      "voxel_count": 10.0,
+      "volume_mm3": 10
+    },
+    {
+      "fibre_name": "Cingulum_Left",
+      "voxel_count": 688.0,
+      "volume_mm3": 688
+    },
+    {
+      "fibre_name": "Cingulum_Left_anterior",
+      "voxel_count": 185.0,
+      "volume_mm3": 185
+    },
+    {
+      "fibre_name": "Cingulum_Left_posterior",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Cingulum_Right",
+      "voxel_count": 56.0,
+      "volume_mm3": 56
+    },
+    {
+      "fibre_name": "Cingulum_Right_Anterior",
+      "voxel_count": 750.0,
+      "volume_mm3": 750
+    },
+    {
+      "fibre_name": "Cingulum_Right_Posterior",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Corpus_callosum",
+      "voxel_count": 20323.0,
+      "volume_mm3": 20323
+    },
+    {
+      "fibre_name": "Cortico_Spinal_Left",
+      "voxel_count": 886.0,
+      "volume_mm3": 886
+    },
+    {
+      "fibre_name": "Cortico_Spinal_Right",
+      "voxel_count": 5057.0,
+      "volume_mm3": 5057
+    },
+    {
+      "fibre_name": "Face_U_tract_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Face_U_tract_Right",
+      "voxel_count": 24.0,
+      "volume_mm3": 24
+    },
+    {
+      "fibre_name": "Fornix",
+      "voxel_count": 412.0,
+      "volume_mm3": 412
+    },
+    {
+      "fibre_name": "Frontal_Aslant_Tract_Left",
+      "voxel_count": 1667.0,
+      "volume_mm3": 1667
+    },
+    {
+      "fibre_name": "Frontal_Aslant_tract_Right",
+      "voxel_count": 6607.0,
+      "volume_mm3": 6607
+    },
+    {
+      "fibre_name": "Frontal_Commissural",
+      "voxel_count": 13471.0,
+      "volume_mm3": 13471
+    },
+    {
+      "fibre_name": "Frontal_Inferior_longitudinal_Left",
+      "voxel_count": 8.0,
+      "volume_mm3": 8
+    },
+    {
+      "fibre_name": "Frontal_Inferior_longitudinal_Right",
+      "voxel_count": 2518.0,
+      "volume_mm3": 2518
+    },
+    {
+      "fibre_name": "Frontal_Orbito_Polar_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Frontal_Orbito_Polar_Right",
+      "voxel_count": 294.0,
+      "volume_mm3": 294
+    },
+    {
+      "fibre_name": "Frontal_Superior_Longitudinal_Left",
+      "voxel_count": 126.0,
+      "volume_mm3": 126
+    },
+    {
+      "fibre_name": "Frontal_Superior_Longitudinal_Right",
+      "voxel_count": 1992.0,
+      "volume_mm3": 1992
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract1_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract1_Right",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract2_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract2_Right",
+      "voxel_count": 431.0,
+      "volume_mm3": 431
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract3_Left",
+      "voxel_count": 13.0,
+      "volume_mm3": 13
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract3_Right",
+      "voxel_count": 1176.0,
+      "volume_mm3": 1176
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract4_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract4_Right",
+      "voxel_count": 388.0,
+      "volume_mm3": 388
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract5_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Insular_tract5_Right",
+      "voxel_count": 86.0,
+      "volume_mm3": 86
+    },
+    {
+      "fibre_name": "Fronto_Marginal_tract_left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Fronto_Marginal_tract_right",
+      "voxel_count": 148.0,
+      "volume_mm3": 148
+    },
+    {
+      "fibre_name": "Fronto_Striatal_Left",
+      "voxel_count": 2489.0,
+      "volume_mm3": 2489
+    },
+    {
+      "fibre_name": "Fronto_Striatal_Right",
+      "voxel_count": 14518.0,
+      "volume_mm3": 14518
+    },
+    {
+      "fibre_name": "Handinf_U_tract_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Handinf_U_tract_Right",
+      "voxel_count": 9.0,
+      "volume_mm3": 9
+    },
+    {
+      "fibre_name": "Handmid_U_tract_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Handmid_U_tract_Right",
+      "voxel_count": 19.0,
+      "volume_mm3": 19
+    },
+    {
+      "fibre_name": "Handsup_U_tract_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Handsup_U_tract_Right",
+      "voxel_count": 433.0,
+      "volume_mm3": 433
+    },
+    {
+      "fibre_name": "Inferior_Fronto_Occipital_fasciculus_Left",
+      "voxel_count": 70.0,
+      "volume_mm3": 70
+    },
+    {
+      "fibre_name": "Inferior_Fronto_Occipital_fasciculus_Right",
+      "voxel_count": 3143.0,
+      "volume_mm3": 3143
+    },
+    {
+      "fibre_name": "Inferior_Longitudinal_Left",
+      "voxel_count": 119.0,
+      "volume_mm3": 119
+    },
+    {
+      "fibre_name": "Inferior_Longitudinal_Right",
+      "voxel_count": 867.0,
+      "volume_mm3": 867
+    },
+    {
+      "fibre_name": "Optic_Radiations_Left",
+      "voxel_count": 101.0,
+      "volume_mm3": 101
+    },
+    {
+      "fibre_name": "Optic_Radiations_Right",
+      "voxel_count": 52.0,
+      "volume_mm3": 52
+    },
+    {
+      "fibre_name": "Paracentral_U_tract_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Paracentral_U_tract_Right",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Pons_Left",
+      "voxel_count": 2301.0,
+      "volume_mm3": 2301
+    },
+    {
+      "fibre_name": "Pons_Right",
+      "voxel_count": 10268.0,
+      "volume_mm3": 10268
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_III_Left",
+      "voxel_count": 250.0,
+      "volume_mm3": 250
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_III_Right",
+      "voxel_count": 5337.0,
+      "volume_mm3": 5337
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_II_Left",
+      "voxel_count": 160.0,
+      "volume_mm3": 160
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_II_Right",
+      "voxel_count": 2564.0,
+      "volume_mm3": 2564
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_I_Left",
+      "voxel_count": 531.0,
+      "volume_mm3": 531
+    },
+    {
+      "fibre_name": "Superior_Londgitudinal_Fasciculus_I_Right",
+      "voxel_count": 3149.0,
+      "volume_mm3": 3149
+    },
+    {
+      "fibre_name": "Uncinate_Left",
+      "voxel_count": 0.0,
+      "volume_mm3": 0
+    },
+    {
+      "fibre_name": "Uncinate_Right",
+      "voxel_count": 997.0,
+      "volume_mm3": 997
+    }
+  ],
+  "Results sdsm mapping neurotransmitter atlas": [
+    {
+      "transmitter_name": "functionnectome_anat_A4B2",
+      "volume_mm3": 797
+    },
+    {
+      "transmitter_name": "functionnectome_anat_VAChT",
+      "volume_mm3": 267
+    },
+    {
+      "transmitter_name": "functionnectome_anat_D2",
+      "volume_mm3": 156
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT4",
+      "volume_mm3": 148
+    },
+    {
+      "transmitter_name": "functionnectome_anat_D1",
+      "volume_mm3": 126
+    },
+    {
+      "transmitter_name": "functionnectome_anat_DAT",
+      "volume_mm3": 125
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HTT",
+      "volume_mm3": 108
+    },
+    {
+      "transmitter_name": "functionnectome_anat_NAT",
+      "volume_mm3": 98
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT6",
+      "volume_mm3": 86
+    },
+    {
+      "transmitter_name": "functionnectome_anat_M1",
+      "volume_mm3": 76
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT1b",
+      "volume_mm3": 44
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT1a",
+      "volume_mm3": 16
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT2a",
+      "volume_mm3": 13
+    }
+  ]
+}
