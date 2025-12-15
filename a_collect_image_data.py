@@ -9,6 +9,7 @@ Output: CSV with paths to all files and depression scores.
 # %%
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from nibabel.nifti1 import Nifti1Image
 from nibabel.orientations import aff2axcodes
@@ -89,10 +90,11 @@ if not data[Cols.SUBJECT_ID].is_unique:
 data = data.replace(MISSING_DATA_CHAR, PLACEHOLDER_MISSING_VALUE)
 
 # %%
-# Fetch file paths
+# Fetch file paths and read out lesion volume
 lesion_path_list = []
 discmap_path_list = []
 lnm_path_list = []
+lesion_volume_list = []
 
 
 for index, row in data.iterrows():
@@ -104,6 +106,19 @@ for index, row in data.iterrows():
 
     lesion_path = find_unique_path(paths=nifti_files, str1=sid, str2=LESION)
     lesion_path_list.append(lesion_path)
+
+    # read lesion volume in ml
+    if lesion_path == PLACEHOLDER_FILE_NOT_EXIST:
+        lesion_volume_list.append(PLACEHOLDER_MISSING_VALUE)
+    else:
+        img = load_nifti(lesion_path)
+        img_array = img.get_fdata()
+        n_voxels = np.count_nonzero(img_array)
+        voxel_sizes = img.header.get_zooms()[:3]
+        voxel_volume_mm3 = np.prod(voxel_sizes)
+        volume_ml = n_voxels * voxel_volume_mm3 / 1000
+        lesion_volume_list.append(volume_ml)
+
     discmap_path = find_unique_path(
         paths=nifti_files, str1=sid, str2=DISCONNECTION_MAPS
     )
@@ -115,9 +130,11 @@ for index, row in data.iterrows():
         data.loc[index, Cols.EXCLUDED] = 1  # type: ignore
         data.loc[index, Cols.EXCLUSION_REASON] = "Incomplete Images"  # type: ignore
 
+data[Cols.LESION_VOLUME] = lesion_volume_list
 data[Cols.PATH_LESION_IMAGE] = lesion_path_list
 data[Cols.PATH_LNM_IMAGE] = lnm_path_list
 data[Cols.PATH_DISCMAP_IMAGE] = discmap_path_list
+
 
 # %%
 # Exclusions based on demographic/clinical information

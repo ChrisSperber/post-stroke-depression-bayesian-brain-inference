@@ -45,6 +45,7 @@ class Cols:
     AETIOLOGY: str = "Aetiology"
     HANDEDNESS: str = "Handedness"
     NIHSS_ON_ADMISSION: str = "NIHSSonAdmission"
+    LESION_VOLUME: str = "LesionVolumeML"
     DAYS_ONSET_TO_FOLLOWUP: str = "DaysToFollowup"
     GDS15: str = "GDS15"
     GDS30: str = "GDS30"

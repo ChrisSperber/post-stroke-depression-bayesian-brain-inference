@@ -52,6 +52,13 @@ sd_val = round(age.std(), 2)
 min_val = round(age.min(), 2)
 max_val = round(age.max(), 2)
 
+lesion_vol = data[Cols.LESION_VOLUME]
+median_lesvol = round(lesion_vol.median(), 1)
+iqr_lesvol = [
+    float(round(lesion_vol.quantile(0.25), 1)),
+    float(round(lesion_vol.quantile(0.75), 1)),
+]
+
 print("------\nAge")
 print(f"Mean: {mean_val}")
 print(f"Std: {sd_val}")
@@ -70,6 +77,10 @@ n_icb = sum(data[Cols.AETIOLOGY] == "ICB")
 
 print(f"Ischmaemia: {n_ischaemia}, {round(n_ischaemia/n_total*100,2)}%")
 print(f"ICB: {n_icb}, {round(n_icb/n_total*100,2)}%")
+
+print("------\nLesion Volume")
+print(f"Median: {median_lesvol}")
+print(f"IQR: {iqr_lesvol}")
 
 summary = {
     "total_n": int(n_total),
@@ -92,6 +103,10 @@ summary = {
             "percent": float(round(n_ischaemia / n_total * 100, 2)),
         },
         "icb": {"n": int(n_icb), "percent": float(round(n_icb / n_total * 100, 2))},
+    },
+    "lesion_volume": {
+        "median": float(median_lesvol),
+        "iqr": f"{iqr_lesvol[0]} - {iqr_lesvol[1]}",
     },
 }
 
@@ -182,6 +197,22 @@ for cohort in cohorts:
                 VALUE: handedness_str,
             }
         )
+
+    # Lesion Volume
+    lesion_volume = cohort_df[Cols.LESION_VOLUME]
+    lesion_volume_str = (
+        f"Median:{lesion_volume.median()}, "
+        f"IQR:[{lesion_volume.quantile(0.25)}, {lesion_volume.quantile(0.75)}]"
+    )
+
+    statistical_results_list.append(
+        {
+            COHORT: cohort,
+            VARIABLE: Cols.LESION_VOLUME,
+            STAT: "Median, IQR",
+            VALUE: lesion_volume_str,
+        }
+    )
 
     # NIHSS on Admission
     if all_missing_or_placeholder(cohort_df[Cols.NIHSS_ON_ADMISSION]):
