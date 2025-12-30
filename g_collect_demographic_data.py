@@ -23,17 +23,18 @@ VALUE = "Value"
 
 # Cohort Names
 IOWA = "Iowa"
-HALLYM = "Hallym"
-BUNDANG = "Bundang"
+KOREA = "Korea"
 LEIPZIG = "Leipzig"
 BORDEAUX = "Bordeaux"
+# Korean sub-cohorts
+HALLYM = "Hallym"
+BUNDANG = "Bundang"
 
-cohorts = [IOWA, HALLYM, BUNDANG, LEIPZIG, BORDEAUX]
+cohorts = [IOWA, KOREA, LEIPZIG, BORDEAUX]
 
 DEPRESSION_MEASURE_MAP = {
     IOWA: [Cols.BDI_II],
-    HALLYM: [Cols.GDS15, Cols.GDS30],
-    BUNDANG: [Cols.GDS15, Cols.GDS30],
+    KOREA: [Cols.GDS15, Cols.GDS30],
     LEIPZIG: [Cols.HADS],
     BORDEAUX: [Cols.HADS],
 }
@@ -41,6 +42,9 @@ DEPRESSION_MEASURE_MAP = {
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
 data = data[data[Cols.EXCLUDED] == 0]
+
+# replace Korean subcohort names with meta-cohort name to create a single summary
+data[Cols.COHORT] = data[Cols.COHORT].replace([HALLYM, BUNDANG], KOREA)
 
 # print general whole sample statistics to terminal
 n_total = len(data)

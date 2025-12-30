@@ -8,26 +8,16 @@ Iowa,LesionVolumeML,"Median, IQR","Median:15.538, IQR:[5.4565, 42.03350000000000
 Iowa,NIHSSonAdmission,"Median, IQR",Not_available
 Iowa,DaysToFollowup,"Median, IQR",Not_available
 Iowa,DepressionScore,"BDI_II: N, Median, IQR","N: 199, Median:11.0, IQR:[5.0, 18.0]"
-Hallym,Sample_Size,N,442
-Hallym,Aetiology,N,"Ischemia:442, ICB:0"
-Hallym,Age,"Mean, SD, Range","Mean:65.22, SD:11.99, Range:31.0-93.0 "
-Hallym,Sex,N,"Male:937, Female:773"
-Hallym,Handedness,N,"R:414, L:4, Other:3"
-Hallym,LesionVolumeML,"Median, IQR","Median:2.194, IQR:[1.0125, 12.3555]"
-Hallym,NIHSSonAdmission,"Median, IQR","Median:2.0, IQR:[1.0, 4.0]"
-Hallym,DaysToFollowup,"Median, IQR","Median:97.0, IQR:[90.0, 105.0]"
-Hallym,DepressionScore,"GDS15: N, Median, IQR","N: 413, Median:4.0, IQR:[2.0, 8.0]"
-Hallym,DepressionScore,"GDS30: N, Median, IQR","N: 29, Median:9.0, IQR:[5.0, 17.0]"
-Bundang,Sample_Size,N,550
-Bundang,Aetiology,N,"Ischemia:550, ICB:0"
-Bundang,Age,"Mean, SD, Range","Mean:69.3, SD:11.09, Range:21.0-94.0 "
-Bundang,Sex,N,"Male:937, Female:773"
-Bundang,Handedness,N,"R:531, L:5, Other:12"
-Bundang,LesionVolumeML,"Median, IQR","Median:4.388, IQR:[1.43125, 18.44875]"
-Bundang,NIHSSonAdmission,"Median, IQR","Median:3.0, IQR:[2.0, 5.0]"
-Bundang,DaysToFollowup,"Median, IQR","Median:105.0, IQR:[12.25, 167.0]"
-Bundang,DepressionScore,"GDS15: N, Median, IQR","N: 55, Median:2.0, IQR:[1.0, 5.0]"
-Bundang,DepressionScore,"GDS30: N, Median, IQR","N: 495, Median:13.0, IQR:[7.0, 20.0]"
+Korea,Sample_Size,N,992
+Korea,Aetiology,N,"Ischemia:992, ICB:0"
+Korea,Age,"Mean, SD, Range","Mean:67.48, SD:11.67, Range:21.0-94.0 "
+Korea,Sex,N,"Male:937, Female:773"
+Korea,Handedness,N,"R:945, L:9, Other:15"
+Korea,LesionVolumeML,"Median, IQR","Median:3.3645, IQR:[1.19125, 15.66425]"
+Korea,NIHSSonAdmission,"Median, IQR","Median:3.0, IQR:[1.0, 5.0]"
+Korea,DaysToFollowup,"Median, IQR","Median:99.0, IQR:[83.0, 130.25]"
+Korea,DepressionScore,"GDS15: N, Median, IQR","N: 468, Median:4.0, IQR:[1.0, 8.0]"
+Korea,DepressionScore,"GDS30: N, Median, IQR","N: 524, Median:13.0, IQR:[7.0, 20.0]"
 Leipzig,Sample_Size,N,248
 Leipzig,Aetiology,N,"Ischemia:228, ICB:20"
 Leipzig,Age,"Mean, SD, Range","Mean:65.78, SD:12.63, Range:18.0-89.0 "
