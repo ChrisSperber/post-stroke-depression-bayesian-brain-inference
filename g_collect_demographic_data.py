@@ -163,8 +163,8 @@ for cohort in cohorts:
     )
 
     # Sex
-    n_male = sum(data[Cols.SEX] == "Male")
-    n_female = sum(data[Cols.SEX] == "Female")
+    n_male = sum(cohort_df[Cols.SEX] == "Male")
+    n_female = sum(cohort_df[Cols.SEX] == "Female")
 
     sex_str = f"Male:{n_male}, Female:{n_female}"
 
