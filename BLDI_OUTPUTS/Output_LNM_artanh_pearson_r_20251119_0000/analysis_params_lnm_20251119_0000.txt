@@ -1,9 +1,0 @@
-Analysis: Bayesian GLM via BIC - Bayes Factor Approximation
-timestamp: 20251119_0000
-n_subjects: 1710
-aetiology_selected: stroke
-image_shape: 91,109,91
-analysed_voxels: 222060
-minimum_BF: 0.02418254129588604
-maximum_BF: 676.5820922851562
-pearson_transform: artanh_pearson_r
