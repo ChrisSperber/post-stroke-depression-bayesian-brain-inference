@@ -2,9 +2,9 @@
   "Results lesion mapping cortical HO atlas": [
     {
       "region": 0.0,
-      "voxel_count": 2224,
+      "voxel_count": 2684,
       "region_label": "Background",
-      "volume_mm3": 2224
+      "volume_mm3": 2684
     },
     {
       "region": 1.0,
@@ -26,9 +26,9 @@
     },
     {
       "region": 4.0,
-      "voxel_count": 12,
+      "voxel_count": 13,
       "region_label": "Right Insular Cortex",
-      "volume_mm3": 12
+      "volume_mm3": 13
     },
     {
       "region": 5.0,
@@ -80,15 +80,15 @@
     },
     {
       "region": 13.0,
-      "voxel_count": 0,
+      "voxel_count": 2,
       "region_label": "Left Precentral Gyrus",
-      "volume_mm3": 0
+      "volume_mm3": 2
     },
     {
       "region": 14.0,
-      "voxel_count": 34,
+      "voxel_count": 58,
       "region_label": "Right Precentral Gyrus",
-      "volume_mm3": 34
+      "volume_mm3": 58
     },
     {
       "region": 15.0,
@@ -206,9 +206,9 @@
     },
     {
       "region": 34.0,
-      "voxel_count": 62,
+      "voxel_count": 66,
       "region_label": "Right Postcentral Gyrus",
-      "volume_mm3": 62
+      "volume_mm3": 66
     },
     {
       "region": 35.0,
@@ -218,9 +218,9 @@
     },
     {
       "region": 36.0,
-      "voxel_count": 13,
+      "voxel_count": 15,
       "region_label": "Right Superior Parietal Lobule",
-      "volume_mm3": 13
+      "volume_mm3": 15
     },
     {
       "region": 37.0,
@@ -230,9 +230,9 @@
     },
     {
       "region": 38.0,
-      "voxel_count": 11,
+      "voxel_count": 18,
       "region_label": "Right Supramarginal Gyrus, anterior division",
-      "volume_mm3": 11
+      "volume_mm3": 18
     },
     {
       "region": 39.0,
@@ -398,9 +398,9 @@
     },
     {
       "region": 66.0,
-      "voxel_count": 11,
+      "voxel_count": 15,
       "region_label": "Right Frontal Orbital Cortex",
-      "volume_mm3": 11
+      "volume_mm3": 15
     },
     {
       "region": 67.0,
@@ -494,21 +494,21 @@
     },
     {
       "region": 82.0,
-      "voxel_count": 102,
+      "voxel_count": 113,
       "region_label": "Right Frontal Opercular Cortex",
-      "volume_mm3": 102
+      "volume_mm3": 113
     },
     {
       "region": 83.0,
-      "voxel_count": 4,
+      "voxel_count": 5,
       "region_label": "Left Central Opercular Cortex",
-      "volume_mm3": 4
+      "volume_mm3": 5
     },
     {
       "region": 84.0,
-      "voxel_count": 0,
+      "voxel_count": 1,
       "region_label": "Right Central Opercular Cortex",
-      "volume_mm3": 0
+      "volume_mm3": 1
     },
     {
       "region": 85.0,
@@ -592,15 +592,15 @@
     },
     {
       "region": 1.0,
-      "voxel_count": 162,
+      "voxel_count": 203,
       "region_label": "Left Cerebral White Matter",
-      "volume_mm3": 162
+      "volume_mm3": 203
     },
     {
       "region": 2.0,
-      "voxel_count": 6,
+      "voxel_count": 7,
       "region_label": "Left Cerebral Cortex",
-      "volume_mm3": 6
+      "volume_mm3": 7
     },
     {
       "region": 3.0,
@@ -610,21 +610,21 @@
     },
     {
       "region": 4.0,
-      "voxel_count": 1,
+      "voxel_count": 2,
       "region_label": "Left Thalamus",
-      "volume_mm3": 1
+      "volume_mm3": 2
     },
     {
       "region": 5.0,
-      "voxel_count": 7,
+      "voxel_count": 16,
       "region_label": "Left Caudate",
-      "volume_mm3": 7
+      "volume_mm3": 16
     },
     {
       "region": 6.0,
-      "voxel_count": 0,
+      "voxel_count": 1,
       "region_label": "Left Putamen",
-      "volume_mm3": 0
+      "volume_mm3": 1
     },
     {
       "region": 7.0,
@@ -664,15 +664,15 @@
     },
     {
       "region": 13.0,
-      "voxel_count": 1663,
+      "voxel_count": 2000,
       "region_label": "Right Cerebral White Matter",
-      "volume_mm3": 1663
+      "volume_mm3": 2000
     },
     {
       "region": 14.0,
-      "voxel_count": 336,
+      "voxel_count": 388,
       "region_label": "Right Cerebral Cortex",
-      "volume_mm3": 336
+      "volume_mm3": 388
     },
     {
       "region": 15.0,
@@ -688,21 +688,21 @@
     },
     {
       "region": 17.0,
-      "voxel_count": 18,
+      "voxel_count": 28,
       "region_label": "Right Caudate",
-      "volume_mm3": 18
+      "volume_mm3": 28
     },
     {
       "region": 18.0,
-      "voxel_count": 93,
+      "voxel_count": 134,
       "region_label": "Right Putamen",
-      "volume_mm3": 93
+      "volume_mm3": 134
     },
     {
       "region": 19.0,
-      "voxel_count": 10,
+      "voxel_count": 15,
       "region_label": "Right Pallidum",
-      "volume_mm3": 10
+      "volume_mm3": 15
     },
     {
       "region": 20.0,
@@ -712,9 +712,9 @@
     },
     {
       "region": 21.0,
-      "voxel_count": 190,
+      "voxel_count": 209,
       "region_label": "Right Amygdala",
-      "volume_mm3": 190
+      "volume_mm3": 209
     },
     {
       "region": 22.0,
@@ -1450,38 +1450,38 @@
   "Results sdsm mapping fibre anatomy atlas": [
     {
       "fibre_name": "Anterior_Commissure",
-      "voxel_count": 827.0,
-      "volume_mm3": 827
+      "voxel_count": 1088.0,
+      "volume_mm3": 1088
     },
     {
       "fibre_name": "Anterior_Thalamic_Projections_Left",
-      "voxel_count": 3146.0,
-      "volume_mm3": 3146
+      "voxel_count": 4072.0,
+      "volume_mm3": 4072
     },
     {
       "fibre_name": "Anterior_Thalamic_Projections_Right",
-      "voxel_count": 14882.0,
-      "volume_mm3": 14882
+      "voxel_count": 17863.0,
+      "volume_mm3": 17863
     },
     {
       "fibre_name": "Arcuate_Anterior_Segment_Left",
-      "voxel_count": 0.0,
-      "volume_mm3": 0
+      "voxel_count": 1.0,
+      "volume_mm3": 1
     },
     {
       "fibre_name": "Arcuate_Anterior_Segment_Right",
-      "voxel_count": 2299.0,
-      "volume_mm3": 2299
+      "voxel_count": 3117.0,
+      "volume_mm3": 3117
     },
     {
       "fibre_name": "Arcuate_Long_Segment_Left",
-      "voxel_count": 2.0,
-      "volume_mm3": 2
+      "voxel_count": 8.0,
+      "volume_mm3": 8
     },
     {
       "fibre_name": "Arcuate_Long_Segment_Right",
-      "voxel_count": 314.0,
-      "volume_mm3": 314
+      "voxel_count": 503.0,
+      "volume_mm3": 503
     },
     {
       "fibre_name": "Arcuate_Posterior_Segment_Left",
@@ -1490,18 +1490,18 @@
     },
     {
       "fibre_name": "Arcuate_Posterior_Segment_Right",
-      "voxel_count": 10.0,
-      "volume_mm3": 10
+      "voxel_count": 43.0,
+      "volume_mm3": 43
     },
     {
       "fibre_name": "Cingulum_Left",
-      "voxel_count": 688.0,
-      "volume_mm3": 688
+      "voxel_count": 915.0,
+      "volume_mm3": 915
     },
     {
       "fibre_name": "Cingulum_Left_anterior",
-      "voxel_count": 185.0,
-      "volume_mm3": 185
+      "voxel_count": 273.0,
+      "volume_mm3": 273
     },
     {
       "fibre_name": "Cingulum_Left_posterior",
@@ -1510,13 +1510,13 @@
     },
     {
       "fibre_name": "Cingulum_Right",
-      "voxel_count": 56.0,
-      "volume_mm3": 56
+      "voxel_count": 86.0,
+      "volume_mm3": 86
     },
     {
       "fibre_name": "Cingulum_Right_Anterior",
-      "voxel_count": 750.0,
-      "volume_mm3": 750
+      "voxel_count": 881.0,
+      "volume_mm3": 881
     },
     {
       "fibre_name": "Cingulum_Right_Posterior",
@@ -1525,18 +1525,18 @@
     },
     {
       "fibre_name": "Corpus_callosum",
-      "voxel_count": 20323.0,
-      "volume_mm3": 20323
+      "voxel_count": 26011.0,
+      "volume_mm3": 26011
     },
     {
       "fibre_name": "Cortico_Spinal_Left",
-      "voxel_count": 886.0,
-      "volume_mm3": 886
+      "voxel_count": 1162.0,
+      "volume_mm3": 1162
     },
     {
       "fibre_name": "Cortico_Spinal_Right",
-      "voxel_count": 5057.0,
-      "volume_mm3": 5057
+      "voxel_count": 6549.0,
+      "volume_mm3": 6549
     },
     {
       "fibre_name": "Face_U_tract_Left",
@@ -1545,38 +1545,38 @@
     },
     {
       "fibre_name": "Face_U_tract_Right",
-      "voxel_count": 24.0,
-      "volume_mm3": 24
+      "voxel_count": 58.0,
+      "volume_mm3": 58
     },
     {
       "fibre_name": "Fornix",
-      "voxel_count": 412.0,
-      "volume_mm3": 412
+      "voxel_count": 589.0,
+      "volume_mm3": 589
     },
     {
       "fibre_name": "Frontal_Aslant_Tract_Left",
-      "voxel_count": 1667.0,
-      "volume_mm3": 1667
+      "voxel_count": 2154.0,
+      "volume_mm3": 2154
     },
     {
       "fibre_name": "Frontal_Aslant_tract_Right",
-      "voxel_count": 6607.0,
-      "volume_mm3": 6607
+      "voxel_count": 8537.0,
+      "volume_mm3": 8537
     },
     {
       "fibre_name": "Frontal_Commissural",
-      "voxel_count": 13471.0,
-      "volume_mm3": 13471
+      "voxel_count": 16563.0,
+      "volume_mm3": 16563
     },
     {
       "fibre_name": "Frontal_Inferior_longitudinal_Left",
-      "voxel_count": 8.0,
-      "volume_mm3": 8
+      "voxel_count": 20.0,
+      "volume_mm3": 20
     },
     {
       "fibre_name": "Frontal_Inferior_longitudinal_Right",
-      "voxel_count": 2518.0,
-      "volume_mm3": 2518
+      "voxel_count": 3275.0,
+      "volume_mm3": 3275
     },
     {
       "fibre_name": "Frontal_Orbito_Polar_Left",
@@ -1585,18 +1585,18 @@
     },
     {
       "fibre_name": "Frontal_Orbito_Polar_Right",
-      "voxel_count": 294.0,
-      "volume_mm3": 294
+      "voxel_count": 485.0,
+      "volume_mm3": 485
     },
     {
       "fibre_name": "Frontal_Superior_Longitudinal_Left",
-      "voxel_count": 126.0,
-      "volume_mm3": 126
+      "voxel_count": 173.0,
+      "volume_mm3": 173
     },
     {
       "fibre_name": "Frontal_Superior_Longitudinal_Right",
-      "voxel_count": 1992.0,
-      "volume_mm3": 1992
+      "voxel_count": 2488.0,
+      "volume_mm3": 2488
     },
     {
       "fibre_name": "Fronto_Insular_tract1_Left",
@@ -1615,28 +1615,28 @@
     },
     {
       "fibre_name": "Fronto_Insular_tract2_Right",
-      "voxel_count": 431.0,
-      "volume_mm3": 431
+      "voxel_count": 522.0,
+      "volume_mm3": 522
     },
     {
       "fibre_name": "Fronto_Insular_tract3_Left",
-      "voxel_count": 13.0,
-      "volume_mm3": 13
+      "voxel_count": 36.0,
+      "volume_mm3": 36
     },
     {
       "fibre_name": "Fronto_Insular_tract3_Right",
-      "voxel_count": 1176.0,
-      "volume_mm3": 1176
+      "voxel_count": 1570.0,
+      "volume_mm3": 1570
     },
     {
       "fibre_name": "Fronto_Insular_tract4_Left",
-      "voxel_count": 0.0,
-      "volume_mm3": 0
+      "voxel_count": 1.0,
+      "volume_mm3": 1
     },
     {
       "fibre_name": "Fronto_Insular_tract4_Right",
-      "voxel_count": 388.0,
-      "volume_mm3": 388
+      "voxel_count": 565.0,
+      "volume_mm3": 565
     },
     {
       "fibre_name": "Fronto_Insular_tract5_Left",
@@ -1645,8 +1645,8 @@
     },
     {
       "fibre_name": "Fronto_Insular_tract5_Right",
-      "voxel_count": 86.0,
-      "volume_mm3": 86
+      "voxel_count": 155.0,
+      "volume_mm3": 155
     },
     {
       "fibre_name": "Fronto_Marginal_tract_left",
@@ -1655,28 +1655,28 @@
     },
     {
       "fibre_name": "Fronto_Marginal_tract_right",
-      "voxel_count": 148.0,
-      "volume_mm3": 148
+      "voxel_count": 207.0,
+      "volume_mm3": 207
     },
     {
       "fibre_name": "Fronto_Striatal_Left",
-      "voxel_count": 2489.0,
-      "volume_mm3": 2489
+      "voxel_count": 3306.0,
+      "volume_mm3": 3306
     },
     {
       "fibre_name": "Fronto_Striatal_Right",
-      "voxel_count": 14518.0,
-      "volume_mm3": 14518
+      "voxel_count": 17517.0,
+      "volume_mm3": 17517
     },
     {
       "fibre_name": "Handinf_U_tract_Left",
-      "voxel_count": 0.0,
-      "volume_mm3": 0
+      "voxel_count": 1.0,
+      "volume_mm3": 1
     },
     {
       "fibre_name": "Handinf_U_tract_Right",
-      "voxel_count": 9.0,
-      "volume_mm3": 9
+      "voxel_count": 20.0,
+      "volume_mm3": 20
     },
     {
       "fibre_name": "Handmid_U_tract_Left",
@@ -1685,8 +1685,8 @@
     },
     {
       "fibre_name": "Handmid_U_tract_Right",
-      "voxel_count": 19.0,
-      "volume_mm3": 19
+      "voxel_count": 28.0,
+      "volume_mm3": 28
     },
     {
       "fibre_name": "Handsup_U_tract_Left",
@@ -1695,38 +1695,38 @@
     },
     {
       "fibre_name": "Handsup_U_tract_Right",
-      "voxel_count": 433.0,
-      "volume_mm3": 433
+      "voxel_count": 528.0,
+      "volume_mm3": 528
     },
     {
       "fibre_name": "Inferior_Fronto_Occipital_fasciculus_Left",
-      "voxel_count": 70.0,
-      "volume_mm3": 70
+      "voxel_count": 187.0,
+      "volume_mm3": 187
     },
     {
       "fibre_name": "Inferior_Fronto_Occipital_fasciculus_Right",
-      "voxel_count": 3143.0,
-      "volume_mm3": 3143
+      "voxel_count": 4082.0,
+      "volume_mm3": 4082
     },
     {
       "fibre_name": "Inferior_Longitudinal_Left",
-      "voxel_count": 119.0,
-      "volume_mm3": 119
+      "voxel_count": 236.0,
+      "volume_mm3": 236
     },
     {
       "fibre_name": "Inferior_Longitudinal_Right",
-      "voxel_count": 867.0,
-      "volume_mm3": 867
+      "voxel_count": 1331.0,
+      "volume_mm3": 1331
     },
     {
       "fibre_name": "Optic_Radiations_Left",
-      "voxel_count": 101.0,
-      "volume_mm3": 101
+      "voxel_count": 198.0,
+      "volume_mm3": 198
     },
     {
       "fibre_name": "Optic_Radiations_Right",
-      "voxel_count": 52.0,
-      "volume_mm3": 52
+      "voxel_count": 94.0,
+      "volume_mm3": 94
     },
     {
       "fibre_name": "Paracentral_U_tract_Left",
@@ -1740,107 +1740,107 @@
     },
     {
       "fibre_name": "Pons_Left",
-      "voxel_count": 2301.0,
-      "volume_mm3": 2301
+      "voxel_count": 2935.0,
+      "volume_mm3": 2935
     },
     {
       "fibre_name": "Pons_Right",
-      "voxel_count": 10268.0,
-      "volume_mm3": 10268
+      "voxel_count": 12410.0,
+      "volume_mm3": 12410
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_III_Left",
-      "voxel_count": 250.0,
-      "volume_mm3": 250
+      "voxel_count": 369.0,
+      "volume_mm3": 369
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_III_Right",
-      "voxel_count": 5337.0,
-      "volume_mm3": 5337
+      "voxel_count": 6885.0,
+      "volume_mm3": 6885
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_II_Left",
-      "voxel_count": 160.0,
-      "volume_mm3": 160
+      "voxel_count": 258.0,
+      "volume_mm3": 258
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_II_Right",
-      "voxel_count": 2564.0,
-      "volume_mm3": 2564
+      "voxel_count": 3419.0,
+      "volume_mm3": 3419
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_I_Left",
-      "voxel_count": 531.0,
-      "volume_mm3": 531
+      "voxel_count": 762.0,
+      "volume_mm3": 762
     },
     {
       "fibre_name": "Superior_Londgitudinal_Fasciculus_I_Right",
-      "voxel_count": 3149.0,
-      "volume_mm3": 3149
+      "voxel_count": 3882.0,
+      "volume_mm3": 3882
     },
     {
       "fibre_name": "Uncinate_Left",
-      "voxel_count": 0.0,
-      "volume_mm3": 0
+      "voxel_count": 8.0,
+      "volume_mm3": 8
     },
     {
       "fibre_name": "Uncinate_Right",
-      "voxel_count": 997.0,
-      "volume_mm3": 997
+      "voxel_count": 1435.0,
+      "volume_mm3": 1435
     }
   ],
   "Results sdsm mapping neurotransmitter atlas": [
     {
       "transmitter_name": "functionnectome_anat_A4B2",
-      "volume_mm3": 797
+      "volume_mm3": 1033
     },
     {
       "transmitter_name": "functionnectome_anat_VAChT",
-      "volume_mm3": 267
+      "volume_mm3": 387
     },
     {
       "transmitter_name": "functionnectome_anat_D2",
-      "volume_mm3": 156
+      "volume_mm3": 236
     },
     {
       "transmitter_name": "functionnectome_anat_5HT4",
-      "volume_mm3": 148
+      "volume_mm3": 213
     },
     {
       "transmitter_name": "functionnectome_anat_D1",
-      "volume_mm3": 126
+      "volume_mm3": 188
     },
     {
       "transmitter_name": "functionnectome_anat_DAT",
-      "volume_mm3": 125
+      "volume_mm3": 173
     },
     {
       "transmitter_name": "functionnectome_anat_5HTT",
-      "volume_mm3": 108
+      "volume_mm3": 147
     },
     {
       "transmitter_name": "functionnectome_anat_NAT",
-      "volume_mm3": 98
+      "volume_mm3": 128
     },
     {
       "transmitter_name": "functionnectome_anat_5HT6",
-      "volume_mm3": 86
+      "volume_mm3": 111
     },
     {
       "transmitter_name": "functionnectome_anat_M1",
-      "volume_mm3": 76
+      "volume_mm3": 101
     },
     {
       "transmitter_name": "functionnectome_anat_5HT1b",
-      "volume_mm3": 44
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT1a",
-      "volume_mm3": 16
+      "volume_mm3": 67
     },
     {
       "transmitter_name": "functionnectome_anat_5HT2a",
-      "volume_mm3": 13
+      "volume_mm3": 22
+    },
+    {
+      "transmitter_name": "functionnectome_anat_5HT1a",
+      "volume_mm3": 20
     }
   ]
 }

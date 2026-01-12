@@ -1,38 +1,38 @@
 Cohort,Variable,Stat,Value
-Iowa,Sample_Size,N,199
-Iowa,Aetiology,N,"Ischemia:137, ICB:62"
-Iowa,Age,"Mean, SD, Range","Mean:53.18, SD:12.59, Range:18.24-79.13 "
-Iowa,Sex,N,"Male:99, Female:100"
-Iowa,Handedness,N,"R:175, L:19, Other:5"
-Iowa,LesionVolumeML,"Median, IQR","Median:15.538, IQR:[5.4565, 42.033500000000004]"
+Iowa,Sample_Size,N,200
+Iowa,Aetiology,N,"Ischemia:138, ICB:62"
+Iowa,Age,"Mean, SD, Range","Mean:53.15, SD:12.57, Range:18.24-79.13 "
+Iowa,Sex,N,"Male:99, Female:101"
+Iowa,Handedness,N,"R:176, L:19, Other:5"
+Iowa,LesionVolumeML,"Median, IQR","Median:15.531500000000001, IQR:[5.39575, 41.24275]"
 Iowa,NIHSSonAdmission,"Median, IQR",Not_available
 Iowa,DaysToFollowup,"Median, IQR",Not_available
-Iowa,DepressionScore,"BDI_II: N, Median, IQR","N: 199, Median:11.0, IQR:[5.0, 18.0]"
-Korea,Sample_Size,N,992
-Korea,Aetiology,N,"Ischemia:992, ICB:0"
-Korea,Age,"Mean, SD, Range","Mean:67.48, SD:11.67, Range:21.0-94.0 "
-Korea,Sex,N,"Male:564, Female:428"
-Korea,Handedness,N,"R:945, L:9, Other:15"
-Korea,LesionVolumeML,"Median, IQR","Median:3.3645, IQR:[1.19125, 15.66425]"
+Iowa,DepressionScore,"BDI_II: N, Median, IQR","N: 200, Median:11.0, IQR:[5.0, 18.0]"
+Korea,Sample_Size,N,1115
+Korea,Aetiology,N,"Ischemia:1115, ICB:0"
+Korea,Age,"Mean, SD, Range","Mean:67.4, SD:11.62, Range:21.0-94.0 "
+Korea,Sex,N,"Male:636, Female:479"
+Korea,Handedness,N,"R:1063, L:10, Other:17"
+Korea,LesionVolumeML,"Median, IQR","Median:2.493, IQR:[0.9584999999999999, 13.250499999999999]"
 Korea,NIHSSonAdmission,"Median, IQR","Median:3.0, IQR:[1.0, 5.0]"
-Korea,DaysToFollowup,"Median, IQR","Median:99.0, IQR:[83.0, 130.25]"
-Korea,DepressionScore,"GDS15: N, Median, IQR","N: 468, Median:4.0, IQR:[1.0, 8.0]"
-Korea,DepressionScore,"GDS30: N, Median, IQR","N: 524, Median:13.0, IQR:[7.0, 20.0]"
-Leipzig,Sample_Size,N,248
-Leipzig,Aetiology,N,"Ischemia:228, ICB:20"
-Leipzig,Age,"Mean, SD, Range","Mean:65.78, SD:12.63, Range:18.0-89.0 "
-Leipzig,Sex,N,"Male:99, Female:149"
+Korea,DaysToFollowup,"Median, IQR","Median:99.0, IQR:[83.0, 131.0]"
+Korea,DepressionScore,"GDS15: N, Median, IQR","N: 529, Median:4.0, IQR:[1.0, 8.0]"
+Korea,DepressionScore,"GDS30: N, Median, IQR","N: 586, Median:13.0, IQR:[7.0, 20.0]"
+Leipzig,Sample_Size,N,270
+Leipzig,Aetiology,N,"Ischemia:250, ICB:20"
+Leipzig,Age,"Mean, SD, Range","Mean:66.12, SD:12.33, Range:18.0-89.0 "
+Leipzig,Sex,N,"Male:104, Female:166"
 Leipzig,Handedness,N,Not_available
-Leipzig,LesionVolumeML,"Median, IQR","Median:5.165, IQR:[1.21375, 22.68125]"
+Leipzig,LesionVolumeML,"Median, IQR","Median:4.366, IQR:[0.9484999999999999, 21.1445]"
 Leipzig,NIHSSonAdmission,"Median, IQR","Median:1.0, IQR:[0.0, 3.0]"
-Leipzig,DaysToFollowup,"Median, IQR","Median:188.0, IQR:[185.0, 193.0]"
-Leipzig,DepressionScore,"HADS: N, Median, IQR","N: 248, Median:4.0, IQR:[1.0, 7.0]"
-Bordeaux,Sample_Size,N,271
-Bordeaux,Aetiology,N,"Ischemia:271, ICB:0"
-Bordeaux,Age,"Mean, SD, Range","Mean:66.53, SD:13.81, Range:26.61-95.15 "
-Bordeaux,Sex,N,"Male:175, Female:96"
-Bordeaux,Handedness,N,"R:255, L:16, Other:0"
-Bordeaux,LesionVolumeML,"Median, IQR","Median:13.298, IQR:[2.567, 38.673500000000004]"
+Leipzig,DaysToFollowup,"Median, IQR","Median:188.0, IQR:[185.0, 192.0]"
+Leipzig,DepressionScore,"HADS: N, Median, IQR","N: 270, Median:4.0, IQR:[1.0, 7.0]"
+Bordeaux,Sample_Size,N,279
+Bordeaux,Aetiology,N,"Ischemia:279, ICB:0"
+Bordeaux,Age,"Mean, SD, Range","Mean:66.22, SD:13.84, Range:26.61-95.15 "
+Bordeaux,Sex,N,"Male:181, Female:98"
+Bordeaux,Handedness,N,"R:263, L:16, Other:0"
+Bordeaux,LesionVolumeML,"Median, IQR","Median:12.616, IQR:[2.242, 37.8425]"
 Bordeaux,NIHSSonAdmission,"Median, IQR","Median:3.0, IQR:[2.0, 6.0]"
 Bordeaux,DaysToFollowup,"Median, IQR","Median:93.0, IQR:[91.0, 97.0]"
-Bordeaux,DepressionScore,"HADS: N, Median, IQR","N: 271, Median:3.0, IQR:[1.0, 6.0]"
+Bordeaux,DepressionScore,"HADS: N, Median, IQR","N: 279, Median:3.0, IQR:[1.0, 6.0]"

@@ -26,9 +26,9 @@ from depression_mapping_tools.utils import assign_segmentation2regions, load_nif
 BRAIN_ATLAS_DIR = Path(__file__).parent / "brain_atlasses"
 
 # Define final results files for Lesion, LNM, and SDSM
-FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20251118_2342"
-FINAL_RESULT_LNM_FOLDER = "Output_LNM_artanh_pearson_r_20251119_0000"
-FINAL_RESULT_SDSM_FOLDER = "Output_SDSM_binarised_disconnection_20251119_1132"
+FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20260112_0032"
+FINAL_RESULT_LNM_FOLDER = "Output_LNM_artanh_pearson_r_20260112_1119"
+FINAL_RESULT_SDSM_FOLDER = "Output_SDSM_binarised_disconnection_20260112_0912"
 
 REGION_LABEL = "region_label"
 VOLUME_MM3 = "volume_mm3"

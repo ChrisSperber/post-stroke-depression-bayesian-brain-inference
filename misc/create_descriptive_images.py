@@ -41,6 +41,8 @@ lnm_mean_array = np.zeros(example_lnm.shape, dtype=np.float32)
 example_disc: Nifti1Image = load_nifti(row[Cols.PATH_DISCMAP_IMAGE])
 disc_overlap_array = np.zeros(example_disc.shape, dtype=np.uint16)
 
+n_lnm_maps = data_df[Cols.PATH_LNM_IMAGE].notna().sum()
+
 # %%
 for i, (_, row) in enumerate(data_df.iterrows()):
     # create blanks in first iteration; get shape from example files
@@ -66,11 +68,13 @@ for i, (_, row) in enumerate(data_df.iterrows()):
     disc_overlap_array += disc_arr.astype(np.uint16)
 
     # lesion network maps
-    lnm_img: Nifti1Image = load_nifti(row[Cols.PATH_LNM_IMAGE])
-    lnm_arr = lnm_img.get_fdata()
-    # divide by total nubmer of patients and sum up
-    weighted_lnm_arr = lnm_arr / len(data_df)
-    lnm_mean_array += weighted_lnm_arr.astype(np.float32)
+    # only process if LNM is available for patient
+    if pd.notna(row[Cols.PATH_LNM_IMAGE]):
+        lnm_img: Nifti1Image = load_nifti(row[Cols.PATH_LNM_IMAGE])
+        lnm_arr = lnm_img.get_fdata()
+        # divide by total nubmer of patients and sum up
+        weighted_lnm_arr = lnm_arr / n_lnm_maps
+        lnm_mean_array += weighted_lnm_arr.astype(np.float32)
 
 # %%
 # store results, adapt headers from example images
