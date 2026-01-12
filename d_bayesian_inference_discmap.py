@@ -33,9 +33,11 @@ from nibabel.nifti1 import Nifti1Image
 from tqdm import tqdm
 
 from depression_mapping_tools.config import (
+    AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR,
     BINARY_THRESHOLD_DISCMAP,
     BLDI_OUTPUT_DIR_PARENT,
     MIN_DISCONNECTION_ANALYSIS_THRESHOLD,
+    TRAUMA_EXCLUSION_COMMENT,
 )
 from depression_mapping_tools.utils import (
     Cols,
@@ -55,8 +57,6 @@ OUTPUT_DIR_BASE = "Output_SDSM"
 
 # Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
 SAMPLE_MODE = SampleSelectionMode.STROKE
-TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
-AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
 # The script makes heavy use of RAM. Reduce N_WORKERS if Memory errors occur
 N_WORKERS = 4

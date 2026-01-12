@@ -126,7 +126,10 @@ for index, row in data.iterrows():
     lnm_path = find_unique_path(paths=nifti_files, str1=sid, str2=LESION_NETWORK)
     lnm_path_list.append(lnm_path)
 
-    if PLACEHOLDER_FILE_NOT_EXIST in (lesion_path, lnm_path, discmap_path):
+    # Lesion network maps may be missing if the lesion is fully restricted to white matter;
+    # all other modalities are required, but should be available
+    if PLACEHOLDER_FILE_NOT_EXIST in (lesion_path, discmap_path):
+        print(f"Incomplete image set found for {row[Cols.SUBJECT_ID]}")
         data.loc[index, Cols.EXCLUDED] = 1  # type: ignore
         data.loc[index, Cols.EXCLUSION_REASON] = "Incomplete Images"  # type: ignore
 

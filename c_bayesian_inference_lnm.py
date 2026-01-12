@@ -12,6 +12,9 @@ transformation). This is not necessarily the best way to represent the network, 
 scores - which are only found in the lesion areas where autocorrelation is present - are further
 increased and thereby inflated. The global variable CORRELATION_FORMAT allows setting alternatives.
 
+For some patients, no LNMs were available as lesions were restricted to white matter. These were not
+exlcuded from the main sample and have to be excluded here.
+
 Requirements:
 - CSV listing all included cases and depression scores generated with a_collect_image_data.py
 
@@ -31,7 +34,11 @@ import pandas as pd
 from nibabel.nifti1 import Nifti1Image
 from tqdm import tqdm
 
-from depression_mapping_tools.config import BLDI_OUTPUT_DIR_PARENT
+from depression_mapping_tools.config import (
+    AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR,
+    BLDI_OUTPUT_DIR_PARENT,
+    TRAUMA_EXCLUSION_COMMENT,
+)
 from depression_mapping_tools.utils import (
     Cols,
     CorrelationFormat,
@@ -52,12 +59,23 @@ OUTPUT_DIR_BASE = "Output_LNM"
 
 # Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
 SAMPLE_MODE = SampleSelectionMode.STROKE
-TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
-AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
-data = data[data[Cols.EXCLUDED] == 0]
+
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    data = data[data[Cols.EXCLUDED] == 0]
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    data = data[
+        (data[Cols.EXCLUDED] == 0)
+        | (data[Cols.EXCLUSION_REASON] == TRAUMA_EXCLUSION_COMMENT)
+    ]
+else:
+    msg = f"Unknown Sample selection mode {SAMPLE_MODE}"
+    raise ValueError(msg)
+
+# additionally exclude cases with missing LNMs
+data = data[data[Cols.PATH_LNM_IMAGE].notna()]
 
 # ensure float type of scores
 data[Cols.DEPRESSION_SCORE] = pd.to_numeric(

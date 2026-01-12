@@ -4,6 +4,7 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).parents[3] / "Data"
 MASTER_FILE_EXCEL = DATA_DIR / "Masterfile_Behavioural_Scores_PSD_202511.xlsx"
+AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
 LESION = "Lesions"
 LESION_NETWORK = "LNM"
@@ -12,6 +13,8 @@ IMAGE_TYPES = [LESION, LESION_NETWORK, DISCONNECTION_MAPS]
 
 PLACEHOLDER_FILE_NOT_EXIST = "None"
 PLACEHOLDER_MISSING_VALUE = "Not_available"
+
+TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
 
 BLDI_OUTPUT_DIR_PARENT = Path(__file__).parents[2] / "BLDI_OUTPUTS"
 # Define the minimum amount of lesions per voxel to be included in the analysis

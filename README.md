@@ -41,13 +41,13 @@ pip install -e .
 ### 4. Run Analysis
 
 The main analysis scripts are sequentially ordered with alphabetic prefixes. See docstrings for further information.
-The code is intended to load large datasets of >2000 images, which was feasible with a 16GB RAM system, but required additional steps for float-precision data at 1mm³ isotropic resolution (see d_bayesian_inference_discmap.py). Systems with less RAM may require further changes to the code to be able to handle the data.
+The code is intended to load large datasets of >1800 images, which was feasible with a 16GB RAM system, but required additional steps for float-precision data at 1mm³ isotropic resolution (see d_bayesian_inference_discmap.py). Systems with less RAM may require further changes to the code to be able to handle the data.
 
 ---
 
 ## Details on methods
 This repository adapts [Bayesian Lesion Deficit Inference](https://pubmed.ncbi.nlm.nih.gov/36914109/), previously written in R with the [BayesFactor Package](https://cran.r-project.org/web/packages/BayesFactor/vignettes/manual.html), to Python.
-The original implementation with the BayesFactor package required processing times that grew exponentially with sample size, and were already at 2-3 hours with sample sizes of 300 subjects [(see results section here)](https://pubmed.ncbi.nlm.nih.gov/36914109/). As the code was intended to be run on a large dataset on >2000 subjects, Bayes Factors were now computed using an [approximation](https://link.springer.com/article/10.3758/BF03194105) using the Bayesian Information criteria (BIC) of general linear models, as well as multi-kernel support.
+The original implementation with the BayesFactor package required processing times that grew exponentially with sample size, and were already at 2-3 hours with sample sizes of 300 subjects [(see results section here)](https://pubmed.ncbi.nlm.nih.gov/36914109/). As the code was intended to be run on a large dataset on >1800 subjects, Bayes Factors were now computed using an [approximation](https://link.springer.com/article/10.3758/BF03194105) using the Bayesian Information criteria (BIC) of general linear models, as well as multi-kernel support.
 As in the [original publication](https://pubmed.ncbi.nlm.nih.gov/36914109/), voxel-wise Bayes Factors indicating an association of the voxel's imaging data and a target variable (here: depression severity) are computed via general linear models.
 
 ### Analysis Outputs

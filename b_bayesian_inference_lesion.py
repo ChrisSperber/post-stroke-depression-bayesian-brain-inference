@@ -31,8 +31,10 @@ from nilearn.image import resample_to_img
 from tqdm import tqdm
 
 from depression_mapping_tools.config import (
+    AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR,
     BLDI_OUTPUT_DIR_PARENT,
     MIN_LESION_ANALYSIS_THRESHOLD,
+    TRAUMA_EXCLUSION_COMMENT,
 )
 from depression_mapping_tools.utils import (
     Cols,
@@ -51,8 +53,6 @@ OUTPUT_DIR_BASE = "Output_Lesion"
 
 # Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
 SAMPLE_MODE = SampleSelectionMode.STROKE
-TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
-AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
 
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
