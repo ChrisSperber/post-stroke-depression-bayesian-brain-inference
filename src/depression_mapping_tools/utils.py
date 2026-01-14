@@ -435,3 +435,13 @@ def all_missing_or_placeholder(series, placeholder=PLACEHOLDER_MISSING_VALUE):
     """
     s = series.astype("object")
     return (s.isna() | (s == placeholder)).all()
+
+
+# Define cutoffs for binary classification of depression
+# CAVEAT: Cutoffs are "greater than"!
+DEPRESSION_GT_CUTOFFS = {
+    Cols.GDS15: 5,
+    Cols.GDS30: 9,
+    Cols.HADS: 7,
+    Cols.BDI_II: 13,
+}
