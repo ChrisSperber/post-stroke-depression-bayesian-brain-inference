@@ -4,6 +4,9 @@ age:
   std: 12.92
   min: 18.0
   max: 95.15
+depressiv(binary):
+  n: 752
+  percent: 40.34
 sex:
   male:
     n: 1020

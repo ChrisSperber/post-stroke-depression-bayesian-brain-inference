@@ -14,9 +14,14 @@ import pandas as pd
 import yaml
 
 from depression_mapping_tools.config import PLACEHOLDER_MISSING_VALUE
-from depression_mapping_tools.utils import Cols, all_missing_or_placeholder
+from depression_mapping_tools.utils import (
+    DEPRESSION_GT_CUTOFFS,
+    Cols,
+    all_missing_or_placeholder,
+)
 
 COHORT = Cols.COHORT
+DEPRESSION_BINARY = "DepressionBinary"
 VARIABLE = "Variable"
 STAT = "Stat"
 VALUE = "Value"
@@ -39,12 +44,28 @@ DEPRESSION_MEASURE_MAP = {
     BORDEAUX: [Cols.HADS],
 }
 
+DEPRESSION_SCORE_COLS = [Cols.GDS15, Cols.GDS30, Cols.BDI_II, Cols.HADS]
+
 # %%
 data = pd.read_csv(Path(__file__).parent / "a_collect_image_data.csv")
 data = data[data[Cols.EXCLUDED] == 0]
 
 # replace Korean subcohort names with meta-cohort name to create a single summary
 data[Cols.COHORT] = data[Cols.COHORT].replace([HALLYM, BUNDANG], KOREA)
+
+# derive binary depression classification based on cutoffs
+depression_classification_list = []
+for _, row in data.iterrows():
+    mask = row[DEPRESSION_SCORE_COLS] != PLACEHOLDER_MISSING_VALUE
+    col_name = row[DEPRESSION_SCORE_COLS][mask].index[0]
+    depression_value = int(row[DEPRESSION_SCORE_COLS][mask].iloc[0])
+
+    relevant_cutoff = DEPRESSION_GT_CUTOFFS.get(col_name)
+    if relevant_cutoff:
+        depression_classification_list.append(int(depression_value > relevant_cutoff))
+    else:
+        raise ValueError("Relevant depression cutoff was not derived!")
+data[DEPRESSION_BINARY] = depression_classification_list
 
 # print general whole sample statistics to terminal
 n_total = len(data)
@@ -62,6 +83,9 @@ iqr_lesvol = [
     float(round(lesion_vol.quantile(0.25), 1)),
     float(round(lesion_vol.quantile(0.75), 1)),
 ]
+
+n_depressive = sum(data[DEPRESSION_BINARY])
+percent_depressive = round(n_depressive / len(data) * 100, 2)
 
 print("------\nAge")
 print(f"Mean: {mean_val}")
@@ -93,6 +117,10 @@ summary = {
         "std": float(sd_val),
         "min": float(min_val),
         "max": float(max_val),
+    },
+    "depressiv(binary)": {
+        "n": int(n_depressive),
+        "percent": float(percent_depressive),
     },
     "sex": {
         "male": {"n": int(n_male), "percent": float(round(n_male / n_total * 100, 2))},
@@ -159,6 +187,20 @@ for cohort in cohorts:
             VARIABLE: Cols.AGE,
             STAT: "Mean, SD, Range",
             VALUE: age_str,
+        }
+    )
+
+    # Depression clasification
+    n_depression = sum(cohort_df[DEPRESSION_BINARY])
+    depression_percent = round(n_depression / len(cohort_df) * 100, 2)
+    depression_str = f"Depression:{n_depression}, {depression_percent}%"
+
+    statistical_results_list.append(
+        {
+            COHORT: cohort,
+            VARIABLE: DEPRESSION_BINARY,
+            STAT: "N, percent",
+            VALUE: depression_str,
         }
     )
 
