@@ -207,8 +207,9 @@ for cohort in cohorts:
     # Sex
     n_male = sum(cohort_df[Cols.SEX] == "Male")
     n_female = sum(cohort_df[Cols.SEX] == "Female")
+    perc_male = round(n_male / (n_male + n_female) * 100, 1)
 
-    sex_str = f"Male:{n_male}, Female:{n_female}"
+    sex_str = f"Male:{n_male}, Female:{n_female}, {perc_male}% male"
 
     statistical_results_list.append(
         {
@@ -247,8 +248,8 @@ for cohort in cohorts:
     # Lesion Volume
     lesion_volume = cohort_df[Cols.LESION_VOLUME]
     lesion_volume_str = (
-        f"Median:{lesion_volume.median()}, "
-        f"IQR:[{lesion_volume.quantile(0.25)}, {lesion_volume.quantile(0.75)}]"
+        f"Median:{round(lesion_volume.median(),3)}, "
+        f"IQR:[{round(lesion_volume.quantile(0.25),3)}, {round(lesion_volume.quantile(0.75),3)}]"
     )
 
     statistical_results_list.append(
