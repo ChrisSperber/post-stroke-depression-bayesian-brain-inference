@@ -24,7 +24,7 @@ Leipzig,Sample_Size,N,270
 Leipzig,Aetiology,N,"Ischemia:250, ICB:20"
 Leipzig,Age,"Mean, SD, Range","Mean:66.12, SD:12.33, Range:18.0-89.0 "
 Leipzig,DepressionBinary,"N, percent","Depression:53, 19.63%"
-Leipzig,Sex,N,"Male:104, Female:166"
+Leipzig,Sex,N,"Male:166, Female:104"
 Leipzig,Handedness,N,Not_available
 Leipzig,LesionVolumeML,"Median, IQR","Median:4.366, IQR:[0.9484999999999999, 21.1445]"
 Leipzig,NIHSSonAdmission,"Median, IQR","Median:1.0, IQR:[0.0, 3.0]"

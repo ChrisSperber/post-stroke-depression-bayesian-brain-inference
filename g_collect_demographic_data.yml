@@ -9,11 +9,11 @@ depressiv(binary):
   percent: 40.34
 sex:
   male:
-    n: 1020
-    percent: 54.72
+    n: 1082
+    percent: 58.05
   female:
-    n: 844
-    percent: 45.28
+    n: 782
+    percent: 41.95
 aetiology:
   ischaemia:
     n: 1782

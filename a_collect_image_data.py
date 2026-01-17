@@ -90,6 +90,16 @@ if not data[Cols.SUBJECT_ID].is_unique:
 data = data.replace(MISSING_DATA_CHAR, PLACEHOLDER_MISSING_VALUE)
 
 # %%
+# fix wrong sex coding
+# the German "Leipzig" sample suffers from an inverted coding of sex
+sex_flip = {
+    "Male": "Female",
+    "Female": "Male",
+}
+mask = data[Cols.COHORT] == "Leipzig"
+data.loc[mask, Cols.SEX] = data.loc[mask, Cols.SEX].map(sex_flip)
+
+# %%
 # Fetch file paths and read out lesion volume
 lesion_path_list = []
 discmap_path_list = []
