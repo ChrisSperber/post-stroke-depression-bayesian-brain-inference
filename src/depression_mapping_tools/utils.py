@@ -445,3 +445,31 @@ DEPRESSION_GT_CUTOFFS = {
     Cols.HADS: 7,
     Cols.BDI_II: 13,
 }
+
+
+def binarise_maps_in_dir(image_dir: Path, cutoff: float) -> None:
+    """Binarise all images in a folder.
+
+    Small helper for tests outside the main analysis pipeline.
+    WARNING: Images a replaced!
+
+    Parameters
+    ----------
+    image_dir : Path
+        Folder containing .nii or .nii.gz images.
+    cutoff : float
+        Values strictly above this cutoff are set to 1, others to 0.
+
+    """
+    image_dir = Path(image_dir)
+
+    for img_path in image_dir.glob("*.nii*"):
+        img = nib.load(img_path)  # pyright: ignore[reportPrivateImportUsage]
+        data = img.get_fdata()  # pyright: ignore[reportAttributeAccessIssue]
+
+        # binarise (NaN-safe: NaNs become 0)
+        bin_data = np.zeros_like(data, dtype=np.uint8)
+        bin_data[data >= cutoff] = 1
+
+        bin_img = nib.Nifti1Image(bin_data, img.affine, img.header)  # type: ignore
+        nib.save(bin_img, img_path)  # pyright: ignore[reportPrivateImportUsage]
