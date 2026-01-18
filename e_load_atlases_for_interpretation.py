@@ -69,34 +69,3 @@ else:
         zf.extractall(extract_dir)
 
 # %%
-# Neurotransmitter maps as defined by Alves et al., 2025
-# https://doi.org/10.1038/s41467-025-57680-2
-transmitter_maps_link_1 = "https://neurovault.org/collections/15237/download"
-transmitter_maps_link_2 = "https://neurovault.org/collections/17228/download"
-download_dir = BRAIN_ATLAS_DIR / "neurotransmitter_maps"
-zip_path_1 = download_dir / "Neurotransmitter_Maps_1.zip"
-zip_path_2 = download_dir / "Neurotransmitter_Maps_2.zip"
-extract_dir = download_dir / "neurotransmitter_maps_extracted"
-
-# Check if already downloaded and extracted
-if extract_dir.exists():
-    print(f"Already extracted: {extract_dir}")
-else:
-    download_dir.mkdir(parents=True, exist_ok=True)
-    if not zip_path_1.exists():
-        print("Downloading transmitter maps pt1")
-        response = requests.get(transmitter_maps_link_1, timeout=10)
-        zip_path_1.write_bytes(response.content)
-        print(f"Downloaded to: {zip_path_1}")
-    if not zip_path_2.exists():
-        print("Downloading transmitter maps pt2")
-        response = requests.get(transmitter_maps_link_2, timeout=10)
-        zip_path_2.write_bytes(response.content)
-        print(f"Downloaded to: {zip_path_2}")
-    print("Extracting transmitter data")
-    with zipfile.ZipFile(zip_path_1, "r") as zf:
-        zf.extractall(extract_dir)
-    with zipfile.ZipFile(zip_path_2, "r") as zf:
-        zf.extractall(extract_dir)
-
-# %%

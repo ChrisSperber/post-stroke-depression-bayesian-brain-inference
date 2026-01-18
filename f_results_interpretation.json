@@ -1788,59 +1788,5 @@
       "voxel_count": 1435.0,
       "volume_mm3": 1435
     }
-  ],
-  "Results sdsm mapping neurotransmitter atlas": [
-    {
-      "transmitter_name": "functionnectome_anat_A4B2",
-      "volume_mm3": 1033
-    },
-    {
-      "transmitter_name": "functionnectome_anat_VAChT",
-      "volume_mm3": 387
-    },
-    {
-      "transmitter_name": "functionnectome_anat_D2",
-      "volume_mm3": 236
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT4",
-      "volume_mm3": 213
-    },
-    {
-      "transmitter_name": "functionnectome_anat_D1",
-      "volume_mm3": 188
-    },
-    {
-      "transmitter_name": "functionnectome_anat_DAT",
-      "volume_mm3": 173
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HTT",
-      "volume_mm3": 147
-    },
-    {
-      "transmitter_name": "functionnectome_anat_NAT",
-      "volume_mm3": 128
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT6",
-      "volume_mm3": 111
-    },
-    {
-      "transmitter_name": "functionnectome_anat_M1",
-      "volume_mm3": 101
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT1b",
-      "volume_mm3": 67
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT2a",
-      "volume_mm3": 22
-    },
-    {
-      "transmitter_name": "functionnectome_anat_5HT1a",
-      "volume_mm3": 20
-    }
   ]
 }
