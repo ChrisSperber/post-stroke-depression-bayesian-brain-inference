@@ -1,0 +1,98 @@
+id	region_label	voxel_count_nonzero	mean_bf
+0	Background	96161	0.234
+1	Left Frontal Pole	6076	0.049
+2	Right Frontal Pole	7195	0.139
+3	Left Insular Cortex	1334	0.395
+4	Right Insular Cortex	1341	1.054
+5	Left Superior Frontal Gyrus	2856	0.057
+6	Right Superior Frontal Gyrus	2592	0.132
+7	Left Middle Frontal Gyrus	2802	0.053
+8	Right Middle Frontal Gyrus	2660	0.086
+9	Left Inferior Frontal Gyrus, pars triangularis	645	0.031
+10	Right Inferior Frontal Gyrus, pars triangularis	554	0.565
+11	Left Inferior Frontal Gyrus, pars opercularis	756	0.146
+12	Right Inferior Frontal Gyrus, pars opercularis	684	0.603
+13	Left Precentral Gyrus	4319	0.059
+14	Right Precentral Gyrus	4171	0.112
+15	Left Temporal Pole	2265	0.069
+16	Right Temporal Pole	2280	0.083
+17	Left Superior Temporal Gyrus, anterior division	280	0.035
+18	Right Superior Temporal Gyrus, anterior division	276	0.039
+19	Left Superior Temporal Gyrus, posterior division	392	0.033
+20	Right Superior Temporal Gyrus, posterior division	417	0.056
+21	Left Middle Temporal Gyrus, anterior division	446	0.077
+22	Right Middle Temporal Gyrus, anterior division	407	0.038
+23	Left Middle Temporal Gyrus, posterior division	1324	0.1
+24	Right Middle Temporal Gyrus, posterior division	1346	0.042
+25	Left Middle Temporal Gyrus, temporooccipital part	849	0.06
+26	Right Middle Temporal Gyrus, temporooccipital part	1137	0.047
+27	Left Inferior Temporal Gyrus, anterior division	334	0.037
+28	Right Inferior Temporal Gyrus, anterior division	326	0.04
+29	Left Inferior Temporal Gyrus, posterior division	1020	0.092
+30	Right Inferior Temporal Gyrus, posterior division	945	0.041
+31	Left Inferior Temporal Gyrus, temporooccipital part	695	0.071
+32	Right Inferior Temporal Gyrus, temporooccipital part	780	0.036
+33	Left Postcentral Gyrus	3486	0.03
+34	Right Postcentral Gyrus	3130	0.03
+35	Left Superior Parietal Lobule	1412	0.028
+36	Right Superior Parietal Lobule	1417	0.033
+37	Left Supramarginal Gyrus, anterior division	912	0.061
+38	Right Supramarginal Gyrus, anterior division	790	0.112
+39	Left Supramarginal Gyrus, posterior division	1013	0.044
+40	Right Supramarginal Gyrus, posterior division	1203	0.18
+41	Left Angular Gyrus	934	0.109
+42	Right Angular Gyrus	1412	0.051
+43	Left Lateral Occipital Cortex, superior division	4421	0.105
+44	Right Lateral Occipital Cortex, superior division	4340	0.047
+45	Left Lateral Occipital Cortex, inferior division	1923	0.044
+46	Right Lateral Occipital Cortex, inferior division	1968	0.035
+47	Left Intracalcarine Cortex	652	0.057
+48	Right Intracalcarine Cortex	745	0.064
+49	Left Frontal Medial Cortex	436	0.06
+50	Right Frontal Medial Cortex	524	0.038
+51	Left Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)	756	0.092
+52	Right Juxtapositional Lobule Cortex (formerly Supplementary Motor Cortex)	705	0.164
+53	Left Subcallosal Cortex	535	0.044
+54	Right Subcallosal Cortex	556	0.036
+55	Left Paracingulate Gyrus	1504	0.072
+56	Right Paracingulate Gyrus	1371	0.088
+57	Left Cingulate Gyrus, anterior division	1301	0.065
+58	Right Cingulate Gyrus, anterior division	1277	0.074
+59	Left Cingulate Gyrus, posterior division	1213	0.427
+60	Right Cingulate Gyrus, posterior division	1165	0.235
+61	Left Precuneous Cortex	2730	0.336
+62	Right Precuneous Cortex	2754	0.149
+63	Left Cuneal Cortex	590	0.031
+64	Right Cuneal Cortex	626	0.034
+65	Left Frontal Orbital Cortex	1677	0.069
+66	Right Frontal Orbital Cortex	1441	0.399
+67	Left Parahippocampal Gyrus, anterior division	582	0.059
+68	Right Parahippocampal Gyrus, anterior division	653	0.043
+69	Left Parahippocampal Gyrus, posterior division	390	0.095
+70	Right Parahippocampal Gyrus, posterior division	319	0.061
+71	Left Lingual Gyrus	1593	0.042
+72	Right Lingual Gyrus	1690	0.043
+73	Left Temporal Fusiform Cortex, anterior division	317	0.029
+74	Right Temporal Fusiform Cortex, anterior division	292	0.031
+75	Left Temporal Fusiform Cortex, posterior division	860	0.069
+76	Right Temporal Fusiform Cortex, posterior division	716	0.035
+77	Left Temporal Occipital Fusiform Cortex	652	0.028
+78	Right Temporal Occipital Fusiform Cortex	815	0.027
+79	Left Occipital Fusiform Gyrus	932	0.032
+80	Right Occipital Fusiform Gyrus	888	0.028
+81	Left Frontal Opercular Cortex	355	0.576
+82	Right Frontal Opercular Cortex	313	2.034
+83	Left Central Opercular Cortex	978	0.144
+84	Right Central Opercular Cortex	877	0.122
+85	Left Parietal Opercular Cortex	567	0.069
+86	Right Parietal Opercular Cortex	538	0.085
+87	Left Planum Polare	358	0.232
+88	Right Planum Polare	375	0.313
+89	Left Heschl's Gyrus (includes H1 and H2)	309	0.059
+90	Right Heschl's Gyrus (includes H1 and H2)	282	0.055
+91	Left Planum Temporale	565	0.057
+92	Right Planum Temporale	440	0.076
+93	Left Supracalcarine Cortex	117	0.047
+94	Right Supracalcarine Cortex	131	0.044
+95	Left Occipital Pole	2441	0.042
+96	Right Occipital Pole	2131	0.038

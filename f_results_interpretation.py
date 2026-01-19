@@ -24,6 +24,7 @@ from depression_mapping_tools.config import BLDI_OUTPUT_DIR_PARENT
 from depression_mapping_tools.utils import assign_segmentation2regions, load_nifti
 
 BRAIN_ATLAS_DIR = Path(__file__).parent / "brain_atlasses"
+MEAN_BF_OUT_DIR = Path(__file__).parent / "mean_BF_results"
 
 # Define final results files for Lesion, LNM, and SDSM
 FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20260112_0032"
@@ -288,4 +289,186 @@ output_name = Path(__file__).with_suffix(".json")
 with open(output_name, "w") as f:
     json.dump(results, f, indent=2)
 
+
+# %%
+# compute mean BF per region
+# define helper function
+def mean_bf_per_region(
+    *,
+    bf_arr: np.ndarray,
+    atlas_arr: np.ndarray,
+    region_labels: list[str],
+) -> pd.DataFrame:
+    """Compute mean Bayes Factor per atlas region, ignoring BF==0 voxels.
+
+    Parameters
+    ----------
+    bf_arr:
+        Bayes factor map in the same voxel space as atlas_arr.
+    atlas_arr:
+        Integer atlas label map in the same voxel space as bf_arr.
+    region_labels:
+        Labels aligned to integer ids in atlas_arr (index == id).
+
+    Returns
+    -------
+    DataFrame with columns: id, region_label, voxel_count_nonzero, mean_bf
+
+    """
+    if bf_arr.shape != atlas_arr.shape:
+        raise ValueError(
+            f"Shape mismatch: bf_arr={bf_arr.shape} vs atlas_arr={atlas_arr.shape}"
+        )
+
+    # Ensure integer atlas ids
+    atlas_ids = atlas_arr.astype(np.int32, copy=False)
+
+    # Consider only tested voxels (BF != 0) and finite values
+    mask = (bf_arr != 0) & np.isfinite(bf_arr)
+
+    ids = atlas_ids[mask]
+    vals = bf_arr[mask]
+
+    # Groupwise sum and count via bincount (fast, simple)
+    n_regions = len(region_labels)
+    counts = np.bincount(ids, minlength=n_regions).astype(np.int64)
+    sums = np.bincount(ids, weights=vals, minlength=n_regions).astype(np.float64)
+
+    with np.errstate(divide="ignore", invalid="ignore"):
+        means = np.round(sums / counts, 3)
+
+    df = pd.DataFrame(
+        {
+            "id": np.arange(n_regions, dtype=int),
+            REGION_LABEL: region_labels,
+            "voxel_count_nonzero": counts,
+            "mean_bf": means,
+        }
+    )
+
+    # additional cleaning: drop regions with no tested voxels (mean will be NaN)
+    df = df[df["voxel_count_nonzero"] > 0].reset_index(drop=True)
+
+    return df
+
+
+# %%
+
+mean_bf_lesion_cort = mean_bf_per_region(
+    bf_arr=result_arr_lesion,
+    atlas_arr=ho_atlas_arr_cort,
+    region_labels=harvard_oxford_atlas_cort.labels,
+)
+mean_bf_lesion_subcort = mean_bf_per_region(
+    bf_arr=result_arr_lesion,
+    atlas_arr=ho_atlas_arr_subcort,
+    region_labels=harvard_oxford_atlas_subcort.labels,
+)
+
+mean_bf_lnm_cort = mean_bf_per_region(
+    bf_arr=result_arr_lnm,
+    atlas_arr=ho_atlas_arr_cort_las2mm,
+    region_labels=harvard_oxford_atlas_cort.labels,
+)
+mean_bf_lnm_subcort = mean_bf_per_region(
+    bf_arr=result_arr_lnm,
+    atlas_arr=ho_atlas_arr_subcort_las2mm,
+    region_labels=harvard_oxford_atlas_subcort.labels,
+)
+
+# %%
+# store as TSVs
+MEAN_BF_OUT_DIR.mkdir(exist_ok=True)
+
+# %%
+mean_bf_lesion_cort.to_csv(
+    MEAN_BF_OUT_DIR / "lesion_HO_cortical_meanBF.tsv",
+    sep="\t",
+    index=False,
+)
+
+mean_bf_lesion_subcort.to_csv(
+    MEAN_BF_OUT_DIR / "lesion_HO_subcortical_meanBF.tsv",
+    sep="\t",
+    index=False,
+)
+
+mean_bf_lnm_cort.to_csv(
+    MEAN_BF_OUT_DIR / "lnm_HO_cortical_meanBF.tsv",
+    sep="\t",
+    index=False,
+)
+
+mean_bf_lnm_subcort.to_csv(
+    MEAN_BF_OUT_DIR / "lnm_HO_subcortical_meanBF.tsv",
+    sep="\t",
+    index=False,
+)
+
+# %%
+# compute mean BFs for SDSM per fibre
+
+MEAN_BF = "mean_bf"
+VOXEL_COUNT_NONZERO = "voxel_count_nonzero"
+
+fibre_files = [
+    f for f in fibres_dir.iterdir() if f.is_file() and f.name.endswith(".nii.gz")
+]
+
+fibre_mean_bf_sdsm = pd.DataFrame(
+    {
+        FIBRE_PATH: [f.resolve() for f in fibre_files],
+        FIBRE_NAME: [f.stem for f in fibre_files],
+    }
+)
+
+# voxel volume in mm^3 (SDSM result space)
+voxel_dims = result_nifti_sdsm.header.get_zooms()[:3]
+conversion_factor = voxel_dims[0] * voxel_dims[1] * voxel_dims[2]  # type: ignore
+
+# masks for "tested voxels" in BF map
+sdsm_tested_mask = (result_arr_sdsm != 0) & np.isfinite(result_arr_sdsm)
+
+for index, row in fibre_mean_bf_sdsm.iterrows():
+    fibre_nifti: Nifti1Image = load_nifti(row[FIBRE_PATH])
+
+    # resample fibre map to SDSM BF map space
+    fibre_nifti = resample_to_img(
+        fibre_nifti,
+        result_nifti_sdsm,
+        interpolation="nearest",
+        force_resample=True,
+        copy_header=True,
+    )
+
+    fibre_arr = fibre_nifti.get_fdata()
+    fibre_mask = (fibre_arr >= THRESHOLD_FIBRE_ATLAS) & np.isfinite(fibre_arr)
+
+    # consider only voxels that are (a) in fibre and (b) tested in BF map
+    mask = fibre_mask & sdsm_tested_mask
+
+    n_vox = int(mask.sum())
+    fibre_mean_bf_sdsm.loc[index, VOXEL_COUNT_NONZERO] = n_vox  # type: ignore
+    fibre_mean_bf_sdsm.loc[index, VOLUME_MM3] = int(round(n_vox * conversion_factor))  # type: ignore
+
+    if n_vox == 0:
+        fibre_mean_bf_sdsm.loc[index, MEAN_BF] = np.nan  # type: ignore
+    else:
+        fibre_mean_bf_sdsm.loc[index, MEAN_BF] = round(float(result_arr_sdsm[mask].mean()), 3)  # type: ignore
+
+# clean up fibre names
+fibre_mean_bf_sdsm[FIBRE_NAME] = fibre_mean_bf_sdsm[FIBRE_NAME].str.removesuffix(".nii")
+
+# sort for readability
+fibre_mean_bf_sdsm_sorted = fibre_mean_bf_sdsm.sort_values(
+    MEAN_BF, ascending=False, na_position="last"
+)
+
+# store (TSV, copy/paste friendly)
+MEAN_BF_OUT_DIR.mkdir(exist_ok=True)
+fibre_mean_bf_sdsm_sorted.drop(columns=[FIBRE_PATH]).to_csv(
+    MEAN_BF_OUT_DIR / "sdsm_fibres_meanBF.tsv",
+    sep="\t",
+    index=False,
+)
 # %%
