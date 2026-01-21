@@ -12,8 +12,10 @@ This repository contains the Python analysis code and summary outputs for Bayesi
 | `*.py files`                      | Main analysis scripts using Python         |
 | `misc/`                           | Additional scripts and files for exploration and visualisation (not part of main pipeline) |
 | `BLDI_Outputs/`                   | Results of BLDI: .nii.gz and .txt logs     |
-| `src/depression_mapping_tools`    | local package with functions and classes    |
+| `mean_BF_results/`                | Additional results of BLDI (.tsv)          |
+| `src/depression_mapping_tools`    | local package with functions and classes   |
 | `a_collect_image_data.csv`        | Study ID list and exclusion info           |
+| `g_collect_demographic_data.csv`  | Demographics summary                       |
 | `requirements.txt`                | Python dependencies (from `venv`)          |
 | `LICENSE`                         | MIT License                                |
 ---
@@ -49,6 +51,8 @@ The code is intended to load large datasets of >1800 images, which was feasible 
 This repository adapts [Bayesian Lesion Deficit Inference](https://pubmed.ncbi.nlm.nih.gov/36914109/), previously written in R with the [BayesFactor Package](https://cran.r-project.org/web/packages/BayesFactor/vignettes/manual.html), to Python.
 The original implementation with the BayesFactor package required processing times that grew exponentially with sample size, and were already at 2-3 hours with sample sizes of 300 subjects [(see results section here)](https://pubmed.ncbi.nlm.nih.gov/36914109/). As the code was intended to be run on a large dataset on >1800 subjects, Bayes Factors were now computed using an [approximation](https://link.springer.com/article/10.3758/BF03194105) using the Bayesian Information criteria (BIC) of general linear models, as well as multi-kernel support.
 As in the [original publication](https://pubmed.ncbi.nlm.nih.gov/36914109/), voxel-wise Bayes Factors indicating an association of the voxel's imaging data and a target variable (here: depression severity) are computed via general linear models.
+Results are interpreted by reference to brain atlases. These atlases are automatically fetched from the internet within the code and were not committed to
+the repository.
 
 ### Analysis Outputs
 Outputs are created in /BLDI_Outputs and include, for each analysis
