@@ -19,6 +19,7 @@ import numpy as np
 import pandas as pd
 from nibabel.nifti1 import Nifti1Image
 
+from depression_mapping_tools.config import TRAUMA_EXCLUSION_COMMENT
 from depression_mapping_tools.utils import Cols, load_nifti
 
 DATA_CSV = Path(__file__).parents[1] / "a_collect_image_data.csv"
@@ -29,6 +30,10 @@ SDSM_BINARY_THRESHOLD = 0.6
 # %%
 # load df and drop excluded subjects
 data_df = pd.read_csv(DATA_CSV)
+data_df_trauma = data_df.copy()
+data_df_trauma = data_df_trauma[
+    data_df_trauma[Cols.EXCLUSION_REASON] == TRAUMA_EXCLUSION_COMMENT
+]
 data_df = data_df[data_df[Cols.EXCLUDED] == 0]
 
 # create blanks in first iteration; get shape from example files
@@ -62,7 +67,7 @@ for i, (_, row) in enumerate(data_df.iterrows()):
 
     # disconnection
     disc_img: Nifti1Image = load_nifti(row[Cols.PATH_DISCMAP_IMAGE])
-    disc_arr = disc_img.get_fdata()
+    disc_arr = disc_img.get_fdata()  # type: ignore
     disc_arr = disc_arr > SDSM_BINARY_THRESHOLD
 
     disc_overlap_array += disc_arr.astype(np.uint16)
@@ -110,5 +115,24 @@ lnm_header.set_data_dtype(lnm_mean_array.dtype)
 lnm_img = Nifti1Image(lnm_mean_array, affine=lnm_affine, header=lnm_header)
 filename = OUTPUT_FOLDER / "lnm_mean.nii.gz"
 nib.save(lnm_img, filename)  # type: ignore
+
+# %%
+# create overlap of traumatic lesions for exploration
+lesion_overlap_array_trauma = np.zeros(example_lesion.shape, dtype=np.uint16)
+
+for _, row in data_df_trauma.iterrows():
+    lesion_img: Nifti1Image = load_nifti(row[Cols.PATH_LESION_IMAGE])
+    lesion_arr = lesion_img.get_fdata()
+    # binarise to prevent issues with traumatic stroke data
+    lesion_arr = lesion_arr > 0
+
+    lesion_overlap_array_trauma += lesion_arr.astype(np.uint16)
+
+lesion_max_val_trauma = lesion_overlap_array_trauma.max()
+lesion_img_trauma = Nifti1Image(
+    lesion_overlap_array_trauma, affine=lesion_affine, header=lesion_header
+)
+filename = OUTPUT_FOLDER / f"lesion_overlap_trauma_max{lesion_max_val_trauma}.nii.gz"
+nib.save(lesion_img_trauma, filename)  # type: ignore
 
 # %%
