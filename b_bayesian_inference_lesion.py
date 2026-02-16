@@ -95,7 +95,7 @@ for path in tqdm(file_paths, desc="Loading lesion NifTi"):
             nifti, reference_nifti, interpolation="nearest", force_resample=True
         )
 
-    img_array = nifti.get_fdata().astype(np.uint8)
+    img_array = (nifti.get_fdata() > 0).astype(np.uint8)
 
     # verify that image values are binary
     is_binary = np.array_equal(img_array, img_array.astype(bool))

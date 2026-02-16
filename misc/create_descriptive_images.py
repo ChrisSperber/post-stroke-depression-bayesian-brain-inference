@@ -62,6 +62,7 @@ for i, (_, row) in enumerate(data_df.iterrows()):
     # lesion
     lesion_img: Nifti1Image = load_nifti(row[Cols.PATH_LESION_IMAGE])
     lesion_arr = lesion_img.get_fdata()
+    lesion_arr = lesion_arr > 0
 
     lesion_overlap_array += lesion_arr.astype(np.uint16)
 
@@ -123,7 +124,6 @@ lesion_overlap_array_trauma = np.zeros(example_lesion.shape, dtype=np.uint16)
 for _, row in data_df_trauma.iterrows():
     lesion_img: Nifti1Image = load_nifti(row[Cols.PATH_LESION_IMAGE])
     lesion_arr = lesion_img.get_fdata()
-    # binarise to prevent issues with traumatic stroke data
     lesion_arr = lesion_arr > 0
 
     lesion_overlap_array_trauma += lesion_arr.astype(np.uint16)
