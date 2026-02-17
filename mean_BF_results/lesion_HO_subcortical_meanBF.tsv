@@ -1,23 +1,24 @@
 id	region_label	voxel_count_nonzero	mean_bf
-0	Background	57505	0.038
-1	Left Cerebral White Matter	125637	0.068
-2	Left Cerebral Cortex	182697	0.043
-3	Left Lateral Ventricle	146	0.061
-4	Left Thalamus	3543	0.058
-5	Left Caudate	3162	0.134
-6	Left Putamen	5713	0.108
-7	Left Pallidum	1750	0.11
-8	Left Brain-Stem	3771	0.033
-9	Right Brain-Stem	3810	0.035
-10	Left Hippocampus	2486	0.087
-11	Left Amygdala	318	0.043
-13	Right Cerebral White Matter	145557	0.308
-14	Right Cerebral Cortex	196091	0.102
-15	Right Lateral Ventricle	324	0.154
-16	Right Thalamus	2655	0.098
-17	Right Caudate	3909	0.375
-18	Right Putamen	6105	0.563
-19	Right Pallidum	1916	0.31
-20	Right Hippocampus	1743	0.044
-21	Right Amygdala	867	3.881
-22	Right Accumbens	36	0.041
+0	Background	96737	0.095
+1	Left Cerebral White Matter	184670	0.929
+2	Left Cerebral Cortex	306831	0.115
+3	Left Lateral Ventricle	1498	0.052
+4	Left Thalamus	4974	0.069
+5	Left Caudate	3898	0.107
+6	Left Putamen	6284	0.933
+7	Left Pallidum	1988	0.171
+8	Left Brain-Stem	4349	0.035
+9	Right Brain-Stem	4110	0.035
+10	Left Hippocampus	3459	0.06
+11	Left Amygdala	778	0.067
+12	Left Accumbens	209	0.03
+13	Right Cerebral White Matter	217327	155.829
+14	Right Cerebral Cortex	357253	32.77
+15	Right Lateral Ventricle	1265	1.449
+16	Right Thalamus	4368	0.109
+17	Right Caudate	4106	16.528
+18	Right Putamen	6397	276.496
+19	Right Pallidum	2092	11.134
+20	Right Hippocampus	4060	1.195
+21	Right Amygdala	1976	65831.042
+22	Right Accumbens	419	0.078

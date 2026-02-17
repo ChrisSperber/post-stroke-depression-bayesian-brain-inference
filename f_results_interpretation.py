@@ -27,7 +27,7 @@ BRAIN_ATLAS_DIR = Path(__file__).parent / "brain_atlasses"
 MEAN_BF_OUT_DIR = Path(__file__).parent / "mean_BF_results"
 
 # Define final results files for Lesion, LNM, and SDSM
-FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20260112_0032"
+FINAL_RESULT_LESION_FOLDER = "Output_Lesion_20260216_0116"
 FINAL_RESULT_LNM_FOLDER = "Output_LNM_artanh_pearson_r_20260112_1119"
 FINAL_RESULT_SDSM_FOLDER = "Output_SDSM_binarised_disconnection_20260112_0912"
 
