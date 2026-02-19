@@ -5,7 +5,7 @@ from pathlib import Path
 DATA_DIR = Path(__file__).parents[3] / "Data"
 MASTER_FILE_EXCEL = DATA_DIR / "Masterfile_Behavioural_Scores_PSD_202511.xlsx"
 AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_stroke_trauma"
-SUBSAMPLE_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_subsample_no_iowa"
+SUBSAMPLE_SENSITIVITY_ANALYSIS_SUBDIR = "Sens_analysis_subsample"
 
 LESION = "Lesions"
 LESION_NETWORK = "LNM"

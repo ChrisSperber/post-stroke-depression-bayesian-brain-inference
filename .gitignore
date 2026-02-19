@@ -8,7 +8,7 @@ sdsm_analysis_mask.nii.gz
 *qc_brainmask_supratentorial.nii.gz
 # hide results of of sensitivity analyses to not overburden the repo
 *BLDI_Outputs/Sens_analysis_stroke_trauma*
-*BLDI_Outputs/Sens_analysis_subsample_no_iowa*
+*BLDI_Outputs/Sens_analysis_subsample*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
