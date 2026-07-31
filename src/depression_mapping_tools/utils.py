@@ -188,7 +188,7 @@ def compute_voxelwise_bf_via_glm(  # noqa: C901
         raise ValueError(
             "Array heights do not match between voxel values and target variable."
         )
-    if covariates:
+    if covariates is not None:
         if voxel_values.shape[0] != covariates.shape[0]:
             raise ValueError(
                 "Array heights do not match between voxel values and covariates."
