@@ -1,0 +1,74 @@
+included_in_LNM:
+  total_n: 1710
+  age:
+    mean: 65.42
+    sd: 13.07
+    min: 18.0
+    max: 95.15
+  depression:
+    n: 694
+    percent: 40.58
+  sex:
+    male:
+      n: 987
+      percent: 57.72
+    female:
+      n: 723
+      percent: 42.28
+  aetiology:
+    ischaemia:
+      n: 1628
+      percent: 95.2
+    icb:
+      n: 82
+      percent: 4.8
+  lesion_volume:
+    median: 5.6
+    iqr:
+    - 1.4
+    - 23.0
+  nihss_on_admission:
+    n: 1482
+    median: 3.0
+    iqr: 1.0 - 5.0
+  days_onset_to_followup:
+    n: 1511
+    median: 101.0
+    iqr: 89.0 - 177.9
+excluded_in_LNM:
+  total_n: 154
+  age:
+    mean: 66.54
+    sd: 11.11
+    min: 35.47
+    max: 89.0
+  depression:
+    n: 58
+    percent: 37.66
+  sex:
+    male:
+      n: 95
+      percent: 61.69
+    female:
+      n: 59
+      percent: 38.31
+  aetiology:
+    ischaemia:
+      n: 154
+      percent: 100.0
+    icb:
+      n: 0
+      percent: 0.0
+  lesion_volume:
+    median: 0.6
+    iqr:
+    - 0.3
+    - 1.1
+  nihss_on_admission:
+    n: 149
+    median: 2.0
+    iqr: 1.0 - 3.0
+  days_onset_to_followup:
+    n: 153
+    median: 100.0
+    iqr: 88.0 - 179.5
