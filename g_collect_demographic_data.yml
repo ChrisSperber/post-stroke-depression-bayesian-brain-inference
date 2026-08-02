@@ -24,3 +24,13 @@ aetiology:
 lesion_volume:
   median: 4.3
   iqr: 1.2 - 20.4
+lesion_laterality:
+  left:
+    n: 905
+    percent: 48.55
+  right:
+    n: 770
+    percent: 41.31
+  bihemispheric:
+    n: 189
+    percent: 10.14

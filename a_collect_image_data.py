@@ -11,6 +11,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from nibabel.affines import apply_affine
 from nibabel.nifti1 import Nifti1Image
 from nibabel.orientations import aff2axcodes
 
@@ -60,6 +61,10 @@ HANDEDNESS_MAPPING = {
 STROKE_AETIOLOGIES = [ISCHAEMIC_STROKE, INTRACEREBRAL_HEMORRHAGE]
 MISSING_DATA_CHAR = "#"  # placeholder sign for missing values in the mastertable
 
+# minimum proportion of lesioned voxels in each hemisphere to consider a lesion bihemispheric
+BIHEMISPHERIC_MIN_PROPORTION = 0.05
+
+
 # %%
 # load and format demographic data
 master_table_df = pd.read_excel(MASTER_FILE_EXCEL)
@@ -105,6 +110,7 @@ lesion_path_list = []
 discmap_path_list = []
 lnm_path_list = []
 lesion_volume_list = []
+lesion_laterality_list = []
 
 
 for index, row in data.iterrows():
@@ -117,17 +123,49 @@ for index, row in data.iterrows():
     lesion_path = find_unique_path(paths=nifti_files, str1=sid, str2=LESION)
     lesion_path_list.append(lesion_path)
 
-    # read lesion volume in ml
+    # read lesion volume in ml and estimate lesion laterality
     if lesion_path == PLACEHOLDER_FILE_NOT_EXIST:
         lesion_volume_list.append(PLACEHOLDER_MISSING_VALUE)
+        lesion_laterality_list.append(PLACEHOLDER_MISSING_VALUE)
     else:
         img = load_nifti(lesion_path)
         img_array = img.get_fdata()
-        n_voxels = np.count_nonzero(img_array)
+        lesion_mask = img_array != 0
+
+        n_voxels = np.count_nonzero(lesion_mask)
         voxel_sizes = img.header.get_zooms()[:3]
         voxel_volume_mm3 = np.prod(voxel_sizes)
         volume_ml = n_voxels * voxel_volume_mm3 / 1000
         lesion_volume_list.append(volume_ml)
+
+        # Determine laterality from the x-coordinate in world space.
+        lesion_voxel_coordinates = np.argwhere(lesion_mask)
+        lesion_world_coordinates = apply_affine(
+            img.affine,
+            lesion_voxel_coordinates,
+        )
+        lesion_x_coordinates = lesion_world_coordinates[:, 0]
+
+        n_left_voxels = np.count_nonzero(lesion_x_coordinates < 0)
+        n_right_voxels = np.count_nonzero(lesion_x_coordinates > 0)
+
+        # Require at least 5% of the non-midline lesion voxels in each
+        # hemisphere to classify the lesion as bihemispheric.
+        n_lateral_voxels = n_left_voxels + n_right_voxels
+
+        if n_lateral_voxels == 0:
+            lesion_laterality = PLACEHOLDER_MISSING_VALUE
+        elif (
+            n_left_voxels / n_lateral_voxels >= BIHEMISPHERIC_MIN_PROPORTION
+            and n_right_voxels / n_lateral_voxels >= BIHEMISPHERIC_MIN_PROPORTION
+        ):
+            lesion_laterality = "bihemispheric"
+        elif n_left_voxels > n_right_voxels:
+            lesion_laterality = "left"
+        else:
+            lesion_laterality = "right"
+
+        lesion_laterality_list.append(lesion_laterality)
 
     discmap_path = find_unique_path(
         paths=nifti_files, str1=sid, str2=DISCONNECTION_MAPS
@@ -144,6 +182,7 @@ for index, row in data.iterrows():
         data.loc[index, Cols.EXCLUSION_REASON] = "Incomplete Images"  # type: ignore
 
 data[Cols.LESION_VOLUME] = lesion_volume_list
+data[Cols.LESION_LATERALITY] = lesion_laterality_list
 data[Cols.PATH_LESION_IMAGE] = lesion_path_list
 data[Cols.PATH_LNM_IMAGE] = lnm_path_list
 data[Cols.PATH_DISCMAP_IMAGE] = discmap_path_list

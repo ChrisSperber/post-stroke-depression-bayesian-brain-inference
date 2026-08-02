@@ -84,6 +84,20 @@ iqr_lesvol = [
     float(round(lesion_vol.quantile(0.75), 1)),
 ]
 
+# Lesion laterality
+n_left = sum(data[Cols.LESION_LATERALITY] == "left")
+n_right = sum(data[Cols.LESION_LATERALITY] == "right")
+n_bihemispheric = sum(data[Cols.LESION_LATERALITY] == "bihemispheric")
+
+n_laterality_available = n_left + n_right + n_bihemispheric
+
+percent_left = round(n_left / n_laterality_available * 100, 2)
+percent_right = round(n_right / n_laterality_available * 100, 2)
+percent_bihemispheric = round(
+    n_bihemispheric / n_laterality_available * 100,
+    2,
+)
+
 n_depressive = sum(data[DEPRESSION_BINARY])
 percent_depressive = round(n_depressive / len(data) * 100, 2)
 
@@ -109,6 +123,11 @@ print(f"ICB: {n_icb}, {round(n_icb/n_total*100,2)}%")
 print("------\nLesion Volume")
 print(f"Median: {median_lesvol}")
 print(f"IQR: {iqr_lesvol}")
+
+print("------\nLesion Laterality")
+print(f"Left: {n_left}, {percent_left}%")
+print(f"Right: {n_right}, {percent_right}%")
+print(f"Bihemispheric: {n_bihemispheric}, {percent_bihemispheric}%")
 
 summary = {
     "total_n": int(n_total),
@@ -139,6 +158,20 @@ summary = {
     "lesion_volume": {
         "median": float(median_lesvol),
         "iqr": f"{iqr_lesvol[0]} - {iqr_lesvol[1]}",
+    },
+    "lesion_laterality": {
+        "left": {
+            "n": int(n_left),
+            "percent": float(percent_left),
+        },
+        "right": {
+            "n": int(n_right),
+            "percent": float(percent_right),
+        },
+        "bihemispheric": {
+            "n": int(n_bihemispheric),
+            "percent": float(percent_bihemispheric),
+        },
     },
 }
 
@@ -258,6 +291,38 @@ for cohort in cohorts:
             VARIABLE: Cols.LESION_VOLUME,
             STAT: "Median, IQR",
             VALUE: lesion_volume_str,
+        }
+    )
+
+    # Lesion Laterality
+    n_left = sum(cohort_df[Cols.LESION_LATERALITY] == "left")
+    n_right = sum(cohort_df[Cols.LESION_LATERALITY] == "right")
+    n_bihemispheric = sum(cohort_df[Cols.LESION_LATERALITY] == "bihemispheric")
+
+    n_laterality_available = n_left + n_right + n_bihemispheric
+
+    if n_laterality_available == 0:
+        laterality_str = PLACEHOLDER_MISSING_VALUE
+    else:
+        percent_left = round(n_left / n_laterality_available * 100, 1)
+        percent_right = round(n_right / n_laterality_available * 100, 1)
+        percent_bihemispheric = round(
+            n_bihemispheric / n_laterality_available * 100,
+            1,
+        )
+
+        laterality_str = (
+            f"L:{n_left} ({percent_left}%), "
+            f"R:{n_right} ({percent_right}%), "
+            f"Bihem:{n_bihemispheric} ({percent_bihemispheric}%)"
+        )
+
+    statistical_results_list.append(
+        {
+            COHORT: cohort,
+            VARIABLE: Cols.LESION_LATERALITY,
+            STAT: "N, percent",
+            VALUE: laterality_str,
         }
     )
 
