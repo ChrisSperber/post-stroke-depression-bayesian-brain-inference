@@ -216,7 +216,7 @@ if SAMPLE_MODE == SampleSelectionMode.STROKE:
     output_dir = (
         BLDI_OUTPUT_DIR_PARENT
         / COVARIATE_SENSITIVITY_ANALYSIS_SUBDIR
-        / f"{OUTPUT_DIR_BASE}_{format_string}_{timestamp}"
+        / f"{OUTPUT_DIR_BASE}_{COVARIATE_TAG}_{format_string}_{timestamp}"
     )
 elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
     output_dir = (
