@@ -6,6 +6,7 @@ sdsm_analysis_mask.nii.gz
 *create_data_xlsx.xlsx
 *spm152_synthseg.nii.gz
 *qc_brainmask_supratentorial.nii.gz
+depression_score_distributions.png
 # hide results of of sensitivity analyses to not overburden the repo
 *BLDI_Outputs/Sens_analysis_stroke_trauma*
 *BLDI_Outputs/Sens_analysis_subsample*
