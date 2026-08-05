@@ -1,7 +1,7 @@
-"""Perform Bayesian Lesion Deficit Inference for Lesions while excluding the Bundang Subsample.
+"""Perform Bayesian Lesion Deficit Inference for Lesions while excluding the Korean Subsample.
 
 During revision, a reviewer noticed a strong cohort imbalance, with about 60% of samples from Korea.
-This script repeats the analysis while excluding one of the two Korean samples.
+This script repeats the analysis while excluding the two Korean samples.
 
 
 Requirements:
@@ -41,13 +41,15 @@ from depression_mapping_tools.utils import (
 # format are transformed into this image space; also, the output will have this shape
 REFERENCE_LESION_SUBJECT_ID = "BBS001"
 
-OUTPUT_DIR_BASE = "Output_Lesion_SensNoBundang"
+OUTPUT_DIR_BASE = "Output_Lesion_SensNoKorea"
 BUNDANG = "Bundang"
+HALLYM = "Hallym"
 
 # %%
 data = pd.read_csv(Path(__file__).parents[1] / "a_collect_image_data.csv")
 data = data[data[Cols.EXCLUDED] == 0]
 data = data[data[Cols.COHORT] != BUNDANG]
+data = data[data[Cols.COHORT] != HALLYM]
 
 # ensure float type of scores
 data[Cols.DEPRESSION_SCORE] = pd.to_numeric(
@@ -156,7 +158,7 @@ voxel_count = np.count_nonzero(bf_map > 0)
 
 params = {
     "Analysis": "Bayesian GLM via BIC - Bayes Factor Approximation",
-    "Sensitivity Analysis": "Exclusion of Korea Bundang Data",
+    "Sensitivity Analysis": "Exclusion of Korea Data",
     "timestamp": timestamp,
     "n_subjects": data.shape[0],
     "image_shape": shape_str,
