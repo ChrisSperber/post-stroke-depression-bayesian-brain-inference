@@ -474,3 +474,182 @@ def binarise_maps_in_dir(image_dir: Path, cutoff: float) -> None:
 
         bin_img = nib.Nifti1Image(bin_data, img.affine, img.header)  # type: ignore
         nib.save(bin_img, img_path)  # pyright: ignore[reportPrivateImportUsage]
+
+
+def run_voxelwise_beta_param_map(
+    image_data_4d: np.ndarray,
+    target_var: np.ndarray,
+    minimum_analysis_threshold: int | None,
+    covariates: None | np.ndarray = None,
+    n_jobs: int = -1,
+) -> np.ndarray:
+    """Perform a parallelised mapping of the beta parameters on 4D imaging data.
+
+    Invalid models due to missing variance output a 0.0 to be compatible with conversion to NIFTI.
+
+    Args:
+        image_data_4d (np.ndarray): 4D array of imaging data with size (n Subject, x, y, z)
+        target_var (np.ndarray): 1D array with target variable
+        minimum_analysis_threshold (int, optional): Minimum of lesions per voxel to be analysed.
+            Does only apply to binary image values
+        covariates (None | np.ndarray, optional): Array with covariates. Defaults to None.
+        n_jobs (int, optional): Workers. Defaults to -1.
+
+    Returns:
+        np.ndarray: Array with map of raw beta parameters.
+
+    """
+    n_subjects, x_dim, y_dim, z_dim = image_data_4d.shape
+    output_beta_param_map = np.full((x_dim, y_dim, z_dim), 0.0, dtype=np.float32)
+
+    # Flatten voxel indices to loop over
+    voxel_indices = [
+        (x, y, z) for x in range(x_dim) for y in range(y_dim) for z in range(z_dim)
+    ]
+
+    def process_voxel(x, y, z):
+        voxel_values = image_data_4d[:, x, y, z]
+        try:
+            beta = compute_voxelwise_beta_param(
+                voxel_values=voxel_values,
+                target_var=target_var,
+                minimum_analysis_threshold=minimum_analysis_threshold,
+                covariates=covariates,
+            )
+            return (x, y, z, beta)
+        except Exception:
+            return (x, y, z, np.nan)
+
+    # Run in parallel with progress bar
+    results = Parallel(n_jobs=n_jobs)(
+        delayed(process_voxel)(x, y, z)
+        for x, y, z in tqdm(
+            voxel_indices, desc="Computing voxelwise raw beta parameters"
+        )
+    )
+
+    # Fill result map
+    for x, y, z, beta in results:  # pyright: ignore[reportGeneralTypeIssues]
+        output_beta_param_map[x, y, z] = beta
+
+    return output_beta_param_map
+
+
+def compute_voxelwise_beta_param(  # noqa: C901
+    voxel_values: np.ndarray,
+    target_var: np.ndarray,
+    minimum_analysis_threshold: int | None,
+    covariates: None | np.ndarray = None,
+) -> float:
+    """Compute the raw beta parameter of a voxel-wise value to be associated with a target variable.
+
+    Invalid models due to missing variance receive a 0.0
+
+    Args:
+        voxel_values (np.array): Voxel-wise values (binary/continuous)
+        target_var (np.array): Continuous target variable
+        minimum_analysis_threshold: Minimum of lesions per voxel to be analysed.
+            Does only apply to binary images values
+        covariates (None | np.array, optional): Covariates. Defaults to None.
+
+    Raises:
+        ValueError: Height mismatch/unexpected size in input arrays.
+
+    Returns:
+        float: Raw beta parameter of voxel status.
+
+    """
+    if voxel_values.shape[0] != target_var.shape[0]:
+        raise ValueError(
+            "Array heights do not match between voxel values and target variable."
+        )
+    if covariates is not None:
+        if voxel_values.shape[0] != covariates.shape[0]:
+            raise ValueError(
+                "Array heights do not match between voxel values and covariates."
+            )
+    if voxel_values.ndim != 1:
+        raise ValueError("Voxel values are not a 1D array.")
+    if target_var.ndim != 1:
+        raise ValueError("Target valuess are not a 1D array.")
+
+    # if number of 1s is below the analysis minimum analysis threshold, skip analysis
+    if minimum_analysis_threshold is not None:
+        if np.count_nonzero(voxel_values == 1) < minimum_analysis_threshold:
+            return 0.0
+    # if no threshold given, still exclude voxels with only 0s (as in LNMs)
+    elif np.count_nonzero(voxel_values) == 0:
+        return 0.0
+
+    df = pd.DataFrame({"voxel": voxel_values, "target": target_var})
+
+    # Add covariates if they exist
+    if covariates is not None:
+        # If it's a 1D array, reshape to 2D (n_samples, 1)
+        if covariates.ndim == 1:
+            covariates = covariates[:, np.newaxis]
+
+        n_covs = covariates.shape[1]
+        for i in range(n_covs):
+            df[f"cov{i}"] = covariates[:, i]
+
+    # compute model
+    x1 = sm.add_constant(df.drop(columns=["target"]))
+
+    y = df["target"]
+
+    model1 = sm.GLM(y, x1, family=sm.families.Gaussian()).fit()
+    beta_voxel = model1.params["voxel"]
+
+    return float(beta_voxel)
+
+
+def run_voxelwise_beta_param_map_2d(
+    image_data_2d: np.ndarray,
+    target_var: np.ndarray,
+    minimum_analysis_threshold: int | None,
+    covariates: None | np.ndarray = None,
+    n_jobs: int = -1,
+) -> np.ndarray:
+    """Perform a parallelised mapping of the raw beta parameter on 2D imaging data.
+
+    This function copies run_voxelwise_beta_param_map, but processes vectorised data in format
+    (n_subjects, n_voxels).
+
+    Args:
+        image_data_2d (np.ndarray): 2D array of imaging data with size (n Subject, n_voxels)
+        target_var (np.ndarray): 1D array with target variable
+        minimum_analysis_threshold (int, optional): Minimum of lesions per voxel to be analysed.
+            Does only apply to binary images values
+        covariates (None | np.ndarray, optional): Array with covariates. Defaults to None.
+        n_jobs (int, optional): Workers. Defaults to -1.
+
+    Returns:
+        np.ndarray: 1D array with map of raw beta parameters.
+
+    """
+    n_subjects, n_voxels = image_data_2d.shape
+    output_beta_vector = np.full(n_voxels, np.nan, dtype=np.float32)
+
+    def process_voxel(voxel_idx: int):
+        voxel_values = image_data_2d[:, voxel_idx]
+        try:
+            beta = compute_voxelwise_beta_param(
+                voxel_values=voxel_values,
+                target_var=target_var,
+                minimum_analysis_threshold=minimum_analysis_threshold,
+                covariates=covariates,
+            )
+            return (voxel_idx, beta)
+        except Exception:
+            return (voxel_idx, np.nan)
+
+    results = Parallel(n_jobs=n_jobs)(
+        delayed(process_voxel)(idx)
+        for idx in tqdm(range(n_voxels), desc="Computing voxelwise beta parameters")
+    )
+
+    for idx, beta in results:  # pyright: ignore[reportGeneralTypeIssues]
+        output_beta_vector[idx] = beta
+
+    return output_beta_vector

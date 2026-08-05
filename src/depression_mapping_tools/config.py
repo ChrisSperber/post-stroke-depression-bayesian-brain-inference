@@ -19,6 +19,9 @@ PLACEHOLDER_MISSING_VALUE = "Not_available"
 TRAUMA_EXCLUSION_COMMENT = "Non-stroke aetiology (Trauma)"
 
 BLDI_OUTPUT_DIR_PARENT = Path(__file__).parents[2] / "BLDI_OUTPUTS"
+BETA_PARAMETER_MAP_OUTDIR = (
+    Path(__file__).parents[2] / "misc" / "regression_parameter_mapping" / "outputs"
+)
 # Define the minimum amount of lesions per voxel to be included in the analysis
 MIN_LESION_ANALYSIS_THRESHOLD = 10
 # ... also for binary Disconnection Maps

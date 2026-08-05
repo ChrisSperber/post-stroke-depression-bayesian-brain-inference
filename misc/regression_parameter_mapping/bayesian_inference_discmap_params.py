@@ -1,0 +1,217 @@
+"""Map regression beta parameters for Lesion Deficit Inference for Disconnection Maps.
+
+Requirements:
+- CSV listing all included cases and depression scores generated with a_collect_image_data.py
+
+Outputs:
+- map of raw beta parameters
+"""
+
+# %%
+from datetime import datetime
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+from nibabel.nifti1 import Nifti1Image
+from tqdm import tqdm
+
+from depression_mapping_tools.config import (
+    AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR,
+    BETA_PARAMETER_MAP_OUTDIR,
+    BINARY_THRESHOLD_DISCMAP,
+    MIN_DISCONNECTION_ANALYSIS_THRESHOLD,
+    TRAUMA_EXCLUSION_COMMENT,
+)
+from depression_mapping_tools.utils import (
+    Cols,
+    DisconnectionFormat,
+    SampleSelectionMode,
+    load_nifti,
+    run_voxelwise_beta_param_map_2d,
+)
+
+DISCONNECTION_FORMAT = DisconnectionFormat.BINARY  # set processing mode
+
+# choose an image that should define the format of the results file. This serves as a reference.
+REFERENCE_DISCMAP_SUBJECT_ID = "BBS001"
+
+OUTPUT_DIR_BASE = "Output_SDSM"
+
+# Set to STROKE for standard sample, or STROKE_TRAUMA for stroke sample extended with traumata
+SAMPLE_MODE = SampleSelectionMode.STROKE
+
+# The script makes heavy use of RAM. Reduce N_WORKERS if Memory errors occur
+N_WORKERS = 4
+
+# %%
+data = pd.read_csv(Path(__file__).parents[2] / "a_collect_image_data.csv")
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    data = data[data[Cols.EXCLUDED] == 0]
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    data = data[
+        (data[Cols.EXCLUDED] == 0)
+        | (data[Cols.EXCLUSION_REASON] == TRAUMA_EXCLUSION_COMMENT)
+    ]
+else:
+    msg = f"Unknown Sample selection mode {SAMPLE_MODE}"
+    raise ValueError(msg)
+
+# ensure float type of scores
+data[Cols.DEPRESSION_SCORE] = pd.to_numeric(
+    data[Cols.DEPRESSION_SCORE], errors="coerce"
+)
+
+# get the lesion path of the reference lesion
+reference_discmap_path = data.loc[
+    data[Cols.SUBJECT_ID] == REFERENCE_DISCMAP_SUBJECT_ID, Cols.PATH_DISCMAP_IMAGE
+].values[0]
+reference_nifti: Nifti1Image = load_nifti(
+    reference_discmap_path  # pyright: ignore[reportArgumentType]
+)
+
+# ensure Output directory exists
+BETA_PARAMETER_MAP_OUTDIR.mkdir(parents=True, exist_ok=True)
+
+# %% create overlap map and derive analysis mask
+# the full images of >2000 subjects at 182x218x182 in float format was not processable with a 16GB
+# RAM system. As a workaround, the data are masked to only include voxels inside the brain and
+# vectorised; the final analysis is performed on 2D (instead of 4D) data.
+SDSM_ANALYSIS_MASK_PATH = Path(__file__).parents[1] / "sdsm_analysis_mask.nii.gz"
+if SDSM_ANALYSIS_MASK_PATH.exists():
+    print("An analysis mask was found and is loaded from")
+    print(f"{SDSM_ANALYSIS_MASK_PATH.as_posix()}")
+
+    analysis_mask_nifti: Nifti1Image = load_nifti(SDSM_ANALYSIS_MASK_PATH)
+    analysis_mask_array = analysis_mask_nifti.get_fdata().astype(np.uint8)
+else:
+    # create analysis mask
+    print("No analysis mask found; creating new mask")
+    file_paths = data.loc[:, Cols.PATH_DISCMAP_IMAGE]
+    overlap_array = np.zeros(reference_nifti.shape).astype(np.uint16)
+
+    for path in tqdm(file_paths, desc="Loading DiscMaps to create analysis mask"):
+        nifti: Nifti1Image = load_nifti(path)
+        img_array = nifti.get_fdata().astype(np.float32)
+        img_array_binary = (img_array != 0).astype(np.uint8)
+        overlap_array = overlap_array + img_array_binary
+
+    # retain all voxels that carry a non-zero value at least once in the dataset
+    analysis_mask_array = (overlap_array != 0).astype(np.uint8)
+
+    affine = reference_nifti.affine
+    header_uint8 = reference_nifti.header.copy()
+    header_uint8.set_data_dtype(np.uint8)
+    analysis_mask_nifti = Nifti1Image(
+        analysis_mask_array, affine=affine, header=header_uint8
+    )
+    filename = SDSM_ANALYSIS_MASK_PATH
+    analysis_mask_nifti.to_filename(str(filename))
+
+analysis_mask_array = analysis_mask_array.astype(bool)
+
+
+# %%
+# load lnm images
+file_paths = data.loc[:, Cols.PATH_DISCMAP_IMAGE]
+
+n_subjects = len(file_paths)
+n_voxels = np.sum(analysis_mask_array)
+
+all_discmaps_vectorised = np.zeros((n_subjects, n_voxels), dtype=np.float32)
+
+for i, path in enumerate(file_paths):
+    img: Nifti1Image = load_nifti(path)
+    img_data = img.get_fdata(dtype=np.float32)
+    masked_data = img_data[analysis_mask_array]
+    all_discmaps_vectorised[i] = masked_data
+
+print("All DiscMap images were succesfully loaded")
+
+# %% transform data according to DISCONNECTION_FORMAT and set minimum_threshold
+if DISCONNECTION_FORMAT == DisconnectionFormat.BINARY:
+    print(
+        f"Disconnection maps are binarised at threshold >= {BINARY_THRESHOLD_DISCMAP}"
+    )
+    all_discmaps_vectorised = (
+        all_discmaps_vectorised >= BINARY_THRESHOLD_DISCMAP
+    ).astype(int)
+
+    minimum_threshold = MIN_DISCONNECTION_ANALYSIS_THRESHOLD
+elif DISCONNECTION_FORMAT == DisconnectionFormat.CONTINUOUS:
+    minimum_threshold = None
+else:
+    raise ValueError("Unknown disconnection format")
+
+
+# %%
+# Analysis
+print("Starting analysis. This may take several minutes.")
+
+beta_map_masked_vector = run_voxelwise_beta_param_map_2d(
+    image_data_2d=all_discmaps_vectorised,
+    target_var=data[Cols.DEPRESSION_SCORE],  # type: ignore
+    minimum_analysis_threshold=minimum_threshold,
+    n_jobs=N_WORKERS,
+)
+
+# %%
+# recreate 3D image from vector
+beta_map = np.zeros_like(analysis_mask_array, dtype=np.float32)
+beta_map[analysis_mask_array] = beta_map_masked_vector
+
+# %%
+# export results as NifTi
+# the header is taken from the reference image loaded above
+affine = reference_nifti.affine
+header_uint8 = reference_nifti.header.copy()
+header_uint8.set_data_dtype(np.uint8)
+header_float32 = reference_nifti.header.copy()
+header_float32.set_data_dtype(np.float32)
+
+timestamp = datetime.now().strftime("%Y%m%d_%H%M")
+format_string = DISCONNECTION_FORMAT.value.lower()
+if SAMPLE_MODE == SampleSelectionMode.STROKE:
+    output_dir = (
+        BETA_PARAMETER_MAP_OUTDIR / f"{OUTPUT_DIR_BASE}_{format_string}_{timestamp}"
+    )
+elif SAMPLE_MODE == SampleSelectionMode.STROKE_TRAUMA:
+    output_dir = (
+        BETA_PARAMETER_MAP_OUTDIR
+        / AETIOLOGY_SENSITIVITY_ANALYSIS_SUBDIR
+        / f"{OUTPUT_DIR_BASE}_{format_string}_{timestamp}"
+    )
+else:
+    raise ValueError(f"Unknown Sample Mode {SAMPLE_MODE}")
+output_dir.mkdir(parents=True, exist_ok=True)
+
+beta_map_full = Nifti1Image(beta_map, affine=affine, header=header_float32)
+filename = output_dir / f"Betas_full_discmaps_{timestamp}.nii.gz"
+beta_map_full.to_filename(str(filename))
+
+# %%
+# store meta data on the analysis
+image_shape = beta_map.shape
+shape_str = ",".join(map(str, image_shape))
+
+if DISCONNECTION_FORMAT == DisconnectionFormat.BINARY:
+    disconnection_threshold = BINARY_THRESHOLD_DISCMAP
+else:
+    disconnection_threshold = "N/A"
+
+params = {
+    "Analysis": "Beta parameter mapping",
+    "timestamp": timestamp,
+    "n_subjects": data.shape[0],
+    "aetiology_selected": SAMPLE_MODE.value,
+    "image_shape": shape_str,
+    "disconnection_format": DISCONNECTION_FORMAT.value,
+    "binarisation_threshold": disconnection_threshold,
+}
+
+
+with open(output_dir / f"analysis_params_discmaps_{timestamp}.txt", "w") as f:
+    for key, value in params.items():
+        f.write(f"{key}: {value}\n")
+
+# %%
