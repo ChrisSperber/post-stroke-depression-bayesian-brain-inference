@@ -1,0 +1,6 @@
+Analysis: Beta parameter mapping
+timestamp: 20260805_1119
+n_subjects: 1710
+aetiology_selected: stroke
+image_shape: 91,109,91
+pearson_transform: artanh_pearson_r

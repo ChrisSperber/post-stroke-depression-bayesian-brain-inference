@@ -1,0 +1,7 @@
+Analysis: Beta parameter mapping
+timestamp: 20260805_1143
+n_subjects: 1864
+aetiology_selected: stroke
+image_shape: 182,218,182
+disconnection_format: binarised_disconnection
+binarisation_threshold: 0.6

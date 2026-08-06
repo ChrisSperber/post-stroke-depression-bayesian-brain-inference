@@ -1,0 +1,6 @@
+Analysis: Beta parameter mapping
+timestamp: 20260805_1113
+n_subjects: 1864
+aetiology_selected: stroke
+image_shape: 182,218,182
+minimum_analysis_threshold: 10
