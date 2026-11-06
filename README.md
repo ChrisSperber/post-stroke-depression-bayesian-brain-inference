@@ -65,7 +65,14 @@ Outputs are created in /BLDI_Outputs and include, for each analysis
 Feel free to reuse and adapt the analysis code for similar datasets. Main functions are contained in utils/utils.py. The current code assumes all images to be located in the same reference space (like MNI space) and unified in shape and resolution.
 
 ### References
+Publication in BRAIN:
+[Network disruption in post-stroke depressive symptoms: a Bayesian multicohort study](https://doi.org/10.1093/brain/awag387)
+
+Methodological reference on Bayesian Lesion Deficit Inference in Neuroimage:
 [Bayesian lesion-deficit inference with Bayes factor mapping: Key advantages, limitations, and a toolbox](https://doi.org/10.1016/j.neuroimage.2023.120008)
+
+### Contact
+Christoph Sperber (corresponding author here https://pubmed.ncbi.nlm.nih.gov/36048282/)
 
 ### License
 This project is licensed under the MIT License — see [Project License](LICENSE) for details.
